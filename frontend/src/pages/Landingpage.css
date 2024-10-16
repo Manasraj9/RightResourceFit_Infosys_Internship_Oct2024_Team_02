@@ -1,0 +1,74 @@
+/* LandingPage.css */
+
+.custom-font {
+    font-family: 'Roboto', sans-serif;
+}
+.search-container {
+    background-color: white; 
+    height: 60px; 
+    width: 800px; 
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 20px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+.input-field {
+    border: 1px solid #d1d5db;
+    border-radius: 5px; 
+    height: 40px; 
+    padding: 10px; 
+    width: 100%; 
+    margin-right: 10px;
+    position: relative; 
+    left: 30px;
+    color: black;
+}
+.input-field2 {
+    border: 1px solid #d1d5db;
+    border-radius: 5px; 
+    height: 40px; 
+    padding: 10px; 
+    width: 100%; 
+    margin-right: 10px;
+    position: relative; 
+    left: 60px;
+    color: black;
+}
+.input-field::placeholder {
+    color: #9ca3af; 
+}
+.search-button {
+    background-color: #3f72af; 
+    color: white;
+    border: none; 
+    border-radius: 5px; 
+    padding: 20px; 
+    cursor: pointer; 
+    height: 40px; 
+    position: relative;
+    margin-left: 90px;
+    display: flex; 
+    justify-content: center; 
+}
+.search-button:hover {
+    background-color: #2c5d8a; 
+}
+.icon {
+    width: 25px;
+    height: 25px;
+}
+.custom-left {
+    left: 310px;
+}
+.custom-font2 {
+    font-family: 'Roboto', sans-serif;
+    margin-left: 80px;
+} 
+.custom-font3 {
+    font-family: 'Roboto', sans-serif;
+    margin-right: 80px;
+} 
+.custom-icons {
+    height: 40px;
+    width: 40px;
+}
