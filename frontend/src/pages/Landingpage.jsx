@@ -69,7 +69,7 @@ const LandingPage = () => {
                         <img src={arrowIcon} alt="Arrow Icon" className='ml-2 w-5 h-5' />
                     </Link>
                 </div><br />
-                <div className='grid grid-cols-2 md:grid-cols-4 gap-4 px-10 py-5'>
+                <div className='grid grid-cols-2 md:grid-cols-4 gap-10 px-10 py-10'>
                     {jobCategories.map((category, index) => (
                         <Link to={category.link} key={index} className='bg-white border border-gray-300 p-4 rounded-md text-center hover:bg-[#3f72af] hover:text-white transition duration-300'>
                             <img src={category.icon} alt={category.title} className='text-4xl mb-2 custom-icons' />
