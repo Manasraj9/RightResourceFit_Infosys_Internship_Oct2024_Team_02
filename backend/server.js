@@ -1,20 +1,26 @@
 const express = require('express');
-const app = express();
-const port = 1000;
-const path = require('path');
-const cors = require('cors');
-const homeRoutes = require('./routes/homeRoutes');
 const mongoose = require('mongoose');
-const mongoURI = 'mongodb://localhost:27017/RightResourceFit';
+const cors = require('cors');
+require('dotenv').config();
 
+const authRoutes = require('./routes/authRoutes');
+
+const app = express();
+const PORT = process.env.PORT || 1000;
+
+// Middleware
 app.use(cors());
 app.use(express.json());
-app.use(homeRoutes);
 
-mongoose.connect(mongoURI)
-    .then(() => {
-        app.listen(port);
-    })
-    .catch((err) => {
-        console.log(err);
-    });
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('Connected to MongoDB'))
+    .catch((err) => console.error('Could not connect to MongoDB:', err));
+
+// Routes
+app.use('/signup', authRoutes);
+
+// Start the server
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
