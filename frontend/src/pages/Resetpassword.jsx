@@ -54,9 +54,11 @@ const Resetpassword = () => {
                                 onChange={(e) => setEmail(e.target.value)} // Update state on input change
                                 required
                             />
+                            <Link to="/OtpVerification">
                             <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">
                                 Reset
                             </button>
+                            </Link>
                         </form>
                         {success && <p className="text-green-500 text-center mt-2">{success}</p>}
                         {error && <p className="text-red-500 text-center mt-2">{error}</p>}
