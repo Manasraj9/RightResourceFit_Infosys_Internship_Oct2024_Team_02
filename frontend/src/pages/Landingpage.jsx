@@ -60,8 +60,6 @@ const LandingPage = () => {
                     </ul>
                 </div><br />
                 <div className='text-[#515B6F]'>Popular : UI Designer, UX Researcher, Android, Admin</div><br /><br />
-
-                {/* Explore by Category */}
                 <div className='flex justify-between items-center'>
                     <div className='text-[#112d4e] custom-font2 text-3xl'>
                         Explore by <span className='text-[#3f72af]'>Category</span>
