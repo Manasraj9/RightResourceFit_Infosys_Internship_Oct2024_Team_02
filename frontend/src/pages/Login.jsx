@@ -91,7 +91,7 @@ const Login = () => {
                                 </div>
                             </div>
                             <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">
-                                Sign in
+                                Login
                             </button>
                         </form>
                         <div className="mt-2 flex">
