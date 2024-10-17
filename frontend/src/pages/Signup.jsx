@@ -103,9 +103,9 @@ const Signup = () => {
 const JobSeekerForm = ({ name, email, password, setName, setEmail, setPassword, handleSignup, error, success }) => {
     return (
         <div className='w-[550px] text-[#112d4e]'>
-            <h2 className="text-3xl font-semibold mb-6">Job Seeker Signup</h2>
+            <h2 className="text-center text-6xl font-semibold mb-6">Job Seeker Signup</h2>
             <form onSubmit={handleSignup}> {/* Call handleSignup on form submit */}
-                <p>Full Name</p>
+                <p className='pb-1'>Full Name</p>
                 <input
                     type="text"
                     placeholder="Full Name"
@@ -113,7 +113,7 @@ const JobSeekerForm = ({ name, email, password, setName, setEmail, setPassword, 
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
-                <p>Enter Email Address</p>
+                <p className='pb-1'>Enter Email Address</p>
                 <input
                     type="email"
                     placeholder="Email Address"
@@ -121,7 +121,7 @@ const JobSeekerForm = ({ name, email, password, setName, setEmail, setPassword, 
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                <p>Enter password</p>
+                <p className='pb-1'>Enter password</p>
                 <input
                     type="password"
                     placeholder="Password"
@@ -130,7 +130,7 @@ const JobSeekerForm = ({ name, email, password, setName, setEmail, setPassword, 
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">
-                    Signup
+                    Register
                 </button>
                 {error && <p className="text-red-500">{error}</p>} {/* Display error message */}
                 {success && <p className="text-green-500">{success}</p>} {/* Display success message */}
@@ -149,17 +149,17 @@ const JobSeekerForm = ({ name, email, password, setName, setEmail, setPassword, 
 const CompanyForm = ({ name, email, password, setName, setEmail, setPassword, handleSignup, error, success }) => {
     return (
         <div className='w-[550px] text-[#112d4e]'>
-            <h2 className="text-3xl font-semibold mb-6">Company Signup</h2>
+            <h2 className="text-center text-6xl font-semibold mb-5">Company Signup</h2>
             <form onSubmit={handleSignup}> {/* Call handleSignup on form submit */}
-                <p>Full Name</p>
+                <p className='pb-1'>Full Name</p>
                 <input
                     type="text"
                     placeholder="Full Name"
-                    className="w-full mb-6 p-2 border rounded"
+                    className="w-full mb-6 p-2 border rounded "
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
-                <p>Enter Email Address</p>
+                <p className='pb-1'>Enter Email Address</p>
                 <input
                     type="email"
                     placeholder="Email Address"
@@ -167,7 +167,7 @@ const CompanyForm = ({ name, email, password, setName, setEmail, setPassword, ha
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                <p>Enter password</p>
+                <p className='pb-1'>Enter password</p>
                 <input
                     type="password"
                     placeholder="Password"
@@ -176,7 +176,7 @@ const CompanyForm = ({ name, email, password, setName, setEmail, setPassword, ha
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">
-                    Signup
+                    Register
                 </button>
                 {error && <p className="text-red-500">{error}</p>} {/* Display error message */}
                 {success && <p className="text-green-500">{success}</p>} {/* Display success message */}
