@@ -1,0 +1,24 @@
+/* HomePage.css */
+
+.custom-todayjob {
+    font-family: 'Times New Roman', Times, serif;
+    margin-left: 20px;
+}
+.search-button2 {
+    background-color: white;
+    color: #3f72af;
+    padding: 25px 30px; 
+    font-size: 22px; 
+    border: none;
+    height: 35px;
+    cursor: pointer;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+.custom-jobimg {
+    margin-right: 200px;
+}
+.custom-flex {
+    background-color: #3f72af;
+}

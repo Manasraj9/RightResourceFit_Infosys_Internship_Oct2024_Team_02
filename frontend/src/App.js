@@ -4,6 +4,7 @@ import Landingpage from "./pages/Landingpage"
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
 import Resetpassword from "./pages/Resetpassword"
+import Homepage from './pages/Homepage'
 
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Landingpage />} />
+            <Route path="/Home" element={<Homepage />} /> 
             <Route path="/Login" element={<Login />} />
             <Route path="/Signup" element={<Signup />} />
             <Route path="/Resetpassword" element={<Resetpassword />} />
