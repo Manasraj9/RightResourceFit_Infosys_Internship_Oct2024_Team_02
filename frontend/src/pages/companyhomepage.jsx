@@ -9,7 +9,7 @@ import jobStatusimg from '../images/jobstatusview.png'
 const companyhomepage = () => {
     return (
         import React from 'react';
-import './JobPortal.css'; // Create a separate CSS file for styling or use inline styles
+import './companyhomepage.css'; // Create a separate CSS file for styling or use inline styles
 
 const JobPortal = () => {
   return (
@@ -113,8 +113,5 @@ const JobPortal = () => {
     </div>
   );
 };
-
-export default JobPortal;
-
     )}
 export default companyhomepage;
