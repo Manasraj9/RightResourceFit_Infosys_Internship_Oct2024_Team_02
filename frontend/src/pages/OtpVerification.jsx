@@ -40,7 +40,7 @@ const OtpVerification = () => {
                 <div className="w-[750px] bg-[#dbe2ef]">
                     <h1 className='text-6xl text-[#112d4e] text-center mt-[50px]'>Verify OTP</h1>
                     <div className='ml-[100px] mt-[40px] w-[550px] text-[#112d4e] justify-center'>
-                        <form>
+                        <form onSubmit={handleotpverify}>
                             <p className='mb-1'>Enter Email Address</p>
                             <input
                                 type="email"

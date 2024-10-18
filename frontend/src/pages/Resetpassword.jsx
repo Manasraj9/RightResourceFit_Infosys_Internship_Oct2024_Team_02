@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 
@@ -7,6 +7,7 @@ const Resetpassword = () => {
     const [email, setEmail] = useState('');
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate(); // Use useNavigate to programmatically navigate
 
     const handleReset = async (e) => {
         e.preventDefault(); // Prevent the default form submission
@@ -27,6 +28,8 @@ const Resetpassword = () => {
             const data = await response.json();
             setSuccess(data.message || 'Password reset link sent successfully.');
             setError('');
+            // Navigate to OTP verification after successful reset
+            navigate('/OtpVerification'); // Use navigate to go to the next page
         } catch (error) {
             setError('Failed to send reset link. Please try again.');
             setSuccess('');
@@ -54,11 +57,9 @@ const Resetpassword = () => {
                                 onChange={(e) => setEmail(e.target.value)} // Update state on input change
                                 required
                             />
-                            <Link to="/OtpVerification">
                             <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">
                                 Reset
                             </button>
-                            </Link>
                         </form>
                         {success && <p className="text-green-500 text-center mt-2">{success}</p>}
                         {error && <p className="text-red-500 text-center mt-2">{error}</p>}
@@ -76,4 +77,3 @@ const Resetpassword = () => {
 };
 
 export default Resetpassword;
-
