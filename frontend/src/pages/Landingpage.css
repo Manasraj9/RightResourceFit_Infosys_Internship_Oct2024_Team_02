@@ -34,7 +34,7 @@
     left: 60px;
     color: black;
 }
-.input-field::placeholder {
+.input-field::placeholder, .input-field2::placeholder {
     color: #9ca3af; 
 }
 .search-button {
@@ -42,9 +42,9 @@
     color: white;
     border: none; 
     border-radius: 5px; 
-    padding: 20px; 
     cursor: pointer; 
     height: 40px; 
+    padding: 10px; 
     position: relative;
     margin-left: 90px;
     display: flex; 
@@ -72,6 +72,6 @@
     height: 50px;
     width: 50px;
 }
-.grid {
+.custom-grid {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }

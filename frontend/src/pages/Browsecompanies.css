@@ -1,0 +1,86 @@
+/* Browse Companies.css */
+
+.search-container2 {
+    background-color: white; 
+    height: 70px;
+    width: 1200px; 
+    border-radius: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.box1{
+    border: 1px solid #d1d5db;
+    border-radius: 5px; 
+    height: 40px; 
+    padding-left: 10px; 
+    width: 200%;
+    color: black;
+    left: 20px; 
+}
+.box2 {
+    border: 1px solid #d1d5db;
+    border-radius: 5px; 
+    height: 40px; 
+    padding-left: 10px; 
+    width: 200%; 
+    color: black;
+    left: 250px;
+}
+.input-field::placeholder, .input-field2::placeholder {
+    color: #9ca3af; 
+}
+.search-button2 {
+    background-color: #3f72af; 
+    color: white;
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 15px;
+    height: 40px; 
+    margin-left: 460px;
+    display: flex; 
+    justify-content: center; 
+}
+.search-button2:hover {
+    background-color: #2c5d8a; 
+}
+.icon {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    
+}
+.icon-search1 {  
+    left: -10px; 
+}
+.icon-search2 {  
+    left: 220px; 
+}
+.custom-icons {
+    height: 50px;
+    width: 50px;
+}
+.custom-businessbtn {
+    border: 2px solid orange;
+    border-radius: 18px;
+     background-color: transparent;
+    color: orange;
+    cursor: pointer;
+    width: 170px;
+    height: 35px;
+    font-size: 18px;
+}
+.custom-about {
+    margin-right: 50px;
+}
+.job3btn {
+    color: #3F72AF;
+    height: 35px;
+    width: 90px;
+    font-size: 18px;
+    background-color: lightsteelblue;
+}
+
+
