@@ -8,77 +8,113 @@ import './companyhomepage.css'
 import jobStatusimg from '../images/jobstatusview.png'
 const companyhomepage = () => {
     return (
-<div style={{width: '100%', height: '100%', position: 'relative', background: '#DBE2EF'}}>
-    <img style={{width: 1440, height: 921, left: 5, top: 111, position: 'absolute'}} src="https://via.placeholder.com/1440x921" />
-    <div style={{width: 1192, height: 414, left: 125, top: 540, position: 'absolute'}}>
-        <div style={{width: 1192, height: 414, left: 0, top: 0, position: 'absolute', background: '#3F72AF'}}></div>
-        <div style={{width: 364, height: 180, left: 70, top: 93, position: 'absolute', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 24, display: 'inline-flex'}}>
-            <div style={{width: 364, color: 'white', fontSize: 48, fontFamily: 'Abhaya Libre', fontWeight: '700', lineHeight: 52.80, wordWrap: 'break-word'}}>Start posting jobs today</div>
-            <div style={{paddingLeft: 24, paddingRight: 24, paddingTop: 12, paddingBottom: 12, background: 'white', justifyContent: 'center', alignItems: 'center', gap: 10, display: 'inline-flex'}}>
-                <div style={{textAlign: 'center', color: '#3F72AF', fontSize: 16, fontFamily: 'Epilogue', fontWeight: '700', lineHeight: 25.60, wordWrap: 'break-word'}}>Start For Free</div>
-            </div>
+        import React from 'react';
+import './JobPortal.css'; // Create a separate CSS file for styling or use inline styles
+
+const JobPortal = () => {
+  return (
+    <div className="job-portal">
+      {/* Header Section */}
+      <header className="header">
+        <nav className="navbar">
+          <div className="nav-logo">
+            {/* You can add your logo here */}
+            <img src="logo.png" alt="Right Resource Fit Logo" />
+          </div>
+          <div className="nav-links">
+            <button className="btn">Post a Jobs</button>
+            <button className="btn">About</button>
+            <button className="btn">Account</button>
+          </div>
+        </nav>
+        <div className="header-content">
+          <h1>FIND YOUR DREAM JOB NOW</h1>
+          <p>
+            Right Resource Fit connects talented job seekers with top employers. Explore 5000+ job opportunities and find your perfect match. Whether you're hiring or seeking, we help you achieve success!
+          </p>
+          <button className="btn-primary">Start Posting Jobs</button>
         </div>
-={{height: 131.55, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                    <div style={{alignSelf: 'stretch', padding: 9.40, background: '#F8F8FD', justifyContent: 'space-between', alignItems: 'center', display: 'inline-flex'}}>
-                        <div style={{height: 25.06, justifyContent: 'flex-start', alignItems: 'center', gap: 6.26, display: 'flex'}}>
-                            <div style={{width: 25.06, height: 25.06, position: 'relative'}}>
-                                <img style={{width: 25.06, height: 25.06, left: 0, top: 0, position: 'absolute', borderRadius: 9999}} src="https://via.placeholder.com/25x25" />
-                                <img style={{width: 26.10, height: 26.10, left: -0.52, top: -0.52, position: 'absolute'}} src="https://via.placeholder.com/26x26" />
-                            </div>
-                            <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                                <div style={{color: '#25324B', fontSize: 18, fontFamily: 'Epilogue', fontWeight: '700', lineHeight: 28.80, wordWrap: 'break-word'}}>Jake Gyll</div>
-                                <div style={{color: '#7C8493', fontSize: 18, fontFamily: 'Epilogue', fontWeight: '400', lineHeight: 28.80, wordWrap: 'break-word'}}>Social Media Specialist</div>
-                            </div>
-                        </div>
-                        <div style={{width: 78.30, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                            <div style={{color: '#25324B', fontSize: 16, fontFamily: 'Epilogue', fontWeight: '600', lineHeight: 25.60, wordWrap: 'break-word'}}>Email</div>
-                            <div style={{color: '#7C8493', fontSize: 18, fontFamily: 'Epilogue', fontWeight: '400', lineHeight: 28.80, wordWrap: 'break-word'}}>jakegyll@email.com</div>
-                        </div>
-                        <div style={{width: 51.29, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                            <div style={{color: '#25324B', fontSize: 16, fontFamily: 'Epilogue', fontWeight: '600', lineHeight: 25.60, wordWrap: 'break-word'}}>Date Applied</div>
-                            <div style={{color: '#7C8493', fontSize: 18, fontFamily: 'Epilogue', fontWeight: '400', lineHeight: 28.80, wordWrap: 'break-word'}}>2 days ago</div>
-                        </div>
-                        <div style={{paddingLeft: 8.22, paddingRight: 8.22, paddingTop: 4.70, paddingBottom: 4.70, background: '#E9EBFD', border: '0.39px #3F72AF solid', justifyContent: 'center', alignItems: 'center', gap: 3.92, display: 'flex'}}>
-                            <div style={{textAlign: 'center', color: '#3F72AF', fontSize: 14, fontFamily: 'Epilogue', fontWeight: '700', lineHeight: 22.40, wordWrap: 'break-word'}}>See Application</div>
-                        </div>
-                        <div style={{width: 9.40, height: 9.40, position: 'relative'}}>
-                            <div style={{width: 9.40, height: 9.40, left: 0, top: 0, position: 'absolute'}}></div>
-                            <div style={{width: 0.78, height: 0.78, left: 1.57, top: 4.31, position: 'absolute', border: '0.78px #25324B solid'}}></div>
-                            <div style={{width: 0.78, height: 0.78, left: 4.31, top: 4.31, position: 'absolute', border: '0.78px #25324B solid'}}></div>
-                            <div style={{width: 0.78, height: 0.78, left: 7.05, top: 4.31, position: 'absolute', border: '0.78px #25324B solid'}}></div>
-                        </div>
-                    </div>
-                    <div style={{alignSelf: 'stretch', padding: 9.40, background: 'white', justifyContent: 'space-between', alignItems: 'center', display: 'inline-flex'}}>
-                        <div style={{height: 25.06, justifyContent: 'flex-start', alignItems: 'center', gap: 6.26, display: 'flex'}}>
-                            <div style={{width: 25.06, height: 25.06, position: 'relative'}}>
-                                <img style={{width: 25.06, height: 25.06, left: 0, top: 0, position: 'absolute', borderRadius: 9999}} src="https://via.placeholder.com/25x25" />
-                                <img style={{width: 25.06, height: 37.59, left: -0, top: -3.13, position: 'absolute'}} src="https://via.placeholder.com/25x38" />
-                                <img style={{width: 36.54, height: 24.36, left: -5.74, top: 0.52, position: 'absolute'}} src="https://via.placeholder.com/37x24" />
-                            </div>
-                            <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                                <div style={{color: '#25324B', fontSize: 18, fontFamily: 'Epilogue', fontWeight: '700', lineHeight: 28.80, wordWrap: 'break-word'}}>Leslie Alexander</div>
-                                <div style={{color: '#7C8493', fontSize: 18, fontFamily: 'Epilogue', fontWeight: '400', lineHeight: 28.80, wordWrap: 'break-word'}}>Product Designer</div>
-                            </div>
+      </header>
 
-                    <div style={{width: 100.23, height: 18.79, left: 0, top: 0, position: 'absolute'}}>
-                        <div style={{width: 93.96, height: 18.79, left: 6.26, top: -0, position: 'absolute', opacity: 0.05, background: '#3F72AF', borderRadius: 3.13}} />
-                        <div style={{width: 56.77, height: 9.40, left: 12.53, top: 4.70, position: 'absolute'}}>
-                            <div style={{width: 41.11, height: 9.40, left: 15.66, top: -0, position: 'absolute', color: '#3F72AF', fontSize: 6.26, fontFamily: 'Inter', fontWeight: '500', lineHeight: 10.02, wordWrap: 'break-word'}}>Dashboard</div>
-                            <div style={{width: 9.40, height: 9.40, left: 0, top: 0, position: 'absolute', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                                <div style={{width: 9.40, height: 9.40}}></div>
-                                <div style={{width: 7.05, height: 3.52, border: '0.78px #3F72AF solid'}}></div>
-                                <div style={{width: 5.48, height: 3.52, border: '0.78px #3F72AF solid'}}></div>
-                            </div>
-                        </div>
-                        <div style={{width: 1.57, height: 9.40, left: -0, top: 4.70, position: 'absolute', background: '#3F72AF'}}></div>
-                    </div>
-                </div>
-              
+      {/* Job Posting Section */}
+      <section className="job-posting">
+        <div className="posting-info">
+          <h2>Start posting jobs today</h2>
+          <button className="btn-primary">Start for Free</button>
+        </div>
+        <div className="stats">
+          <img src="dashboard-screenshot.png" alt="Dashboard" />
+        </div>
+      </section>
+
+      {/* Search Job Section */}
+      <section className="search-jobs">
+        <h2>The most effective way to land a job.</h2>
+        <div className="search-info">
+          <div className="left-column">
+            <p>Show rejected applications or show relevant applications.</p>
+            <ul>
+              <li>Jobs</li>
+              <li>Assessments</li>
+              <li>Applicants</li>
+              <li>Date</li>
+              <li>Status</li>
+            </ul>
+          </div>
+          <div className="right-column">
+            <ul>
+              <li>Search for jobs based on location, skills, etc.</li>
+              <li>View the status of the job applications.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer Section */}
+      <footer className="footer">
+        <div className="footer-columns">
+          <div className="footer-about">
+            <p>
+              An excellent platform for job seekers passionate about startups. Discover your ideal job with ease.
+            </p>
+            <div className="social-media">
+              <a href="#"><i className="fa fa-facebook"></i></a>
+              <a href="#"><i className="fa fa-twitter"></i></a>
+              <a href="#"><i className="fa fa-linkedin"></i></a>
             </div>
-
-           
-        <div style={{left: 538, top: 328, position: 'absolute', color: 'white', fontSize: 16, fontFamily: 'Epilogue', fontWeight: '500', lineHeight: 25.60, wordWrap: 'break-word'}}>2024 @ Right Resource Fit. All rights reserved.</div>
+          </div>
+          <div className="footer-links">
+            <h4>About</h4>
+            <ul>
+              <li>Companies</li>
+              <li>Pricing</li>
+              <li>Terms</li>
+              <li>Advice</li>
+            </ul>
+          </div>
+          <div className="footer-resources">
+            <h4>Resources</h4>
+            <ul>
+              <li>Help Docs</li>
+              <li>Guide</li>
+              <li>Updates</li>
+              <li>Contact Us</li>
+            </ul>
+          </div>
+          <div className="footer-subscribe">
+            <h4>Get Job Notifications</h4>
+            <form>
+              <input type="email" placeholder="Email Address" />
+              <button type="submit">Subscribe</button>
+            </form>
+          </div>
+        </div>
+      </footer>
     </div>
-</div>
+  );
+};
+
+export default JobPortal;
+
     )}
 export default companyhomepage;
