@@ -11,11 +11,23 @@ const OtpVerification = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
 
-//     const handleVerifyOtp = async (e) => {
-//         e.preventDefault();
-//         const response = await verifyOtp(email, otp, newPassword);
-//         setMessage(response);
-//     };
+    const handleotpverify = async (e) => {
+        e.preventDefault();
+    
+        // Assuming you have the email available in this component
+        const email = "user@example.com"; // Replace this with actual email
+    
+        const response = await fetch('http://localhost:1000/otpverify', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, otp, newPassword }),
+        });
+    
+        const data = await response.json();
+        setMessage(data.message); // Set the message based on the response
+    };
 
     return (
         <div>

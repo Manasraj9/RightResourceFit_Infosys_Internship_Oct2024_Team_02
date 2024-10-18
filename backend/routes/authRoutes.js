@@ -8,4 +8,8 @@ router.post('/', signup);
 
 router.post('/login', login);
 
+router.post('/resetpassword', resetpassword)
+
+router.post ('/otpverify', otpverify)
+
 module.exports = router;
