@@ -9,9 +9,11 @@ const Register = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPass, setConfirmPass] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false); // Separate state for confirm password visibility
 
     const handleRegister = async (event) => {
         event.preventDefault();
@@ -69,12 +71,16 @@ const Register = () => {
                                 password={password} 
                                 setName={setName} 
                                 setEmail={setEmail} 
-                                setPassword={setPassword} 
+                                setPassword={setPassword}
+                                confirmPass={confirmPass}
+                                setConfirmPass={setConfirmPass} 
                                 handleRegister={handleRegister} 
                                 error={error} 
                                 success={success} 
                                 showPassword={showPassword}
                                 setShowPassword={setShowPassword}
+                                showConfirmPassword={showConfirmPassword}
+                                setShowConfirmPassword={setShowConfirmPassword}
                             />
                         ) : (
                             <CompanyForm 
@@ -83,12 +89,16 @@ const Register = () => {
                                 password={password} 
                                 setName={setName} 
                                 setEmail={setEmail} 
-                                setPassword={setPassword} 
+                                setPassword={setPassword}
+                                confirmPass={confirmPass}
+                                setConfirmPass={setConfirmPass} 
                                 handleRegister={handleRegister} 
                                 error={error} 
                                 success={success} 
                                 showPassword={showPassword}
                                 setShowPassword={setShowPassword}
+                                showConfirmPassword={showConfirmPassword}
+                                setShowConfirmPassword={setShowConfirmPassword}
                             />
                         )}
                     </div>
@@ -100,7 +110,7 @@ const Register = () => {
 };
 
 // Job Seeker Form Component
-const JobSeekerForm = ({ name, email, password, setName, setEmail, setPassword, handleRegister, error, success, showPassword, setShowPassword }) => {
+const JobSeekerForm = ({ name, email, password, confirmPass, setName, setEmail, setPassword, setConfirmPass, handleRegister, error, success, showPassword, setShowPassword, showConfirmPassword, setShowConfirmPassword }) => {
     return (
         <div className='w-[550px] text-[#112d4e]'>
             <h2 className="text-center text-5xl font-semibold mb-6">Register as Job Seeker</h2>
@@ -124,19 +134,33 @@ const JobSeekerForm = ({ name, email, password, setName, setEmail, setPassword, 
                 <p className='pb-1'>Enter password</p>
                 <div className="relative w-full mb-5">
                     <input
-                        type="text" // Always use type="text"
+                        type={showPassword ? 'text' : 'password'}
                         placeholder="Password"
                         className="w-full p-2 border rounded"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        style={{ WebkitTextSecurity: showPassword ? 'none' : 'disc' }} // Mask password with dots when not showing
                     />
-                    {/* Eye icon - always visible */}
                     <span
                         onClick={() => setShowPassword(!showPassword)}
                         className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
                     >
                         {showPassword ? <AiFillEyeInvisible size={24} /> : <AiFillEye size={24} />}
+                    </span>
+                </div>
+                <p className='pb-1'>Confirm Password</p>
+                <div className="relative w-full mb-5">
+                    <input
+                        type={showConfirmPassword ? 'text' : 'password'}
+                        placeholder="Enter Password Again"
+                        className="w-full p-2 border rounded"
+                        value={confirmPass}
+                        onChange={(e) => setConfirmPass(e.target.value)}
+                    />
+                    <span
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
+                    >
+                        {showConfirmPassword ? <AiFillEyeInvisible size={24} /> : <AiFillEye size={24} />}
                     </span>
                 </div>
                 <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">
@@ -154,18 +178,17 @@ const JobSeekerForm = ({ name, email, password, setName, setEmail, setPassword, 
         </div>
     );
 };
-
 // Company Form Component
-const CompanyForm = ({ name, email, password, setName, setEmail, setPassword, handleRegister, error, success, showPassword, setShowPassword }) => {
+const CompanyForm = ({ name, email, password, confirmPass, setName, setEmail, setPassword, setConfirmPass, handleRegister, error, success, showPassword, setShowPassword, showConfirmPassword, setShowConfirmPassword }) => {
     return (
         <div className='w-[550px] text-[#112d4e]'>
-            <h2 className="text-center text-5xl font-semibold mb-5">Register as Company</h2>
+            <h2 className="text-center text-5xl font-semibold mb-6">Register as Company</h2>
             <form onSubmit={handleRegister}>
                 <p className='pb-1'>Full Name</p>
                 <input
                     type="text"
                     placeholder="Full Name"
-                    className="w-full mb-6 p-2 border rounded "
+                    className="w-full mb-6 p-2 border rounded"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
@@ -180,18 +203,33 @@ const CompanyForm = ({ name, email, password, setName, setEmail, setPassword, ha
                 <p className='pb-1'>Enter password</p>
                 <div className="relative w-full mb-5">
                     <input
-                        type="text" // Always use type="text"
+                        type={showPassword ? 'text' : 'password'}
                         placeholder="Password"
                         className="w-full p-2 border rounded"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        style={{ WebkitTextSecurity: showPassword ? 'none' : 'disc' }} // Mask password with dots when not showing
                     />
                     <span
                         onClick={() => setShowPassword(!showPassword)}
                         className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
                     >
                         {showPassword ? <AiFillEyeInvisible size={24} /> : <AiFillEye size={24} />}
+                    </span>
+                </div>
+                <p className='pb-1'>Confirm Password</p>
+                <div className="relative w-full mb-5">
+                    <input
+                        type={showConfirmPassword ? 'text' : 'password'}
+                        placeholder="Enter Password Again"
+                        className="w-full p-2 border rounded"
+                        value={confirmPass}
+                        onChange={(e) => setConfirmPass(e.target.value)}
+                    />
+                    <span
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
+                    >
+                        {showConfirmPassword ? <AiFillEyeInvisible size={24} /> : <AiFillEye size={24} />}
                     </span>
                 </div>
                 <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">
@@ -204,7 +242,7 @@ const CompanyForm = ({ name, email, password, setName, setEmail, setPassword, ha
                 <p className="text-base text-[#112d4e]">Already Have an Account?</p>
                 <Link to="/Login">
                     <p className="text-blue-400 hover:underline pl-[4px]">Login</p>
-                </Link>
+                </Link>  
             </div>
         </div>
     );
