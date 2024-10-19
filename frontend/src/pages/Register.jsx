@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 
-const Signup = () => {
+const Register = () => {
     // State to track whether "Job Seeker" or "Company" is selected
     const [selectedOption, setSelectedOption] = useState('jobSeeker'); // Default is 'jobSeeker'
     const [name, setName] = useState('');
@@ -12,8 +12,8 @@ const Signup = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
-    // Signup handler that sends the data to the backend
-    const handleSignup = async (event) => {
+    // Register handler that sends the data to the backend
+    const handleRegister = async (event) => {
         event.preventDefault(); // Prevent form from submitting normally
         try {
             const response = await fetch('http://localhost:1000/signup', {
@@ -30,11 +30,11 @@ const Signup = () => {
     
             const data = await response.json();
             console.log(data);
-            setSuccess('Signup successful!'); // Set success message
+            setSuccess('Registered successfully!'); // Set success message
             setError(''); // Clear any previous errors
         } catch (error) {
             console.error('Error:', error);
-            setError('Signup failed. Please try again.'); // Set error message
+            setError('Register failed. Please try again.'); // Set error message
         }
     };
 
@@ -44,7 +44,7 @@ const Signup = () => {
             <div className='flex'>
                 {/* Header Image */}
                 <div className='bg-white flex justify-center'>
-                    <img src="/images/Login.svg" alt="page for Signup" className="w-[780px] h-[650px]" />
+                    <img src="/images/Login.svg" alt="page for Register" className="w-[780px] h-[650px]" />
                 </div>
                 <div className='w-[750px] bg-[#dbe2ef] text-[#112d4e]'>
                     {/* Toggle Between Job Seeker and Company */}
@@ -73,7 +73,7 @@ const Signup = () => {
                                 setName={setName} 
                                 setEmail={setEmail} 
                                 setPassword={setPassword} 
-                                handleSignup={handleSignup} 
+                                handleRegister={handleRegister} 
                                 error={error} 
                                 success={success}
                             /> // Pass props to Job Seeker form
@@ -85,7 +85,7 @@ const Signup = () => {
                                 setName={setName} 
                                 setEmail={setEmail} 
                                 setPassword={setPassword} 
-                                handleSignup={handleSignup} 
+                                handleRegister={handleRegister} 
                                 error={error} 
                                 success={success}
                             /> // Pass props to Company form
@@ -100,11 +100,11 @@ const Signup = () => {
 
 
 // Job Seeker Form Component
-const JobSeekerForm = ({ name, email, password, setName, setEmail, setPassword, handleSignup, error, success }) => {
+const JobSeekerForm = ({ name, email, password, setName, setEmail, setPassword, handleRegister, error, success }) => {
     return (
         <div className='w-[550px] text-[#112d4e]'>
-            <h2 className="text-center text-6xl font-semibold mb-6">Job Seeker Signup</h2>
-            <form onSubmit={handleSignup}> {/* Call handleSignup on form submit */}
+            <h2 className="text-center text-5xl font-semibold mb-6">Register as Job Seeker</h2>
+            <form onSubmit={handleRegister}> {/* Call handleRegister on form submit */}
                 <p className='pb-1'>Full Name</p>
                 <input
                     type="text"
@@ -146,11 +146,11 @@ const JobSeekerForm = ({ name, email, password, setName, setEmail, setPassword, 
 };
 
 // Company Form Component
-const CompanyForm = ({ name, email, password, setName, setEmail, setPassword, handleSignup, error, success }) => {
+const CompanyForm = ({ name, email, password, setName, setEmail, setPassword, handleRegister, error, success }) => {
     return (
         <div className='w-[550px] text-[#112d4e]'>
-            <h2 className="text-center text-6xl font-semibold mb-5">Company Signup</h2>
-            <form onSubmit={handleSignup}> {/* Call handleSignup on form submit */}
+            <h2 className="text-center text-5xl font-semibold mb-5">Register as Company</h2>
+            <form onSubmit={handleRegister}> {/* Call handleRegister on form submit */}
                 <p className='pb-1'>Full Name</p>
                 <input
                     type="text"
@@ -191,5 +191,5 @@ const CompanyForm = ({ name, email, password, setName, setEmail, setPassword, ha
     );
 };
 
-export default Signup;
+export default Register;
 

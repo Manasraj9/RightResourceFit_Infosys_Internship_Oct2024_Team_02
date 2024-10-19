@@ -26,8 +26,8 @@ const Navbar = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/Signup">
-                                <button className='bg-[#3f72af] inline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af]  py-1 rounded px-2.5'>Signup</button>
+                            <Link to="/Register">
+                                <button className='bg-[#3f72af] inline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af]  py-1 rounded px-2.5'>Register</button>
                             </Link>
                         </li>
                     </ul>
