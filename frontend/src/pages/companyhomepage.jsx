@@ -3,115 +3,79 @@ import Navbar from '../Components/NavbarHome'
 import Footer from '../Components/Footer'
 import backgroundImage from '../images/homebgimg.png'
 import jobPoster from '../images/jobposter.png'
-import { Link } from 'react-route   r-dom'
-import './companyhomepage.css'
+import { Link } from 'react-router-dom'
+import './Homepage.css'
 import jobStatusimg from '../images/jobstatusview.png'
+
+
 const companyhomepage = () => {
     return (
-        import React from 'react';
-import './companyhomepage.css'; // Create a separate CSS file for styling or use inline styles
+        <div>
+            <Navbar />
+            {/* Browse company and search job */}
+            <div className='homepage-container' 
+                style={{ 
+                    backgroundImage: `url(${backgroundImage})`, 
+                    backgroundSize: 'cover', 
+                    backgroundPosition: 'center' 
+                }}><br />
+                <div className='text-[white] text-3xl font-bold text-center underline'>FIND YOUR DREAM JOB NOW</div><br />
+                <div className='text-[white] text-2xl font-bold text-center'>Right Resource Fit connects talented job seekers with top employers.<br />Explore 5000+ job opportunities 
+                    and find your perfect match.<br />Whether you're hiring or seeking, we help you achieve success!</div><br />
+                <div>
+                    <ul className='flex gap-3 text-white justify-center'>
+                        <li>
+                            <Link to="/Searchjob">
+                                <button className='bg-[#3f72af] inline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af] py-2 rounded px-3.5'>Job Search</button>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/Browsecompanies">
+                                <button className='bg-[#3f72af] nline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af]  py-2 rounded px-3.5'>Browse Companies</button>
+                            </Link>
+                        </li>
+                    </ul>
+                </div><br /><br />
 
-const JobPortal = () => {
-  return (
-    <div className="job-portal">
-      {/* Header Section */}
-      <header className="header">
-        <nav className="navbar">
-          <div className="nav-logo">
-            {/* You can add your logo here */}
-            <img src="logo.png" alt="Right Resource Fit Logo" />
-          </div>
-          <div className="nav-links">
-            <button className="btn">Post a Jobs</button>
-            <button className="btn">About</button>
-            <button className="btn">Account</button>
-          </div>
-        </nav>
-        <div className="header-content">
-          <h1>FIND YOUR DREAM JOB NOW</h1>
-          <p>
-            Right Resource Fit connects talented job seekers with top employers. Explore 5000+ job opportunities and find your perfect match. Whether you're hiring or seeking, we help you achieve success!
-          </p>
-          <button className="btn-primary">Start Posting Jobs</button>
-        </div>
-      </header>
-
-      {/* Job Posting Section */}
-      <section className="job-posting">
-        <div className="posting-info">
-          <h2>Start posting jobs today</h2>
-          <button className="btn-primary">Start for Free</button>
-        </div>
-        <div className="stats">
-          <img src="dashboard-screenshot.png" alt="Dashboard" />
-        </div>
-      </section>
-
-      {/* Search Job Section */}
-      <section className="search-jobs">
-        <h2>The most effective way to land a job.</h2>
-        <div className="search-info">
-          <div className="left-column">
-            <p>Show rejected applications or show relevant applications.</p>
-            <ul>
-              <li>Jobs</li>
-              <li>Assessments</li>
-              <li>Applicants</li>
-              <li>Date</li>
-              <li>Status</li>
-            </ul>
-          </div>
-          <div className="right-column">
-            <ul>
-              <li>Search for jobs based on location, skills, etc.</li>
-              <li>View the status of the job applications.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer Section */}
-      <footer className="footer">
-        <div className="footer-columns">
-          <div className="footer-about">
-            <p>
-              An excellent platform for job seekers passionate about startups. Discover your ideal job with ease.
-            </p>
-            <div className="social-media">
-              <a href="#"><i className="fa fa-facebook"></i></a>
-              <a href="#"><i className="fa fa-twitter"></i></a>
-              <a href="#"><i className="fa fa-linkedin"></i></a>
+                {/* Search jobs */}
+                <div className='px-[250px]'>
+                    <div className='grid grid-cols-2 gap-10 items-center px-10 py-10 bg-[#3f72af]'>
+                        <div className='text-4xl font-bold custom-todayjob text-[white]'>
+                            Start Applying for <br /> jobs today <br />
+                            <br />
+                            <div className='text-center'> 
+                                <Link to="/Searchjob">
+                                    <button className='search-button2'>Search Jobs</button>
+                                </Link>
+                            </div>
+                        </div>
+                        <div className='flex justify-between'>
+                            <img src={jobPoster} alt="Job Application" className="w-50px h-50px custom-jobimg" />
+                        </div>
+                    </div>
+                </div><br /><br />
             </div>
-          </div>
-          <div className="footer-links">
-            <h4>About</h4>
-            <ul>
-              <li>Companies</li>
-              <li>Pricing</li>
-              <li>Terms</li>
-              <li>Advice</li>
-            </ul>
-          </div>
-          <div className="footer-resources">
-            <h4>Resources</h4>
-            <ul>
-              <li>Help Docs</li>
-              <li>Guide</li>
-              <li>Updates</li>
-              <li>Contact Us</li>
-            </ul>
-          </div>
-          <div className="footer-subscribe">
-            <h4>Get Job Notifications</h4>
-            <form>
-              <input type="email" placeholder="Email Address" />
-              <button type="submit">Subscribe</button>
-            </form>
-          </div>
+
+            
+            <div className='bg-[#dbe2ef] mx-auto px-10 py-5'>
+                <div className='text-3xl underline font-bold text-center'>The most effective way to land a job.</div><br />
+                    <div className='px-[100px]'>
+                        <div className='grid grid-cols-10 gap-4 items-center px-8 py-8'>
+                            <div className='col-span-7'>
+                                <img src={jobStatusimg} alt="Job Status" className='w-full h-auto' />
+                            </div>
+                            <div className='col-span-3 text-2xl'>
+                                <ul>
+                                    <li>1. Explore job opportunities according to your location, skills, and other criteria.</li><br />
+                                    <li>2. Monitor the status of your job applications.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <Footer />
         </div>
-      </footer>
-    </div>
-  );
+    );
 };
-    )}
+
 export default companyhomepage;

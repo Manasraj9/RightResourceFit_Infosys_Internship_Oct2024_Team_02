@@ -1,114 +1,22 @@
-/* General Styles */
-body {
-  font-family: Arial, sans-serif;
+.custom-todayjob {
+  font-family: 'Times New Roman', Times, serif;
+  margin-left: 20px;
 }
-
-.job-portal {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.header {
-  background-color: #2c3e50;
-  color: white;
-  padding: 20px;
-  text-align: center;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.nav-links .btn {
-  background-color: #34495e;
-  color: white;
+.search-button2 {
+  background-color: white;
+  color: #3f72af;
+  padding: 25px 30px; 
+  font-size: 22px; 
   border: none;
-  padding: 10px;
-  margin: 0 5px;
+  height: 35px;
   cursor: pointer;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
 }
-
-.header-content h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
+.custom-jobimg {
+  margin-right: 200px;
 }
-
-.header-content p {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-}
-
-.btn-primary {
-  background-color: #3498db;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-}
-
-/* Job Posting Section */
-.job-posting {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-  background-color: #ecf0f1;
-  margin: 20px 0;
-}
-
-.posting-info {
-  flex: 1;
-  padding: 20px;
-}
-
-.stats img {
-  max-width: 100%;
-}
-
-/* Search Jobs Section */
-.search-jobs {
-  background-color: #bdc3c7;
-  padding: 20px;
-  text-align: center;
-}
-
-.search-info {
-  display: flex;
-  justify-content: space-around;
-}
-
-.left-column, .right-column {
-  flex: 1;
-}
-
-.left-column ul, .right-column ul {
-  list-style: none;
-}
-
-/* Footer */
-.footer {
-  background-color: #2c3e50;
-  color: white;
-  padding: 20px;
-}
-
-.footer-columns {
-  display: flex;
-  justify-content: space-between;
-}
-
-.footer-about {
-  flex: 1;
-}
-
-.footer-links ul, .footer-resources ul {
-  list-style: none;
-  padding: 0;
-}
-
-.footer-subscribe form input {
-  padding: 10px;
-  margin-right: 10px;
+.custom-flex {
+  background-color: #3f72af;
 }
