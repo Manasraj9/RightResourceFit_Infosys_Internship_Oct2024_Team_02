@@ -5,7 +5,8 @@ import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 
 const Register = () => {
-    const [selectedOption, setSelectedOption] = useState('jobSeeker'); // Default is 'jobSeeker'
+    const [selectedOption, setSelectedOption] = useState('jobSeeker');
+    const [userType, setUserType] = useState('jobSeeker');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -15,31 +16,23 @@ const Register = () => {
     const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
     const [showConfirmPassword, setShowConfirmPassword] = useState(false); // Separate state for confirm password visibility
 
-    const handleRegister = async (event) => {
-        event.preventDefault();
+    const handleRegister = async () => {
         try {
             const response = await fetch('http://localhost:1000/signup', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ name, email, password, userType: selectedOption }),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, password, userType }),
             });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
             const data = await response.json();
-            console.log(data);
-            setSuccess('Registered successfully!');
-            setError('');
+            if (!response.ok) {
+                throw new Error(data.message);
+            }
+            console.log(data.message); // Success message
         } catch (error) {
-            console.error('Error:', error);
-            setError('Register failed. Please try again.');
+            console.error('Signup error:', error.message);
         }
     };
-
+    
     return (
         <div>
             <Navbar />

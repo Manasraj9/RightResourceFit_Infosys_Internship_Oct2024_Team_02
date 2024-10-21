@@ -14,32 +14,39 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        
         try {
             const response = await fetch('http://localhost:1000/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password, rememberMe }),
+                body: JSON.stringify({ email, password }),
             });
-            
+    
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.message || 'Login failed. Please check your credentials.');
             }
     
             const data = await response.json();
-            console.log(data);
+            console.log('Login Response:', data);
             
-            if (data.success) {
+            // Check if the token is received correctly
+            if (data.token) {
+                // Save the token to localStorage
                 localStorage.setItem('token', data.token);
+                console.log('Token stored successfully:', data.token);
+                
+                // Navigate to the homepage or desired route
                 navigate('/Homepage');
             } else {
-                alert(data.message);
+                alert(data.message || 'Unexpected error. Please try again.');
             }
         } catch (error) {
             console.error('Error:', error);
             alert(`An error occurred: ${error.message}`);
         }
     };
+    
 
     const handleCheckboxChange = () => {
         setRememberMe(!rememberMe);

@@ -12,9 +12,6 @@ const OtpVerification = () => {
     const handleotpverify = async (e) => {
         e.preventDefault();
     
-        // Assuming you have the email available in this component
-        const email = "user@example.com"; // Replace this with actual email
-    
         const response = await fetch('http://localhost:1000/reset', {
             method: 'POST',
             headers: {
