@@ -9,32 +9,36 @@ const Resetpassword = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate(); // Use useNavigate to programmatically navigate
 
-    const handleReset = async (e) => {
-        e.preventDefault(); // Prevent the default form submission
-
+    const handleSendOTP = async (e) => { 
+        e.preventDefault();
         try {
-            const response = await fetch('http://localhost:1000/reset-password', {
+            const response = await fetch('http://localhost:1000/send-otp', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email }), // Send email to backend
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }), // Use the email from state
             });
-
+    
+            // Check if the response was successful
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                const errorData = await response.json(); // Fetch error details if available
+                throw new Error(errorData.message || 'Failed to send OTP.');
             }
-
-            const data = await response.json();
-            setSuccess(data.message || 'Password reset link sent successfully.');
-            setError('');
-            // Navigate to OTP verification after successful reset
-            navigate('/OtpVerification'); // Use navigate to go to the next page
+    
+            // Handle successful response
+            setSuccess('OTP sent successfully! Check your email.');
+            setError(''); // Clear any existing error
+    
+            // Navigate to the OTP verification page with email
+            navigate('/Otpverification', { state: { email } }); // Pass email in state
+    
         } catch (error) {
-            setError('Failed to send reset link. Please try again.');
-            setSuccess('');
+            console.error('Error:', error);
+            setError(`An error occurred: ${error.message}`);
+            setSuccess(''); // Clear any existing success message
         }
     };
+    
+    
 
     return (
         <div>
@@ -47,7 +51,7 @@ const Resetpassword = () => {
                 <div className="w-[750px] bg-[#dbe2ef]">
                     <h1 className='text-6xl text-[#112d4e] text-center mt-[100px]'>Reset Password</h1>
                     <div className='ml-[100px] mt-[40px] w-[550px] text-[#112d4e] justify-center'>
-                        <form onSubmit={handleReset}>
+                        <form onSubmit={handleSendOTP}>
                             <p className=''>Enter Email Address</p>
                             <input
                                 type="email"

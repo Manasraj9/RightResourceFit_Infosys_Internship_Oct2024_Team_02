@@ -1,9 +1,18 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
 
+// Create a transporter object using your email service
+const transporter = nodemailer.createTransport({
+    service: 'gmail', // or your preferred email service
+    auth: {
+        user: process.env.SMTP_USER, // Your email address
+        pass: process.env.SMTP_PASS, // Your email password or app password
+    },
+});
 
-exports.signup = async (req, res) => {
+const signup = async (req, res) => {
     const { name, email, password, userType } = req.body;
 
     try {
@@ -25,30 +34,99 @@ exports.signup = async (req, res) => {
         res.status(500).json({ message: 'Signup failed. Please try again.', error });
     }
 };
+
+
+
+
 // Login function
-exports.login = async (req, res) => {
+const login = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        // Find the user by email
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({ message: 'Invalid credentials' });
+            return res.status(404).json({ message: 'User not found' });
         }
 
-        // Compare the password
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(400).json({ message: 'Invalid credentials' });
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        // Generate JWT token
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-        // Return success response with token
-        res.status(200).json({ success: true, token });
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        res.status(200).json({ token });
     } catch (error) {
-        console.error('Login error:', error);
-        res.status(500).json({ message: 'Server error' });
+        console.error('Error during login:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
+};
+
+// Function to generate a random 6-digit OTP
+const generateOTP = () => {
+    return Math.floor(100000 + Math.random() * 900000).toString(); // Generate OTP
+};
+
+// Function to send OTP email
+const sendOTP = async (req, res) => {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Generate OTP and set expiry
+    const otp = generateOTP();
+    user.otp = otp;
+    user.otpExpires = Date.now() + 300000; // OTP valid for 5 minutes
+
+    try {
+        await user.save();
+        await transporter.sendMail({
+            to: email,
+            subject: 'Your OTP',
+            text: `Your OTP is ${otp}`,
+        });
+        return res.status(200).json({ message: 'OTP sent successfully' });
+    } catch (error) {
+        console.error('Error sending OTP:', error);
+        return res.status(500).json({ message: 'Failed to send OTP.' });
+    }
+};
+
+// Verify OTP function
+const verifyOTP = async (req, res) => {
+    const { email, otp, newPassword } = req.body;
+
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Check if the OTP is valid
+        if (user.otp !== otp || Date.now() > user.otpExpires) {
+            return res.status(400).json({ message: 'Invalid or expired OTP' });
+        }
+
+        // Update the password
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        user.password = hashedPassword; // Change the password
+        user.otp = null; // Clear the OTP after use
+        user.otpExpires = null; // Clear the OTP expiration
+        await user.save();
+
+        res.status(200).json({ message: 'Password changed successfully' });
+    } catch (error) {
+        console.error('Error verifying OTP:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+
+module.exports = {
+    signup,
+    login,
+    sendOTP,
+    verifyOTP, // Uncomment this if implemented
 };

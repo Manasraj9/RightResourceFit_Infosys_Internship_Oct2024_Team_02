@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'; // Importing icons from react-icons
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
+import axios from 'axios';
 
 const OtpVerification = () => {
-    const [email, setEmail] = useState('');
+    const location = useLocation(); // Get the location object
+    const { email } = location.state || {}; // Extract email from location state
     const [otp, setOtp] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -13,21 +15,21 @@ const OtpVerification = () => {
     const [showNewPassword, setShowNewPassword] = useState(false); // State for new password visibility
     const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for confirm password visibility
 
-    const handleotpverify = async (e) => {
-        e.preventDefault();
-
-        const response = await fetch('http://localhost:1000/otpverify', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, otp, newPassword }),
-        });
-
-        const data = await response.json();
-        setMessage(data.message); // Set the message based on the response
+    const handleotpverify = async (otp) => {
+        try {
+            const response = await axios.post('/verify-otp', { email, otp });
+            if (response.status === 200) {
+                // OTP verified, prompt for new password
+                const newPassword = prompt("Enter your new password:");
+                await axios.post('/change-password', { email, newPassword });
+                alert('Password changed successfully!');
+            }
+        } catch (error) {
+            console.error('Error verifying OTP:', error);
+            alert(error.response.data.message);
+        }
     };
-
+    
     return (
         <div>
             <Navbar />
@@ -40,14 +42,6 @@ const OtpVerification = () => {
                         <h1 className='text-6xl text-[#112d4e] text-center mt-[50px]'>Verify OTP</h1>
                         <div className='ml-[100px] mt-[40px] w-[550px] text-[#112d4e] justify-center'>
                             <form onSubmit={handleotpverify}>
-                                <p className='mb-1'>Enter Email Address</p>
-                                <input
-                                    type="email"
-                                    placeholder="Email Address"
-                                    className="w-full mb-6 p-2 border rounded"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
                                 <p className='mb-1'>Enter OTP</p>
                                 <input
                                     type="text"
@@ -59,12 +53,11 @@ const OtpVerification = () => {
                                 <p className='mb-1'>Enter New Password</p>
                                 <div className="relative w-full mb-6">
                                     <input
-                                        type="text" // Always use type="text"
+                                        type={showNewPassword ? "text" : "password"} // Toggle password visibility
                                         placeholder="New Password"
                                         className="w-full p-2 border rounded"
                                         value={newPassword}
                                         onChange={(e) => setNewPassword(e.target.value)}
-                                        style={{ WebkitTextSecurity: showNewPassword ? 'none' : 'disc' }} // Mask password with dots when not showing
                                     />
                                     <span
                                         onClick={() => setShowNewPassword(!showNewPassword)}
@@ -76,12 +69,11 @@ const OtpVerification = () => {
                                 <p className='mb-1'>Confirm Password</p>
                                 <div className="relative w-full mb-6">
                                     <input
-                                        type="text" // Always use type="text"
+                                        type={showConfirmPassword ? "text" : "password"} // Toggle password visibility
                                         placeholder="Confirm Password"
                                         className="w-full p-2 border rounded"
                                         value={confirmPassword}
                                         onChange={(e) => setConfirmPassword(e.target.value)}
-                                        style={{ WebkitTextSecurity: showConfirmPassword ? 'none' : 'disc' }} // Mask password with dots when not showing
                                     />
                                     <span
                                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
