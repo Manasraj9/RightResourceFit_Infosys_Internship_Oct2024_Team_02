@@ -2,15 +2,18 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
+import { Oval } from 'react-loader-spinner'; // Import loader
+import { toast } from 'react-toastify'; // Import Toastify
+import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS
 
 const Resetpassword = () => {
     const [email, setEmail] = useState('');
-    const [success, setSuccess] = useState('');
-    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false); // State for loader
     const navigate = useNavigate(); // Use useNavigate to programmatically navigate
 
     const handleSendOTP = async (e) => { 
         e.preventDefault();
+        setLoading(true); // Show loader when starting request
         try {
             const response = await fetch('http://localhost:1000/send-otp', {
                 method: 'POST',
@@ -25,20 +28,15 @@ const Resetpassword = () => {
             }
     
             // Handle successful response
-            setSuccess('OTP sent successfully! Check your email.');
-            setError(''); // Clear any existing error
-    
-            // Navigate to the OTP verification page with email
+            toast.success('OTP sent successfully! Check your email.');
             navigate('/Otpverification', { state: { email } }); // Pass email in state
-    
         } catch (error) {
             console.error('Error:', error);
-            setError(`An error occurred: ${error.message}`);
-            setSuccess(''); // Clear any existing success message
+            toast.error(`An error occurred: ${error.message}`);
+        } finally {
+            setLoading(false); // Hide loader after request is complete
         }
     };
-    
-    
 
     return (
         <div>
@@ -47,7 +45,7 @@ const Resetpassword = () => {
                 <div>
                     <img src="/images/Login.svg" alt="page for Login" className="w-[780px] h-[650px] bg-white" />
                 </div>
-                {/* Login Box */}
+                {/* Reset Password Box */}
                 <div className="w-[750px] bg-[#dbe2ef]">
                     <h1 className='text-6xl text-[#112d4e] text-center mt-[100px]'>Reset Password</h1>
                     <div className='ml-[100px] mt-[40px] w-[550px] text-[#112d4e] justify-center'>
@@ -61,12 +59,23 @@ const Resetpassword = () => {
                                 onChange={(e) => setEmail(e.target.value)} // Update state on input change
                                 required
                             />
-                            <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">
-                                Reset
+                            <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded" disabled={loading}>
+                                {loading ? (
+                                    <Oval
+                                        height={20}
+                                        width={20}
+                                        color="#ffffff"
+                                        visible={true}
+                                        ariaLabel='oval-loading'
+                                        secondaryColor="#4fa94d"
+                                        strokeWidth={2}
+                                        strokeWidthSecondary={2}
+                                    />
+                                ) : (
+                                    'Reset'
+                                )}
                             </button>
                         </form>
-                        {success && <p className="text-green-500 text-center mt-2">{success}</p>}
-                        {error && <p className="text-red-500 text-center mt-2">{error}</p>}
                         <div className="mt-2 text-center">
                             <Link to="/Login">
                                 <p className="text-[#112d4e] hover:underline">Back to Login</p>

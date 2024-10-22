@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';  // Importing icons from react-icons
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
+import { toast } from 'react-toastify'; // Import toast
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+    const [showPassword, setShowPassword] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
-    const [isTyping, setIsTyping] = useState(false); // Track if user has started typing in password field
+    const [isTyping, setIsTyping] = useState(false);
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
@@ -21,32 +22,27 @@ const Login = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
             });
-    
+
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.message || 'Login failed. Please check your credentials.');
             }
-    
+
             const data = await response.json();
             console.log('Login Response:', data);
-            
-            // Check if the token is received correctly
+
             if (data.token) {
-                // Save the token to localStorage
                 localStorage.setItem('token', data.token);
-                console.log('Token stored successfully:', data.token);
-                
-                // Navigate to the homepage or desired route
+                toast.success('Login successful!'); // Show success message
                 navigate('/Homepage');
             } else {
-                alert(data.message || 'Unexpected error. Please try again.');
+                toast.error(data.message || 'Unexpected error. Please try again.');
             }
         } catch (error) {
             console.error('Error:', error);
-            alert(`An error occurred: ${error.message}`);
+            toast.error(`An error occurred: ${error.message}`); // Show error message
         }
     };
-    
 
     const handleCheckboxChange = () => {
         setRememberMe(!rememberMe);
@@ -58,7 +54,7 @@ const Login = () => {
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
-        setIsTyping(e.target.value.length > 0); // Set typing state when user types
+        setIsTyping(e.target.value.length > 0);
     };
 
     return (
@@ -68,7 +64,6 @@ const Login = () => {
                 <div>
                     <img src="/images/Login.svg" alt="page for Login" className="w-[780px] h-[650px] bg-white" />
                 </div>
-                {/* Login Box */}
                 <div className="w-[750px] bg-[#dbe2ef]">
                     <h1 className='text-6xl text-[#112d4e] text-center mt-[100px]'>Login</h1>
                     <div className='ml-[100px] mt-[40px] w-[550px] text-[#112d4e] justify-center'>
@@ -84,28 +79,20 @@ const Login = () => {
                             <p className='mb-1'>Enter password</p>
                             <div className="relative w-full mb-5">
                                 <input
-                                    type="text"  // Always use type="text"
+                                    type="text"
                                     placeholder="Password"
                                     className="w-full p-2 border rounded"
-                                    value={password}  // Always use the actual password value
-                                    onChange={handlePasswordChange} // Handle user typing
-                                    style={{ WebkitTextSecurity: showPassword ? 'none' : 'disc' }} // Mask password with dots when not showing
+                                    value={password}
+                                    onChange={handlePasswordChange}
+                                    style={{ WebkitTextSecurity: showPassword ? 'none' : 'disc' }}
                                 />
-                                {/* Eye icon - always visible */}
                                 <span
                                     onClick={togglePasswordVisibility}
                                     className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
                                 >
                                     {isTyping ? (
-                                        showPassword ? (
-                                            // Show AiFillEyeInvisible when password is visible
-                                            <AiFillEyeInvisible size={24} />
-                                        ) : (
-                                            // Show AiFillEye when password is hidden
-                                            <AiFillEye size={24} />
-                                        )
+                                        showPassword ? <AiFillEyeInvisible size={24} /> : <AiFillEye size={24} />
                                     ) : (
-                                        // Default eye icon when no typing
                                         <AiFillEye size={24} />
                                     )}
                                 </span>

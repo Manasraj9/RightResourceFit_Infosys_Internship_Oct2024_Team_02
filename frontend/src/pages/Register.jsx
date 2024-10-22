@@ -3,6 +3,7 @@ import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'; // Importing ico
 import { Link } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
+import { toast } from 'react-toastify'; // Import Toastify
 
 const Register = () => {
     const [selectedOption, setSelectedOption] = useState('jobSeeker');
@@ -11,12 +12,18 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPass, setConfirmPass] = useState('');
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
     const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
     const [showConfirmPassword, setShowConfirmPassword] = useState(false); // Separate state for confirm password visibility
 
-    const handleRegister = async () => {
+    const handleRegister = async (e) => {
+        e.preventDefault(); // Prevent form submission
+
+        // Check if passwords match
+        if (password !== confirmPass) {
+            toast.error('Passwords do not match');
+            return;
+        }
+
         try {
             const response = await fetch('http://localhost:1000/signup', {
                 method: 'POST',
@@ -27,12 +34,14 @@ const Register = () => {
             if (!response.ok) {
                 throw new Error(data.message);
             }
-            console.log(data.message); // Success message
+
+            // Display success toast notification
+            toast.success(data.message || 'Registered successfully!');
         } catch (error) {
             console.error('Signup error:', error.message);
+            toast.error(`Signup failed: ${error.message}`);
         }
     };
-    
     return (
         <div>
             <Navbar />
@@ -68,8 +77,6 @@ const Register = () => {
                                 confirmPass={confirmPass}
                                 setConfirmPass={setConfirmPass} 
                                 handleRegister={handleRegister} 
-                                error={error} 
-                                success={success} 
                                 showPassword={showPassword}
                                 setShowPassword={setShowPassword}
                                 showConfirmPassword={showConfirmPassword}
@@ -86,8 +93,6 @@ const Register = () => {
                                 confirmPass={confirmPass}
                                 setConfirmPass={setConfirmPass} 
                                 handleRegister={handleRegister} 
-                                error={error} 
-                                success={success} 
                                 showPassword={showPassword}
                                 setShowPassword={setShowPassword}
                                 showConfirmPassword={showConfirmPassword}

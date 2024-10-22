@@ -122,11 +122,40 @@ const verifyOTP = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+// Change Password Route
+const changePassword = async (req, res) => {
+    const { email, newPassword } = req.body;
+
+    if (!email || !newPassword) {
+        return res.status(400).json({ message: 'Email and new password are required.' });
+    }
+
+    try {
+        // Find the user by email
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+
+        // Hash the new password
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        // Update the user's password
+        user.password = hashedPassword;
+        await user.save();
+
+        res.status(200).json({ message: 'Password changed successfully.' });
+    } catch (error) {
+        console.error('Error changing password:', error);
+        res.status(500).json({ message: 'Internal server error.' });
+    }
+};
 
 
 module.exports = {
     signup,
     login,
     sendOTP,
-    verifyOTP, // Uncomment this if implemented
+    verifyOTP,
+    changePassword // Uncomment this if implemented
 };

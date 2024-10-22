@@ -1,35 +1,74 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'; // Importing icons from react-icons
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import axios from 'axios';
 
 const OtpVerification = () => {
-    const location = useLocation(); // Get the location object
-    const { email } = location.state || {}; // Extract email from location state
+    const location = useLocation();
+    const navigate = useNavigate();
+    const { email } = location.state || {};
     const [otp, setOtp] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [message, setMessage] = useState('');
-    const [showNewPassword, setShowNewPassword] = useState(false); // State for new password visibility
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for confirm password visibility
+    const [isLoading, setIsLoading] = useState(false);
+    const [showNewPassword, setShowNewPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [passwordsMatch, setPasswordsMatch] = useState(true);
 
-    const handleotpverify = async (otp) => {
+    const handleotpverify = async (e) => {
+        e.preventDefault();
+
+        // Basic validation
+        if (!otp) {
+            toast.error("Please enter the OTP.");
+            return;
+        }
+
+        if (!newPassword || !confirmPassword) {
+            toast.error("Please enter and confirm your new password.");
+            return;
+        }
+
+        if (newPassword !== confirmPassword) {
+            toast.error("Passwords do not match.");
+            return;
+        }
+
+        setIsLoading(true); // Show loading state
+
         try {
-            const response = await axios.post('/verify-otp', { email, otp });
+            // Verify OTP
+            const response = await axios.post('http://localhost:1000/verify-otp', { email, otp });
+
             if (response.status === 200) {
-                // OTP verified, prompt for new password
-                const newPassword = prompt("Enter your new password:");
-                await axios.post('/change-password', { email, newPassword });
-                alert('Password changed successfully!');
+                // Change password if OTP is verified
+                await axios.post('http://localhost:1000/change-password', { email, newPassword });
+                toast.success('Password changed successfully!');
+                navigate('/Login'); // Redirect to login page after successful password change
             }
         } catch (error) {
             console.error('Error verifying OTP:', error);
-            alert(error.response.data.message);
+            const errorMessage = error.response?.data?.message || "Failed to verify OTP.";
+            toast.error(errorMessage);
+        } finally {
+            setIsLoading(false); // Hide loading state
         }
     };
-    
+
+    const handleNewPasswordChange = (e) => {
+        setNewPassword(e.target.value);
+        setPasswordsMatch(e.target.value === confirmPassword); // Check if passwords match
+    };
+
+    const handleConfirmPasswordChange = (e) => {
+        setConfirmPassword(e.target.value);
+        setPasswordsMatch(newPassword === e.target.value); // Check if passwords match
+    };
+
     return (
         <div>
             <Navbar />
@@ -49,15 +88,17 @@ const OtpVerification = () => {
                                     className="w-full mb-6 p-2 border rounded"
                                     value={otp}
                                     onChange={(e) => setOtp(e.target.value)}
+                                    required
                                 />
                                 <p className='mb-1'>Enter New Password</p>
                                 <div className="relative w-full mb-6">
                                     <input
-                                        type={showNewPassword ? "text" : "password"} // Toggle password visibility
+                                        type={showNewPassword ? "text" : "password"}
                                         placeholder="New Password"
                                         className="w-full p-2 border rounded"
                                         value={newPassword}
-                                        onChange={(e) => setNewPassword(e.target.value)}
+                                        onChange={handleNewPasswordChange}
+                                        required
                                     />
                                     <span
                                         onClick={() => setShowNewPassword(!showNewPassword)}
@@ -69,11 +110,12 @@ const OtpVerification = () => {
                                 <p className='mb-1'>Confirm Password</p>
                                 <div className="relative w-full mb-6">
                                     <input
-                                        type={showConfirmPassword ? "text" : "password"} // Toggle password visibility
+                                        type={showConfirmPassword ? "text" : "password"}
                                         placeholder="Confirm Password"
-                                        className="w-full p-2 border rounded"
+                                        className={`w-full p-2 border rounded ${!passwordsMatch && 'border-red-500'}`}
                                         value={confirmPassword}
-                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        onChange={handleConfirmPasswordChange}
+                                        required
                                     />
                                     <span
                                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
@@ -81,11 +123,13 @@ const OtpVerification = () => {
                                     >
                                         {showConfirmPassword ? <AiFillEyeInvisible size={24} /> : <AiFillEye size={24} />}
                                     </span>
+                                    {!passwordsMatch && (
+                                        <p className="text-red-500 text-sm mt-1">Passwords do not match.</p>
+                                    )}
                                 </div>
-                                <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">
-                                    Reset Password
+                                <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded" disabled={isLoading}>
+                                    {isLoading ? "Processing..." : "Reset Password"}
                                 </button>
-                                {message && <p className="mt-2">{message}</p>}
                             </form>
                             <div className="mt-2 text-center">
                                 <Link to="/Login">
