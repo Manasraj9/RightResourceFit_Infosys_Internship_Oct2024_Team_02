@@ -24,7 +24,7 @@ function App() {
         <Route path="/Resetpassword" element={<Resetpassword />} />
         <Route path="/OtpVerification" element={<OtpVerification />} />
         <Route path="/Homepage" element={<Homepage />} />
-        <Route path="/Companyhomepage" element={<Companyhomepage />} />
+        <Route path="/Companypage" element={<Companypage />} />
         <Route path="/Browsecompanies" element={<Browsecompanies />} />
       </Routes>
     </Router>
