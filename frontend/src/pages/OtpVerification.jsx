@@ -21,34 +21,17 @@ const OtpVerification = () => {
 
     const handleotpverify = async (e) => {
         e.preventDefault();
-
-        // Basic validation
-        if (!otp) {
-            toast.error("Please enter the OTP.");
-            return;
-        }
-
-        if (!newPassword || !confirmPassword) {
-            toast.error("Please enter and confirm your new password.");
-            return;
-        }
-
-        if (newPassword !== confirmPassword) {
-            toast.error("Passwords do not match.");
-            return;
-        }
-
         setIsLoading(true); // Show loading state
-
         try {
             // Verify OTP
-            const response = await axios.post('http://localhost:1000/verify-otp', { email, otp });
-
+            const response = await axios.post('http://localhost:1000/verify-otp', { email, otp, newPassword });
+    
             if (response.status === 200) {
-                // Change password if OTP is verified
-                await axios.post('http://localhost:1000/change-password', { email, newPassword });
+                // If OTP is verified and password changed, show success message
                 toast.success('Password changed successfully!');
                 navigate('/Login'); // Redirect to login page after successful password change
+            } else {
+                toast.error('Failed to verify OTP.');
             }
         } catch (error) {
             console.error('Error verifying OTP:', error);
@@ -58,16 +41,19 @@ const OtpVerification = () => {
             setIsLoading(false); // Hide loading state
         }
     };
-
+    
     const handleNewPasswordChange = (e) => {
-        setNewPassword(e.target.value);
-        setPasswordsMatch(e.target.value === confirmPassword); // Check if passwords match
+        const newPass = e.target.value;
+        setNewPassword(newPass);
+        setPasswordsMatch(newPass === confirmPassword); // Check if passwords match
     };
-
+    
     const handleConfirmPasswordChange = (e) => {
-        setConfirmPassword(e.target.value);
-        setPasswordsMatch(newPassword === e.target.value); // Check if passwords match
+        const confirmPass = e.target.value;
+        setConfirmPassword(confirmPass);
+        setPasswordsMatch(newPassword === confirmPass); // Check if passwords match
     };
+    
 
     return (
         <div>

@@ -5,15 +5,14 @@ const {
     signup,
     login,
     sendOTP,
-    verifyOTP,
-    changePassword // Uncomment this if you implement the verifyOTP function
+    verifyOTP,// Uncomment this if you implement the verifyOTP function
 } = require('../controllers/authController');
 
 router.post('/signup', signup);
 router.post('/login', login);
 router.post('/send-otp', sendOTP);
 router.post('/verify-otp', verifyOTP); 
-router.post('/change-password',changePassword ); 
+// router.post('/change-password',changePassword ); 
 
 module.exports = router;
 

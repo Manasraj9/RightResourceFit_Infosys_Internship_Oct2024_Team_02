@@ -10,7 +10,7 @@ const SecondaryNavbar = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: 'white' }}> {/* Set background color to white */}
+    <AppBar className="max-w-[1295px]" position="static" sx={{ backgroundColor: 'white' }}> {/* Set background color to white */}
       <Toolbar className="flex justify-between">
         <Typography variant="h6" sx={{ color: 'black' }}> {/* Set text color to black */}
           Good Morning, [Your Name] {/* Replace with dynamic name if needed */}
@@ -20,6 +20,7 @@ const SecondaryNavbar = () => {
         </IconButton>
       </Toolbar>
     </AppBar>
+
   );
 };
 

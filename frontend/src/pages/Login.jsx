@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
@@ -12,10 +12,30 @@ const Login = () => {
     const [rememberMe, setRememberMe] = useState(false);
     const [isTyping, setIsTyping] = useState(false);
     const navigate = useNavigate();
+    const SESSION_TIMEOUT = 1 * 60 * 1000;
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const loginTime = localStorage.getItem('loginTime');
+
+        if (token && loginTime) {
+            const currentTime = new Date().getTime();
+            const elapsedTime = currentTime - loginTime;
+
+            // Check if the session has expired
+            if (elapsedTime < SESSION_TIMEOUT) {
+                // If the session is still valid, redirect to the Homepage
+                navigate('/Homepage', { replace: true });
+            } else {
+                // Session expired, clear token and login time
+                localStorage.removeItem('token');
+                localStorage.removeItem('loginTime');
+            }
+        }
+    }, [navigate]);
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        
+
         try {
             const response = await fetch('http://localhost:1000/login', {
                 method: 'POST',
@@ -29,20 +49,21 @@ const Login = () => {
             }
 
             const data = await response.json();
-            console.log('Login Response:', data);
 
             if (data.token) {
                 localStorage.setItem('token', data.token);
-                toast.success('Login successful!'); // Show success message
+                localStorage.setItem('loginTime', new Date().getTime());
+                toast.success('Login successful!');
                 navigate('/Homepage');
             } else {
                 toast.error(data.message || 'Unexpected error. Please try again.');
             }
         } catch (error) {
             console.error('Error:', error);
-            toast.error(`An error occurred: ${error.message}`); // Show error message
+            toast.error(`An error occurred: ${error.message}`);
         }
     };
+    
 
     const handleCheckboxChange = () => {
         setRememberMe(!rememberMe);
@@ -55,7 +76,7 @@ const Login = () => {
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
         setIsTyping(e.target.value.length > 0);
-    };
+    }; 
 
     return (
         <div>

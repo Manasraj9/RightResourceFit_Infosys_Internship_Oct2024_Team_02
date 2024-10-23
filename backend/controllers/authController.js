@@ -94,62 +94,43 @@ const sendOTP = async (req, res) => {
     }
 };
 
-// Verify OTP function
 const verifyOTP = async (req, res) => {
     const { email, otp, newPassword } = req.body;
 
-    try {
-        const user = await User.findOne({ email });
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        // Check if the OTP is valid
-        if (user.otp !== otp || Date.now() > user.otpExpires) {
-            return res.status(400).json({ message: 'Invalid or expired OTP' });
-        }
-
-        // Update the password
-        const hashedPassword = await bcrypt.hash(newPassword, 10);
-        user.password = hashedPassword; // Change the password
-        user.otp = null; // Clear the OTP after use
-        user.otpExpires = null; // Clear the OTP expiration
-        await user.save();
-
-        res.status(200).json({ message: 'Password changed successfully' });
-    } catch (error) {
-        console.error('Error verifying OTP:', error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-};
-// Change Password Route
-const changePassword = async (req, res) => {
-    const { email, newPassword } = req.body;
-
-    if (!email || !newPassword) {
-        return res.status(400).json({ message: 'Email and new password are required.' });
+    // Validate input
+    if (!email || !otp || !newPassword) {
+        return res.status(400).json({ message: 'Email, OTP, and new password are required.' });
     }
 
     try {
         // Find the user by email
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(404).json({ message: 'User not found.' });
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Check if the OTP matches and if it's not expired
+        if (user.otp !== otp || Date.now() > user.otpExpires) {
+            return res.status(400).json({ message: 'Invalid or expired OTP' });
         }
 
         // Hash the new password
         const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-        // Update the user's password
+        // Update the user's password, clear OTP, and expiration
         user.password = hashedPassword;
+        user.otp = null;
+        user.otpExpires = null;
         await user.save();
 
-        res.status(200).json({ message: 'Password changed successfully.' });
+        // Send success response
+        res.status(200).json({ message: 'Password changed successfully' });
     } catch (error) {
-        console.error('Error changing password:', error);
-        res.status(500).json({ message: 'Internal server error.' });
+        console.error('Error verifying OTP:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 };
+
 
 
 module.exports = {
@@ -157,5 +138,5 @@ module.exports = {
     login,
     sendOTP,
     verifyOTP,
-    changePassword // Uncomment this if implemented
+    // changePassword, // Uncomment this if implemented
 };

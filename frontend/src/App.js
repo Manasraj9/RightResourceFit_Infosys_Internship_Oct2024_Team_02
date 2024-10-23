@@ -11,6 +11,7 @@ import OtpVerification from "./pages/OtpVerification";
 import Homepage from "./pages/Homepage";
 import Companyhomepage from "./pages/Companyhomepage";
 import Browsecompanies from "./pages/Browsecompanies";
+import Companypage from "./pages/Companypage";
 
 function App() {
   return (

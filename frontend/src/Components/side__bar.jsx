@@ -1,4 +1,3 @@
-// Sidebar.js
 import React from 'react';
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, Divider } from '@mui/material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -13,21 +12,23 @@ import HelpIcon from '@mui/icons-material/Help';
 const Sidebar = () => {
   return (
     <Drawer
-      variant="permanent" // Change to "temporary" if you want it to be responsive
+      variant="permanent"
       anchor="left"
       sx={{
         width: 240,
         flexShrink: 0,
+        position: 'fixed',
+        top: '64px', // Assuming the Navbar height is 64px
+        height: 'calc(100% - 200px)', // Full height minus Navbar
         [`& .MuiDrawer-paper`]: {
           width: 240,
-          height: '100vh', // Full height of the viewport
-          top: '64px', // Adjust this if you have a navbar
           boxSizing: 'border-box',
+          height: '100%',
+          overflowY: 'auto', // Make sidebar scrollable
         },
       }}
     >
       <List>
-        {/* Main sidebar items */}
         {[
           { text: 'Dashboard', icon: <DashboardIcon /> },
           { text: 'Messages', icon: <MessageIcon /> },
@@ -36,7 +37,7 @@ const Sidebar = () => {
           { text: 'Job Listing', icon: <WorkIcon /> },
           { text: 'My Schedule', icon: <ScheduleIcon /> },
         ].map((item) => (
-          <ListItem button key={item.text} component="a" href={`/${item.text.replace(/\s+/g, '-').toLowerCase()}`}> {/* Adjust link for navigation */}
+          <ListItem button key={item.text} component="a" href={`/${item.text.replace(/\s+/g, '-').toLowerCase()}`}>
             <ListItemIcon>{item.icon}</ListItemIcon>
             <ListItemText primary={item.text} />
           </ListItem>
@@ -44,7 +45,6 @@ const Sidebar = () => {
       </List>
       <Divider />
       <List>
-        {/* Additional sidebar items */}
         {[
           { text: 'Settings', icon: <SettingsIcon /> },
           { text: 'Help Center', icon: <HelpIcon /> },
