@@ -1,0 +1,130 @@
+/* JobseekerPage.css */
+
+.searchbox-container {
+    background-color: white;
+    height: 65px;
+    width: 1360px;
+    align-items: center;
+    justify-content: center;
+}   
+ul {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    list-style-type: none; 
+}
+li {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+}
+.input-field {
+    width: 300px; 
+    padding: 10px; 
+    border-radius: 5px;
+    margin-left: 40px;
+}
+.box01 {
+    margin-left: -15px;
+}
+.icon-search {
+    height: 30px;
+    width: 30px;
+    margin-top: 5px;
+    margin-right: 310px;
+}
+.icon-location {
+    height: 30px;
+    width: 30px;
+    margin-top: 5px;
+    margin-right: 250px;
+}
+.icon-skills {
+    height: 30px;
+    width: 30px;
+    margin-top: 5px;
+    margin-right: 250px;
+}
+.searchbutton {
+    width: 100px;
+    height: 40px; 
+    border-radius: 5px; 
+    background-color: #3f72af; 
+    color: white; 
+    border: none;
+    cursor: pointer; 
+    margin-left: 25px;
+}
+.custom-clear {
+    margin-left: 87%;
+    font-size: 20px;
+}
+.custom-filter {
+    font-size: 30px;
+    margin-left: 220px;
+}
+.custom-alljobs {
+    font-size: 30px;
+    margin-right: 390px;
+}
+.minfield {
+    height: 30px;
+    width: 30%;
+    padding: 5px;
+    border: 1px solid #d1d5db;
+}
+.maxfield {
+    height: 30px;
+    width: 30%;
+    padding: 5px;
+    border: 1px solid #d1d5db;
+}
+.custom-bookmark {
+    margin-left: 95%;
+    margin-top: -23px;
+}
+.job-typebtn {
+    height: 30px;
+    width: 100px;
+    cursor: pointer;
+    border: none;
+    color: black;
+    background-color: #6A9DD9;
+    border-radius: 2px;
+    text-align: center;
+    font-size: 18px;
+}
+.custom-salary {
+    margin-left: 28%;
+    margin-top: -28px;
+}
+.custom-title2 {
+    margin-left: 26%;
+    margin-top: -70px;
+}
+.custom-loc {
+    margin-top: -22px;
+    margin-left: 120px;
+}
+.view-button {
+    height: 40px;
+    width: 150px;
+    cursor: pointer;
+    border: 1px solid #3f72af;
+    color: #303030;
+    background-color: white;
+    border-radius: 2px;
+    text-align: center;
+    font-size: 18px;
+}
+.apply-button {
+    height: 40px;
+    width: 150px;
+    cursor: pointer;
+    border: none;
+    color: white;
+    background-color: #3f72af;
+    border-radius: 2px;
+    text-align: center;
+    font-size: 18px;
+}
