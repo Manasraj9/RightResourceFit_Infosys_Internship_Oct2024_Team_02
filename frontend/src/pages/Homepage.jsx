@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../Components/NavbarHome'
 import Footer from '../Components/Footer'
 import backgroundImage from '../images/homebgimg.png'
@@ -9,6 +10,16 @@ import jobStatusimg from '../images/jobstatusview.png'
 
 
 const HomePage = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const loginTime = localStorage.getItem('loginTime');
+
+        if (!token || !loginTime) {
+            navigate('/', { replace: true }); // Redirect to login page
+        }
+    }, [navigate]);
     return (
         <div>
             <Navbar />

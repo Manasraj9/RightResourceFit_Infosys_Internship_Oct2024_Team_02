@@ -11,6 +11,7 @@ import OtpVerification from "./pages/OtpVerification";
 import Homepage from "./pages/Homepage";
 import Companyhomepage from "./pages/Companyhomepage";
 import Browsecompanies from "./pages/Browsecompanies";
+import Companypage from "./pages/Companypage";
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
         <Route path="/Resetpassword" element={<Resetpassword />} />
         <Route path="/OtpVerification" element={<OtpVerification />} />
         <Route path="/Homepage" element={<Homepage />} />
-        <Route path="/Companyhomepage" element={<Companyhomepage />} />
+        <Route path="/Companypage" element={<Companypage />} />
         <Route path="/Browsecompanies" element={<Browsecompanies />} />
       </Routes>
     </Router>

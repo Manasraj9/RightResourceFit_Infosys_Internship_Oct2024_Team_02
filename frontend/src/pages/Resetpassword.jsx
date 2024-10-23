@@ -11,7 +11,7 @@ const Resetpassword = () => {
     const [loading, setLoading] = useState(false); // State for loader
     const navigate = useNavigate(); // Use useNavigate to programmatically navigate
 
-    const handleSendOTP = async (e) => { 
+    const handleSendOTP = async (e) => {
         e.preventDefault();
         setLoading(true); // Show loader when starting request
         try {
@@ -20,13 +20,13 @@ const Resetpassword = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email }), // Use the email from state
             });
-    
+
             // Check if the response was successful
             if (!response.ok) {
                 const errorData = await response.json(); // Fetch error details if available
                 throw new Error(errorData.message || 'Failed to send OTP.');
             }
-    
+
             // Handle successful response
             toast.success('OTP sent successfully! Check your email.');
             navigate('/Otpverification', { state: { email } }); // Pass email in state
@@ -59,22 +59,29 @@ const Resetpassword = () => {
                                 onChange={(e) => setEmail(e.target.value)} // Update state on input change
                                 required
                             />
-                            <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded" disabled={loading}>
+                            <button
+                                type="submit"
+                                className="w-full bg-blue-500 text-white p-2 rounded flex justify-center items-center"
+                                disabled={loading}
+                            >
                                 {loading ? (
-                                    <Oval
-                                        height={20}
-                                        width={20}
-                                        color="#ffffff"
-                                        visible={true}
-                                        ariaLabel='oval-loading'
-                                        secondaryColor="#4fa94d"
-                                        strokeWidth={2}
-                                        strokeWidthSecondary={2}
-                                    />
+                                    <div>
+                                        <Oval
+                                            height={20}
+                                            width={20}
+                                            color="#ffffff"
+                                            visible={true}
+                                            ariaLabel="oval-loading"
+                                            secondaryColor="#4fa94d"
+                                            strokeWidth={2}
+                                            strokeWidthSecondary={2}
+                                        />
+                                    </div>
                                 ) : (
                                     'Reset'
                                 )}
                             </button>
+
                         </form>
                         <div className="mt-2 text-center">
                             <Link to="/Login">
