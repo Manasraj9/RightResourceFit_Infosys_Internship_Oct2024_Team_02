@@ -6,44 +6,60 @@
     width: 1360px;
     align-items: center;
     justify-content: center;
-}   
-ul {
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    list-style-type: none; 
+}  
+.inputfield1 {
+    width: 300px; 
+    padding: 10px; 
+    border-radius: 5px;
+    margin-left: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 5px; 
+    height: 40px; 
+    padding-left: 10px; 
+    width: 250px;
+    color: black;
 }
-li {
-    display: flex; 
-    flex-direction: column; 
-    align-items: center;
-}
-.input-field {
+.inputfield2 {
     width: 300px; 
     padding: 10px; 
     border-radius: 5px;
     margin-left: 40px;
+    border: 1px solid #d1d5db;
+    border-radius: 5px; 
+    height: 40px; 
+    padding-left: 10px; 
+    width: 250px;
+    color: black;
 }
-.box01 {
-    margin-left: -15px;
+.inputfield3 {
+    width: 300px; 
+    padding: 10px; 
+    border-radius: 5px;
+    margin-left: 40px;
+    border: 1px solid #d1d5db;
+    border-radius: 5px; 
+    height: 40px; 
+    padding-left: 10px; 
+    width: 250px;
+    color: black;
 }
 .icon-search {
     height: 30px;
     width: 30px;
-    margin-top: 5px;
-    margin-right: 310px;
+    margin-top: 7px;
+    margin-right: 270px;
 }
 .icon-location {
     height: 30px;
     width: 30px;
-    margin-top: 5px;
-    margin-right: 250px;
+    margin-top: 7px;
+    margin-right: 240px;
 }
 .icon-skills {
     height: 30px;
     width: 30px;
-    margin-top: 5px;
-    margin-right: 250px;
+    margin-top: 7px;
+    margin-right: 240px;
 }
 .searchbutton {
     width: 100px;
@@ -53,35 +69,36 @@ li {
     color: white; 
     border: none;
     cursor: pointer; 
-    margin-left: 25px;
+    margin-left: 20px;
+}
+.clearbutton {
+    width: 100px;
+    height: 40px; 
+    border-radius: 5px; 
+    background-color: #3f72af; 
+    color: white; 
+    border: none;
+    cursor: pointer; 
+    margin-left: 40px;
 }
 .custom-clear {
-    margin-left: 87%;
-    font-size: 20px;
-}
-.custom-filter {
-    font-size: 30px;
-    margin-left: 220px;
-}
-.custom-alljobs {
-    font-size: 30px;
-    margin-right: 390px;
+    margin-left: -20px;
 }
 .minfield {
-    height: 30px;
-    width: 30%;
+    height: 40px;
+    width: 40%;
     padding: 5px;
     border: 1px solid #d1d5db;
 }
 .maxfield {
-    height: 30px;
-    width: 30%;
+    height: 40px;
+    width: 40%;
     padding: 5px;
     border: 1px solid #d1d5db;
 }
 .custom-bookmark {
     margin-left: 95%;
-    margin-top: -23px;
+    margin-top: -25px;
 }
 .job-typebtn {
     height: 30px;
@@ -97,14 +114,17 @@ li {
 .custom-salary {
     margin-left: 28%;
     margin-top: -28px;
+    font-size: 18px;
 }
 .custom-title2 {
     margin-left: 26%;
     margin-top: -70px;
+    font-size: 18px;
 }
 .custom-loc {
     margin-top: -22px;
     margin-left: 120px;
+    font-size: 18px;
 }
 .view-button {
     height: 40px;

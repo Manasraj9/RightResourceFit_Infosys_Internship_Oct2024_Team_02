@@ -45,19 +45,19 @@ const LandingPage = () => {
                 <div className='search-container'>
                     <ul className='flex gap-5 text-white items-center'> {/* Changed justify-left to items-center for vertical alignment */}
                         <li className="relative"> {/* Added relative position for positioning the icon */}
-                            <img src={searchIcon} alt="Search Icon" className='absolute left-5 top-1/2 transform -translate-y-1/2 w-5 h-5' />
+                            <img src={searchIcon} alt="Search Icon" className='absolute searchicon top-1/2 transform -translate-y-1/2 w-5 h-5' />
                             <input
                                 type='text'
                                 placeholder='Job title & keyword'
-                                className='input-field py-1 rounded' // Added padding to avoid text overlap with the icon
+                                className='input-field01 py-1 rounded' // Added padding to avoid text overlap with the icon
                             />
                         </li>
                         <li className="relative"> {/* Added relative position for positioning the icon */}
-                            <img src={locationIcon} alt="Location Icon" className='absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5' />
+                            <img src={locationIcon} alt="Location Icon" className='absolute locationicon left-3 top-1/2 transform -translate-y-1/2 w-5 h-5' />
                             <input
                                 type='text'
                                 placeholder='Florence, Italy'
-                                className='input-field2 pl-10 py-1 rounded' // Added padding to avoid text overlap with the icon
+                                className='input-field02 pl-10 py-1 rounded' // Added padding to avoid text overlap with the icon
                             />
                         </li>
                         <li>

@@ -72,24 +72,34 @@ const Browsecompanies = () => {
                 </div><br />
                 <div className='text-[#515B6F] text-center'>Find the dream companies you dream work for</div><br />
 
-                <div className='flex justify-center items-center'>
-                    <div className='search-container2 justify-center'>
-                        <ul className='flex gap-10 text-white justify-center items-center'>
-                            <li className='relative'>     
-                                <img src={searchIcon} alt="Search Icon" className='icon icon-search1 top-2 absolute' />
-                                <input type='text' placeholder='Company name & keyword' className='input-field box1 pl-10' ></input>
-                            </li>
-                            <li className='relative'>
-                                <img src={locationIcon} alt="Location Icon" className='icon icon-search2 top-2 absolute' />   
-                                <input type='text' placeholder='Florence, Italy' className='input-field2 box2 pl-10'></input>
-                            </li>
-                            <li className='relative'>
-                                <Link to="/searchjob">
-                                <button className='search-button2'>Search my job</button>
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
+                <div className='searchbox-container2 ml-36 mr-36'>
+                    <ul className='flex gap-5 text-white items-center'> {/* Changed justify-left to items-center for vertical alignment */}
+                        <li className="relative"> {/* Added relative position for positioning the icon */}
+                            <img src={searchIcon} alt="Search Icon" className='absolute icon-search1 top-1/2 transform -translate-y-1/2 w-8 h-8' />
+                            <input
+                                type='text'
+                                placeholder='Job title & keyword'
+                                style={{ position: 'relative', left: '120px' }}
+                                className='searchbox1 py-1 rounded' // Added padding to avoid text overlap with the icon
+                            />
+                        </li>
+                        <li className="relative"> {/* Added relative position for positioning the icon */}
+                            <img src={locationIcon} alt="Location Icon" className='absolute icon-search2 top-1/2 transform -translate-y-1/2 w-8 h-8' />
+                            <input
+                                type='text'
+                                placeholder='Florence, Italy'
+                                style={{ position: 'relative', left: '380px' }}
+                                className='searchbox2 pl-10 py-1 rounded' // Added padding to avoid text overlap with the icon
+                            />
+                        </li>
+                        <li>
+                            <Link to="/searchjob">
+                                <button className='bg-[#3f72af] flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af] py-1 rounded px-2.5 jobsearch-button'> {/* Changed nline-flex to flex for proper alignment */}
+                                    Search
+                                </button>
+                            </Link>
+                        </li>
+                    </ul>
                 </div><br />
                 <div className='text-[#515B6F] ml-36'>Popular : Twitter, Microsoft, Apple, Facebook</div><br /><br />
 
