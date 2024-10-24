@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../Components/NavbarHome'
+import NavbarCompany from '../Components/NavbarCompany'
 import Footer from '../Components/Footer'
 import backgroundImage from '../images/homebgimg.png'
 import jobPoster from '../images/jobposter.png'
@@ -8,32 +8,28 @@ import './Companyhomepage.css'
 import jobStatusimg from '../images/jobstatusview.png'
 
 
-const companyhomepage = () => {
+const Companyhomepage = () => {
     return (
         <div>
-            <Navbar />
-            {/* Browse company and search job */}
+            <NavbarCompany />
+            {/* Post a job */}
             <div className='homepage-container' 
                 style={{ 
                     backgroundImage: `url(${backgroundImage})`, 
                     backgroundSize: 'cover', 
                     backgroundPosition: 'center' 
                 }}><br />
-                <div className='text-[white] text-3xl font-bold text-center underline'>FIND YOUR DREAM JOB NOW</div><br />
+                <div className='text-[white] text-3xl font-bold text-center underline'>NOW JOB POSTING MADE EASY</div><br />
                 <div className='text-[white] text-2xl font-bold text-center'>Right Resource Fit connects talented job seekers with top employers.<br />Explore 5000+ job opportunities 
                     and find your perfect match.<br />Whether you're hiring or seeking, we help you achieve success!</div><br />
                 <div>
                     <ul className='flex gap-3 text-white justify-center'>
                         <li>
                             <Link to="/Searchjob">
-                                <button className='bg-[#3f72af] inline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af] py-2 rounded px-3.5'>Job Search</button>
+                                <button className='bg-[#3f72af] inline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af] py-2 rounded px-3.5'>Starting Posting a Job</button>
                             </Link>
                         </li>
-                        <li>
-                            <Link to="/Browsecompanies">
-                                <button className='bg-[#3f72af] nline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af]  py-2 rounded px-3.5'>Browse Companies</button>
-                            </Link>
-                        </li>
+                        
                     </ul>
                 </div><br /><br />
 
@@ -78,4 +74,4 @@ const companyhomepage = () => {
     );
 };
 
-export default companyhomepage;
+export default Companyhomepage;

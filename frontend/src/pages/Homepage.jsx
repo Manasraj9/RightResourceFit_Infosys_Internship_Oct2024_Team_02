@@ -36,7 +36,7 @@ const HomePage = () => {
                 <div>
                     <ul className='flex gap-3 text-white justify-center'>
                         <li>
-                            <Link to="/Searchjob">
+                            <Link to="/Jobseekerpage">
                                 <button className='bg-[#3f72af] inline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af] py-2 rounded px-3.5'>Job Search</button>
                             </Link>
                         </li>

@@ -43,22 +43,33 @@ const LandingPage = () => {
                 </div><br />
                 <div className='text-[#515B6F]'>Great platform for the job seeker that searching for<br />new career heights and passionate about startups.</div>
                 <div className='search-container'>
-                    <ul className='flex gap-2 text-white justify-left'>
-                        <li>     
-                            <img src={searchIcon} alt="Search Icon" className='absolute left-14 top-1/2 transform -translate-y-1/2 w-5 h-5' />
-                            <input type='text' placeholder='job title & keyword' className='input-field nline-flex items-center gap-0.5' ></input>
+                    <ul className='flex gap-5 text-white items-center'> {/* Changed justify-left to items-center for vertical alignment */}
+                        <li className="relative"> {/* Added relative position for positioning the icon */}
+                            <img src={searchIcon} alt="Search Icon" className='absolute left-5 top-1/2 transform -translate-y-1/2 w-5 h-5' />
+                            <input
+                                type='text'
+                                placeholder='Job title & keyword'
+                                className='input-field py-1 rounded' // Added padding to avoid text overlap with the icon
+                            />
                         </li>
-                        <li>
-                            <img src={locationIcon} alt="Location Icon" className='absolute custom-left top-1/2 transform -translate-y-1/2 w-5 h-5' />   
-                            <input type='text' placeholder='Florence, Italy' className='input-field2 nline-flex items-center gap-0.5'></input>
+                        <li className="relative"> {/* Added relative position for positioning the icon */}
+                            <img src={locationIcon} alt="Location Icon" className='absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5' />
+                            <input
+                                type='text'
+                                placeholder='Florence, Italy'
+                                className='input-field2 pl-10 py-1 rounded' // Added padding to avoid text overlap with the icon
+                            />
                         </li>
                         <li>
                             <Link to="/searchjob">
-                            <button className='bg-[#3f72af] nline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af]  py-1 rounded px-2.5 search-button'>Search my job</button>
+                                <button className='bg-[#3f72af] flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af] py-1 rounded px-2.5 search-button'> {/* Changed nline-flex to flex for proper alignment */}
+                                    Search
+                                </button>
                             </Link>
                         </li>
                     </ul>
-                </div><br />
+                </div>
+                <br />
                 <div className='text-[#515B6F]'>Popular : UI Designer, UX Researcher, Android, Admin</div><br /><br />
                 <div className='flex justify-between items-center'>
                     <div className='text-[#112d4e] custom-font2 text-3xl'>

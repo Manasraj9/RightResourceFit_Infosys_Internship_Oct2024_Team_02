@@ -144,9 +144,9 @@ const JobseekerPage = () => {
                     <Link className='text-[#808080] custom-clear'>clear all</Link>
                 </div><br />
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div className='flex gap-[240px]'>
                     <div className='custom-filter font-bold'>Filters</div>
-                    <div className='custom-alljobs font-bold'>All Jobs(2310)</div>
+                    <div className='custom-alljobs font-bold'>All Jobs</div>
                 </div>
 
                 <div>

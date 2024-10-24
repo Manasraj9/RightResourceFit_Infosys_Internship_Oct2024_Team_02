@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'
-import NotificationImage from '../images/notification.png'
+import { Link } from 'react-router-dom';
+import NotificationImage from '../images/notification.png';
 
-const NavbarHome = () => {
+const NavbarCompany = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false); // State to manage dropdown visibility
 
     // Handlers to open/close the dropdown
@@ -43,7 +43,7 @@ const NavbarHome = () => {
                         <ul className='flex gap-3 text-white'>
                             <li>
                                 <Link to="/PostJobs">
-                                    <button className='bg-[#3f72af] inline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af] py-1 rounded px-2.5'>Jobs</button>
+                                    <button className='bg-[#3f72af] inline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af] py-1 rounded px-2.5'>Post a Job</button>
                                 </Link>
                             </li>
                             <li>
@@ -92,4 +92,4 @@ const NavbarHome = () => {
     );
 }
 
-export default NavbarHome
+export default NavbarCompany;

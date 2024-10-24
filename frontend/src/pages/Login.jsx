@@ -12,49 +12,74 @@ const Login = () => {
     const [rememberMe, setRememberMe] = useState(false);
     const [isTyping, setIsTyping] = useState(false);
     const navigate = useNavigate();
-    const SESSION_TIMEOUT = 1 * 60 * 1000;
+    
     useEffect(() => {
         const token = localStorage.getItem('token');
         const loginTime = localStorage.getItem('loginTime');
-
+        const userType = localStorage.getItem('userType'); // Read userType from localStorage
+        const SESSION_TIMEOUT = 1 * 60 * 1000; // 1 minute session timeout
+    
         if (token && loginTime) {
             const currentTime = new Date().getTime();
             const elapsedTime = currentTime - loginTime;
-
+    
             // Check if the session has expired
             if (elapsedTime < SESSION_TIMEOUT) {
-                // If the session is still valid, redirect to the Homepage
-                navigate('/Homepage', { replace: true });
+                // Logging for debugging
+                console.log("Session valid. User Type:", userType);
+    
+                // Redirect based on userType
+                if (userType === 'company') {
+                    navigate('/Companyhomepage', { replace: true });
+                } else if (userType === 'jobSeeker') {
+                    navigate('/Homepage', { replace: true });
+                } else {
+                    navigate('/'); // Fallback in case userType is not defined
+                }
             } else {
                 // Session expired, clear token and login time
                 localStorage.removeItem('token');
                 localStorage.removeItem('loginTime');
+                localStorage.removeItem('userType'); // Clear user type on session expiry
             }
         }
     }, [navigate]);
+    
+    
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
+    
         try {
             const response = await fetch('http://localhost:1000/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
             });
-
+    
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.message || 'Login failed. Please check your credentials.');
             }
-
+    
             const data = await response.json();
-
+            console.log(data); // Log response data
+    
             if (data.token) {
                 localStorage.setItem('token', data.token);
+                localStorage.setItem('userType', data.userType); // Save userType to localStorage
+                console.log("User Type set in localStorage:", data.userType); // Check stored userType
                 localStorage.setItem('loginTime', new Date().getTime());
                 toast.success('Login successful!');
-                navigate('/Homepage');
+    
+                // Redirect based on userType
+                if (data.userType === 'jobSeeker') {
+                    navigate('/Homepage');
+                } else if (data.userType === 'company') {
+                    navigate('/Companyhomepage');
+                } else {
+                    navigate('/'); // Fallback in case userType is not defined
+                }
             } else {
                 toast.error(data.message || 'Unexpected error. Please try again.');
             }
@@ -63,6 +88,9 @@ const Login = () => {
             toast.error(`An error occurred: ${error.message}`);
         }
     };
+    
+
+    
     
 
     const handleCheckboxChange = () => {

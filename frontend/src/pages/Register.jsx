@@ -15,6 +15,12 @@ const Register = () => {
     const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
     const [showConfirmPassword, setShowConfirmPassword] = useState(false); // Separate state for confirm password visibility
 
+    // Update userType when selecting Job Seeker or Company
+    const handleOptionChange = (option) => {
+        setSelectedOption(option);
+        setUserType(option);
+    };
+
     const handleRegister = async (e) => {
         e.preventDefault(); // Prevent form submission
 
@@ -42,6 +48,7 @@ const Register = () => {
             toast.error(`Signup failed: ${error.message}`);
         }
     };
+
     return (
         <div>
             <Navbar />
@@ -52,13 +59,13 @@ const Register = () => {
                 <div className='w-[750px] bg-[#dbe2ef] text-[#112d4e]'>
                     <div className='flex justify-center pt-8'>
                         <div
-                            onClick={() => setSelectedOption('jobSeeker')}
+                            onClick={() => handleOptionChange('jobSeeker')}
                             className={`h-10 px-3 py-[7px] ${selectedOption === 'jobSeeker' ? 'bg-white' : 'bg-[#dbe2ef]'} cursor-pointer justify-center items-center gap-2.5 inline-flex`}
                         >
                             <div className={`text-base font-semibold font-['Epilogue'] leading-relaxed ${selectedOption === 'jobSeeker' ? 'text-[#3f72af]' : 'text-gray-500'}`}>Job Seeker</div>
                         </div>
                         <div
-                            onClick={() => setSelectedOption('company')}
+                            onClick={() => handleOptionChange('company')}
                             className={`h-10 px-3 py-[7px] ${selectedOption === 'company' ? 'bg-white' : 'bg-[#dbe2ef]'} cursor-pointer justify-center items-center gap-2.5 inline-flex`}
                         >
                             <div className={`text-base font-semibold font-['Epilogue'] leading-relaxed ${selectedOption === 'company' ? 'text-[#3f72af]' : 'text-gray-500'}`}>Company</div>
@@ -106,6 +113,7 @@ const Register = () => {
         </div>
     );
 };
+
 
 // Job Seeker Form Component
 const JobSeekerForm = ({ name, email, password, confirmPass, setName, setEmail, setPassword, setConfirmPass, handleRegister, error, success, showPassword, setShowPassword, showConfirmPassword, setShowConfirmPassword }) => {
