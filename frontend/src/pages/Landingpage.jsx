@@ -49,6 +49,7 @@ const LandingPage = () => {
                             <input
                                 type='text'
                                 placeholder='Job title & keyword'
+                                style={{ position: 'relative', left: '55px' }}
                                 className='input-field01 py-1 rounded' // Added padding to avoid text overlap with the icon
                             />
                         </li>
@@ -57,12 +58,13 @@ const LandingPage = () => {
                             <input
                                 type='text'
                                 placeholder='Florence, Italy'
+                                style={{ position: 'relative', left: '100px' }}
                                 className='input-field02 pl-10 py-1 rounded' // Added padding to avoid text overlap with the icon
                             />
                         </li>
                         <li>
                             <Link to="/searchjob">
-                                <button className='bg-[#3f72af] flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af] py-1 rounded px-2.5 search-button'> {/* Changed nline-flex to flex for proper alignment */}
+                                <button className='bg-[#3f72af] flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af] py-1 rounded px-2.5 jobsearchbtn'> {/* Changed nline-flex to flex for proper alignment */}
                                     Search
                                 </button>
                             </Link>

@@ -79,8 +79,8 @@ const Browsecompanies = () => {
                             <input
                                 type='text'
                                 placeholder='Job title & keyword'
-                                style={{ position: 'relative', left: '120px' }}
-                                className='searchbox1 py-1 rounded' // Added padding to avoid text overlap with the icon
+                                style={{ position: 'relative', left: '20px' }}
+                                className='searchbox01 py-1 rounded' // Added padding to avoid text overlap with the icon
                             />
                         </li>
                         <li className="relative"> {/* Added relative position for positioning the icon */}
@@ -88,8 +88,8 @@ const Browsecompanies = () => {
                             <input
                                 type='text'
                                 placeholder='Florence, Italy'
-                                style={{ position: 'relative', left: '380px' }}
-                                className='searchbox2 pl-10 py-1 rounded' // Added padding to avoid text overlap with the icon
+                                style={{ position: 'relative', left: '280px' }}
+                                className='searchbox02 pl-10 py-1 rounded' // Added padding to avoid text overlap with the icon
                             />
                         </li>
                         <li>
