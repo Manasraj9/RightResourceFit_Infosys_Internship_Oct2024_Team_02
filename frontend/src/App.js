@@ -10,6 +10,7 @@ import Resetpassword from "./pages/Resetpassword";
 import OtpVerification from "./pages/OtpVerification";
 import Homepage from "./pages/Homepage";
 import Companyhomepage from "./pages/Companyhomepage";
+import Jobseekerpage from "./pages/Jobseekerpage";
 import Browsecompanies from "./pages/Browsecompanies";
 import Companypage from "./pages/Companypage";
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/Resetpassword" element={<Resetpassword />} />
         <Route path="/OtpVerification" element={<OtpVerification />} />
         <Route path="/Homepage" element={<Homepage />} />
+        <Route path="/Jobseekerpage" element={<Jobseekerpage />} />
         <Route path="/Companypage" element={<Companypage />} />
         <Route path="/Browsecompanies" element={<Browsecompanies />} />
         <Route path="/Companyhomepage" element={<Companyhomepage />} />

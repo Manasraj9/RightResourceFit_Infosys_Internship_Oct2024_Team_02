@@ -5,12 +5,12 @@ const Footer = () => {
     <footer className="bg-[#112d4e] text-[#d6ddeb] pt-10 pb-1">
       <div className="container mx-auto px-6">
         <div className="flex justify-between mb-5">
-        <div className="w-[370px] h-[80px] text-[#d6ddeb] text-lg font-normal font-['Epilogue'] leading-relaxed">An excellent platform for job seekers passionate about startups. Discover your ideal job with easier.</div>
+          <div className="w-[370px] h-[80px] text-[#d6ddeb] text-lg font-normal font-['Epilogue'] leading-relaxed">An excellent platform for job seekers passionate about startups. Discover your ideal job with easier.</div>
           {/* About Section */}
           <div>
-            <h3 className="text-lg font-semibold hover:text-white">About</h3>
-            <ul className="mt-4 space-y-2 hover:text-white">
-              <li className=''>Companies</li>
+            <h3 className="flex-col text-lg font-semibold hover:text-white">About</h3>
+            <ul className="mt-4 space-y-2 hover:text-white flex flex-col">
+              <li>Companies</li>
               <li>Pricing</li>
               <li>Terms</li>
               <li>Advice</li>
@@ -21,7 +21,7 @@ const Footer = () => {
           {/* Resources Section */}
           <div>
             <h3 className="text-lg font-semibold hover:text-white">Resources</h3>
-            <ul className="mt-4 space-y-2 hover:text-white">
+            <ul className="mt-4 space-y-2 hover:text-white flex flex-col">
               <li>Help Docs</li>
               <li>Guide</li>
               <li>Updates</li>
@@ -60,5 +60,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
-

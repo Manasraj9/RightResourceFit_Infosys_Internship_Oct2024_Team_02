@@ -13,6 +13,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const signup = async (req, res) => {
+    console.log(req.body); // Log the incoming request body to verify data
     const { name, email, password, userType } = req.body;
 
     try {
@@ -38,6 +39,7 @@ const signup = async (req, res) => {
 
 
 
+
 // Login function
 const login = async (req, res) => {
     const { email, password } = req.body;
@@ -53,13 +55,20 @@ const login = async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
+        // Generate token
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.status(200).json({ token });
+        
+        // Include userType in the response
+        res.status(200).json({
+            token,
+            userType: user.userType, // Ensure you have userType defined in your User model
+        });
     } catch (error) {
         console.error('Error during login:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
 
 // Function to generate a random 6-digit OTP
 const generateOTP = () => {
