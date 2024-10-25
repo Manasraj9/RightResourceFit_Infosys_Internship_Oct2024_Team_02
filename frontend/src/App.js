@@ -9,7 +9,7 @@ import Register from "./pages/Register";
 import Resetpassword from "./pages/Resetpassword";
 import OtpVerification from "./pages/OtpVerification";
 import Homepage from "./pages/Homepage";
-import Companyhomepage from "./pages/Companyhomepage";
+// import Companyhomepage from "./pages/Companyhomepage";
 import Jobseekerpage from "./pages/Jobseekerpage";
 import Browsecompanies from "./pages/Browsecompanies";
 import Companypage from "./pages/Companypage";
@@ -29,7 +29,7 @@ function App() {
         <Route path="/Jobseekerpage" element={<Jobseekerpage />} />
         <Route path="/Companypage" element={<Companypage />} />
         <Route path="/Browsecompanies" element={<Browsecompanies />} />
-        <Route path="/Companyhomepage" element={<Companyhomepage />} />
+        // <Route path="/Companyhomepage" element={<Companyhomepage />} />
       </Routes>
     </Router>
   );
