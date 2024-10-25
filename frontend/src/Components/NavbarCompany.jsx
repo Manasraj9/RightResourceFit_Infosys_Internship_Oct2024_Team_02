@@ -59,12 +59,12 @@ const NavbarCompany = () => {
                                     <button className='bg-[#3f72af] inline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af] py-1 rounded px-2.5'>Account</button>
                                 </Link>
                                 {dropdownOpen && ( // Conditional rendering for the dropdown
-                                    <div className="absolute bg-white text-black mt-[32px] rounded shadow-lg z-1">
+                                    <div className="absolute bg-white text-black  rounded shadow-lg z-1">
                                         <Link to="/Profile">
                                             <div className="py-2 px-4 hover:bg-[#3f72af] hover:text-white cursor-pointer">Profile</div>
                                         </Link>
                                         <hr />
-                                        <Link to="/Dashboard">
+                                        <Link to="/Companypage">
                                             <div className="py-2 px-4 hover:bg-[#3f72af] hover:text-white cursor-pointer">Dashboard</div>
                                         </Link>
                                         <hr style={{ border: '2px solid [#3f72af]' }}/>
