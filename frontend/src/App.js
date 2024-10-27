@@ -10,9 +10,15 @@ import Resetpassword from "./pages/Resetpassword";
 import OtpVerification from "./pages/OtpVerification";
 import Homepage from "./pages/Homepage";
 import Companyhomepage from "./pages/Companyhomepage";
+import Jobseekerpage from "./pages/Jobseekerpage";
 import Browsecompanies from "./pages/Browsecompanies";
 import Companypage from "./pages/Companypage";
+<<<<<<< HEAD
 import PostJob from './pages/PostJob';
+=======
+import dashboard from "./Components/dashboard";
+
+>>>>>>> 14e113427d3c6207646951f8a52e67c45dd81c89
 
 function App() {
   return (
@@ -26,10 +32,15 @@ function App() {
         <Route path="/Resetpassword" element={<Resetpassword />} />
         <Route path="/OtpVerification" element={<OtpVerification />} />
         <Route path="/Homepage" element={<Homepage />} />
+        <Route path="/Jobseekerpage" element={<Jobseekerpage />} />
         <Route path="/Companypage" element={<Companypage />} />
         <Route path="/Browsecompanies" element={<Browsecompanies />} />
+<<<<<<< HEAD
         <Route path="/Companyhomepage" element={<Companyhomepage />} />
         <Route path="/PostJob" element={<PostJob />} />
+=======
+  <Route path="/Companyhomepage" element={<Companyhomepage />} />
+>>>>>>> 14e113427d3c6207646951f8a52e67c45dd81c89
       </Routes>
     </Router>
   );

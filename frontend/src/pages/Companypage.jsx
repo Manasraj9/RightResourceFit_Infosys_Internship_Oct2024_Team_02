@@ -1,23 +1,34 @@
 import React from 'react';
-import Navbar from '../Components/Navbar';
+import Navbar from '../Components/NavbarCompany';
 import Footer from '../Components/Footer';
 import Sidebar from '../Components/side__bar.jsx';
 import SecondaryNavbar from '../Components/Sec_Navbar.jsx';
+import Dashboard from '../Components/dashboard.jsx';
 
 export const Companypage = () => {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      <div className="flex flex-grow">
-        {/* Adjust main content to account for the fixed sidebar */}
-        <Sidebar />
-        <div className="flex-grow ml-60 p-4"> {/* Added margin to account for sidebar width */}
-          <SecondaryNavbar />
-          {/* Main content goes here */}
+    <>
+      <div className="flex flex-col min-h-screen">
+        {/* Navbar */}
+        <Navbar />
+
+        {/* Content Section with Sidebar and Main Content */}
+        <div className="flex flex-grow">
+          {/* Sidebar */}
+          <Sidebar />
+
+          {/* Main Content */}
+          <div className="flex-grow ml-60 p-4"> {/* Adjust ml-60 to match Sidebar width */}
+            <SecondaryNavbar />
+            <Dashboard />
+          </div>
         </div>
+
+        {/* Footer */}
+      
       </div>
-      <Footer />
-    </div>
+        <Footer />
+    </>
   );
 };
 

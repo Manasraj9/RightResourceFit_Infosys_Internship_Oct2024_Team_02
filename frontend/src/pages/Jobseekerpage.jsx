@@ -121,101 +121,106 @@ const JobseekerPage = () => {
                     <ul className='flex justify-center items-center text-white gap-10'>
                         <li className='flex flex-col items-center'>
                             <img src={jobsearchIcon} alt="Search Icon" className='icon icon-search' />
-                            <input type='text' placeholder='Enter job title' className='input-field box01' />
+                            <input type='text' placeholder='Enter job title' className='inputfield1' />
                         </li>
                         <li className='flex flex-col items-center'>
                             <img src={joblocationIcon} alt="Location Icon" className='icon icon-location' />
-                            <input type='text' placeholder='Enter location' className='input-field box02' />
+                            <input type='text' placeholder='Enter location' className='inputfield2' />
                         </li>
                         <li className='flex flex-col items-center'>
                             <img src={jobskillsIcon} alt="Business Icon" className='icon icon-skills' />
-                            <input type='text' placeholder='Enter skills' className='input-field box03' />
+                            <input type='text' placeholder='Enter skills' className='inputfield3' />
                         </li>
                         <li>
                             <Link to="/">
                                 <button className='searchbutton'>Search</button>
                             </Link>
                         </li>
+                        <li>
+                            <Link className='text-[#808080] custom-clear'>
+                                <button className='clearbutton'>clear all</button>
+                            </Link>
+                        </li>
                     </ul>
                     </div>
-                </div>
-
-                <div>
-                    <Link className='text-[#808080] custom-clear'>clear all</Link>
                 </div><br />
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div className='custom-filter font-bold'>Filters</div>
-                    <div className='custom-alljobs font-bold'>All Jobs(2310)</div>
-                </div>
 
                 <div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-16 p-4 px-14">
 
                         {/* grid column 1 */}
                         <div className="bg-[#FCFCFC] text-black p-4 gridcol1">
-                            <div className='mx-12 font-bold'>Salary Range</div><br />
-                            <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', marginLeft: '40px', marginRight: '40px' }}>
+                            <div className='mx-8 font-bold text-2xl'>Salary Range</div><br />
+                            <div className='mx-8' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginLeft: '32px', marginRight: '32px' }}>
                                 <input type='number' placeholder='Min' className='minfield' />
                                 <input type='number' placeholder='Max' className='maxfield' />
                             </div><br />
                             <div><hr className='border-t-2 mx-8'></hr></div><br />
 
-                            <div className='mx-12 font-bold'>Job type</div><br />
+                            <div className='mx-8 font-bold text-2xl'>Job type</div><br />
                             {['All (2567)', 'Full-Time (450)', 'Part-Time (145)', 'Internship (65)', 'Contract (12)'].map((label, index) => (
                                 <div key={index}>
                                     <input
                                         type="checkbox"
                                         checked={checkedStates[index]}
                                         onChange={() => handleCheckboxChange(index)}
-                                        className='mr-4 mx-12'/>
-                                    {label}
+                                        className='mr-4 mx-12 w-4 h-4'/>
+                                    <span style={{ fontSize: '18px' }}>
+                                        {label}
+                                    </span>
                                 </div>
                             ))}
                             <br />
 
                             <div><hr className='mx-8 border-t-2'></hr></div><br />
-                            <div className='mx-12 font-bold'>Work mode</div><br />
+                            <div className='mx-8 font-bold text-2xl'>Work mode</div><br />
                             {['On-site', 'Remote (180)', 'Hybrid (200)'].map((label, index) => (
                                 <div key={index + 5}>
                                     <input
                                         type="checkbox"
                                         checked={checkedStates[index + 5]}
                                         onChange={() => handleCheckboxChange(index + 5)}
-                                        className='mr-4 mx-12'/>
-                                    {label}
+                                        className='mr-4 mx-12 w-4 h-4'/>
+                                    <span style={{ fontSize: '18px' }}>
+                                        {label}
+                                    </span>
                                 </div>
                             ))}
                             <br />
 
                             <div><hr className='mx-8 border-t-2'></hr></div><br />
-                            <div className='mx-12 font-bold'>Job Functions</div><br />
+                            <div className='mx-8 font-bold text-2xl'>Job Functions</div><br />
                             {['Marketing (21)', 'Engineering (45)', 'Design (71)', 'Sales (24)', 'Customer Service (101)'].map((label, index) => (
                                 <div key={index + 8}>
                                     <input
                                         type="checkbox"
                                         checked={checkedStates[index + 8]}
                                         onChange={() => handleCheckboxChange(index + 8)}
-                                        className='mr-4 mx-12' />
-                                    {label}
+                                        className='mr-4 mx-12 w-4 h-4' />
+                                    <span style={{ fontSize: '18px' }}>
+                                        {label}
+                                    </span>
                                 </div>
                             ))}
                             <br />
 
                             <div><hr className='mx-8 border-t-2'></hr></div><br />
-                            <div className='font-bold mx-12'>Experience Level</div><br />
+                            <div className='font-bold mx-8 text-2xl'>Experience Level</div><br />
                             {['Fresher/Entry-Level (265)', 'Junior (21)', 'Mid-Level (212)', 'Senior (12)', 'Lead/Managerial (24)', 'Director/Executive (10)'].map((label, index) => (
                                 <div key={index + 13}>
                                     <input
                                         type="checkbox"
                                         checked={checkedStates[index + 13]}
                                         onChange={() => handleCheckboxChange(index + 13)}
-                                        className='mr-4 mx-12' />
-                                    {label}
+                                        className='mr-4 mx-12 w-4 h-4' />
+                                    <span style={{ fontSize: '18px' }}>
+                                        {label}
+                                    </span>
                                 </div>
                             ))}
                             <br />
-                            <div className='underline text-1xl text-center text-[#4E81BA]'>
+                            <div className='underline text-2xl text-center text-[#4E81BA]'>
                                 <Link>Expand all</Link>
                             </div>
                         </div>
@@ -228,9 +233,9 @@ const JobseekerPage = () => {
                                         <div className='font-bold text-2xl'>{job.title}</div>
                                         <div onClick={() => toggleBookmark(index, 1)} className='custom-bookmark'>
                                             {job.bookmarked ? (
-                                                <BsBookmarkFill style={{ cursor: 'pointer', color: '#ACB2B9' }} />
+                                                <BsBookmarkFill style={{ cursor: 'pointer', color: '#ACB2B9', height: '20px', width: '20px' }} />
                                             ) : (
-                                                <BsBookmark style={{ cursor: 'pointer' }} />
+                                                <BsBookmark style={{ cursor: 'pointer', height: '20px', width: '20px' }} />
                                             )}
                                         </div>
                                         <br /><div className="job-typebtn">
@@ -243,7 +248,7 @@ const JobseekerPage = () => {
                                             <img src={job.icon2} alt="Location Icon" className='h-5 w-5 ml-24' />
                                             <div className='ml-28 custom-loc'>{job.location}</div>
                                         </p><br /><br />
-                                        <div className="buttons-container flex justify-between items-center mx-8">
+                                        <div className="buttons-container flex justify-between items-center">
                                             <Link><button className="view-button">{job.button1}</button></Link>
                                             <Link><button className="apply-button">{job.button2}</button></Link>
                                         </div><br />
@@ -260,9 +265,9 @@ const JobseekerPage = () => {
                                         <div className='font-bold text-2xl'>{job.title}</div>
                                         <div onClick={() => toggleBookmark(index, 2)} className='custom-bookmark'>
                                             {job.bookmarked ? (
-                                                <BsBookmarkFill style={{ cursor: 'pointer', color: '#ACB2B9' }} />
+                                                <BsBookmarkFill style={{ cursor: 'pointer', color: '#ACB2B9', height: '20px', width: '20px' }} />
                                             ) : (
-                                                <BsBookmark style={{ cursor: 'pointer' }} />
+                                                <BsBookmark style={{ cursor: 'pointer', height: '20px', width: '20px' }} />
                                             )}
                                         </div>
                                         <br /><div className="job-typebtn">
@@ -275,7 +280,7 @@ const JobseekerPage = () => {
                                             <img src={job.icon2} alt="Location Icon" className='h-5 w-5 ml-24' />
                                             <div className='ml-28 custom-loc'>{job.location}</div>
                                         </p><br /><br />
-                                        <div className="buttons-container flex justify-between items-center mx-8">
+                                        <div className="buttons-container flex justify-between items-center">
                                             <Link><button className="view-button">{job.button1}</button></Link>
                                             <Link><button className="apply-button">{job.button2}</button></Link>
                                         </div><br />
@@ -285,7 +290,7 @@ const JobseekerPage = () => {
                         </div>
                     </div>
                 </div>
-                <div className='underline text-1xl text-center text-[#4E81BA]'>
+                <div className='underline text-2xl text-center text-[#4E81BA]'>
                     <Link>View more</Link>
                 </div><br />
             </div>

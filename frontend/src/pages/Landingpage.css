@@ -6,47 +6,50 @@
 .search-container {
     background-color: white; 
     height: 60px; 
-    width: 700px; 
+    width: 750px; 
     border-radius: 2px;
     padding: 10px;
     margin-top: 20px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
-.input-field {
-    border: 1px solid #d1d5db;
-    border-radius: 5px; 
-    height: 40px; 
-    padding: 10px; 
-    width: 100%; 
-    margin-right: 10px;
-    position: relative; 
+.searchicon {
     left: 30px;
-    color: black;
 }
-.input-field2 {
+.input-field01 {
     border: 1px solid #d1d5db;
     border-radius: 5px; 
     height: 40px; 
     padding: 10px; 
     width: 100%; 
-    margin-right: 10px;
     position: relative; 
-    left: 60px;
     color: black;
 }
-.input-field::placeholder, .input-field2::placeholder {
+.locationicon {
+    left: 80px;
+}
+.input-field02 {
+    border: 1px solid #d1d5db;
+    border-radius: 5px; 
+    height: 40px; 
+    padding: 10px; 
+    width: 100%; 
+    position: relative; 
+    color: black;
+}
+.input-field01::placeholder, .input-field02::placeholder {
     color: #9ca3af; 
 }
-.search-button {
+.jobsearchbtn {
     background-color: #3f72af; 
     color: white;
     border: none; 
     border-radius: 5px; 
     cursor: pointer; 
     height: 40px; 
+    width: 100px;
     padding: 10px; 
     position: relative;
-    margin-left: 90px;
+    margin-left: 140px;
     display: flex; 
     justify-content: center; 
 }
