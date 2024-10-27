@@ -8,7 +8,7 @@ import './Companyhomepage.css'
 import jobStatusimg from '../images/jobstatusview.png'
 
 
-const companyhomepage = () => {
+const Companyhomepage = () => {
     return (
         <div>
             <Navbar />
@@ -78,4 +78,4 @@ const companyhomepage = () => {
     );
 };
 
-export default companyhomepage;
+export default Companyhomepage;

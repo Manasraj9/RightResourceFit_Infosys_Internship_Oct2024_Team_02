@@ -12,6 +12,7 @@ import Homepage from "./pages/Homepage";
 import Companyhomepage from "./pages/Companyhomepage";
 import Browsecompanies from "./pages/Browsecompanies";
 import Companypage from "./pages/Companypage";
+import PostJob from './pages/PostJob';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/Companypage" element={<Companypage />} />
         <Route path="/Browsecompanies" element={<Browsecompanies />} />
         <Route path="/Companyhomepage" element={<Companyhomepage />} />
+        <Route path="/PostJob" element={<PostJob />} />
       </Routes>
     </Router>
   );
