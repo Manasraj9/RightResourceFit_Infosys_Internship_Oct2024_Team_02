@@ -29,19 +29,14 @@ const Companyhomepage = () => {
                     backgroundSize: 'cover', 
                     backgroundPosition: 'center' 
                 }}><br />
-                <div className='text-[white] text-3xl font-bold text-center underline'>FIND YOUR DREAM JOB NOW</div><br />
+                <div className='text-[white] text-3xl font-bold text-center underline'>FIND YOUR DREAM </div><br />
                 <div className='text-[white] text-2xl font-bold text-center'>Right Resource Fit connects talented job seekers with top employers.<br />Explore 5000+ job opportunities 
                     and find your perfect match.<br />Whether you're hiring or seeking, we help you achieve success!</div><br />
                 <div>
                     <ul className='flex gap-3 text-white justify-center'>
                         <li>
                             <Link to="/Jobseekerpage">
-                                <button className='bg-[#3f72af] inline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af] py-2 rounded px-3.5'>Job Search</button>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/Browsecompanies">
-                                <button className='bg-[#3f72af] nline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af]  py-2 rounded px-3.5'>Browse Companies</button>
+                                <button className='bg-[#3f72af] inline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af] py-2 rounded px-3.5'>Post Jobs</button>
                             </Link>
                         </li>
                     </ul>
@@ -55,7 +50,7 @@ const Companyhomepage = () => {
                             <br />
                             <div className='text-center'> 
                                 <Link to="/Searchjob">
-                                    <button className='search-button2'>Search Jobs</button>
+                                    <button className='search-button2'>Post Jobs</button>
                                 </Link>
                             </div>
                         </div>
