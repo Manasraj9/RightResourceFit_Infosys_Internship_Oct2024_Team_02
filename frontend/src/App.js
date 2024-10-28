@@ -13,10 +13,11 @@ import Companyhomepage from "./pages/Companyhomepage";
 import Jobseekerpage from "./pages/Jobseekerpage";
 import Browsecompanies from "./pages/Browsecompanies";
 import Companypage from "./pages/Companypage";
+import PostJob from './pages/PostJob';
 import dashboard from "./Components/dashboard";
-
-
+import LogoutButton from "./Components/Buttons/LogoutButton";
 function App() {
+  
   return (
     <Router>
       <ToastContainer position="top-right" autoClose={2000} hideProgressBar />
@@ -25,13 +26,15 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/About" element={<About />} />
+        <Route path="/LogoutButton" element={<LogoutButton />} />
         <Route path="/Resetpassword" element={<Resetpassword />} />
         <Route path="/OtpVerification" element={<OtpVerification />} />
         <Route path="/Homepage" element={<Homepage />} />
         <Route path="/Jobseekerpage" element={<Jobseekerpage />} />
         <Route path="/Companypage" element={<Companypage />} />
         <Route path="/Browsecompanies" element={<Browsecompanies />} />
-  <Route path="/Companyhomepage" element={<Companyhomepage />} />
+        <Route path="/Companyhomepage" element={<Companyhomepage />} />
+        <Route path="/PostJob" element={<PostJob />} />
       </Routes>
     </Router>
   );

@@ -10,7 +10,6 @@ import jobStatusimg from '../images/jobstatusview.png'
 
 const Companyhomepage = () => {
     const navigate = useNavigate();
-
     useEffect(() => {
         const token = localStorage.getItem('token');
         const loginTime = localStorage.getItem('loginTime');
@@ -82,8 +81,7 @@ const Companyhomepage = () => {
         </div>
     );
 };
-export default Companyhomepage
-
+export default Companyhomepage;
 
 
 

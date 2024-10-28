@@ -1,35 +1,24 @@
+// NavbarHome.jsx
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'
-import NotificationImage from '../images/notification.png'
+import { Link } from 'react-router-dom';
+import NotificationImage from '../images/notification.png';
+import LogoutButton from "../Components/Buttons/LogoutButton";
 
 const NavbarHome = () => {
-    const [dropdownOpen, setDropdownOpen] = useState(false); // State to manage dropdown visibility
+    const [dropdownOpen, setDropdownOpen] = useState(false);
 
-    // Handlers to open/close the dropdown
     const handleMouseEnter = () => {
         setDropdownOpen(true);
     };
 
     const handleMouseLeave = (e) => {
-        const target = e.relatedTarget; // Get the element that the mouse moved to
+        const target = e.relatedTarget;
         const isInsideDropdown = target && target.closest('.dropdown-menu');
         const isInsideButton = target && target.closest('.account-button');
 
-        // If mouse is not over dropdown or button, close dropdown
         if (!isInsideDropdown && !isInsideButton) {
             setDropdownOpen(false);
         }
-    };
-
-    // Function to handle logout
-    const handleLogout = () => {
-        // Clear local storage or any user session data
-        localStorage.removeItem('token');
-        localStorage.removeItem('userType');
-        localStorage.removeItem('loginTime');
-
-        // Optionally, redirect the user to the login page
-        window.location.href = '/login'; // Change to your actual login route
     };
 
     return (
@@ -52,14 +41,14 @@ const NavbarHome = () => {
                                 </Link>
                             </li>
                             <li
-                                onMouseEnter={handleMouseEnter} // Open dropdown on hover
-                                onMouseLeave={handleMouseLeave} // Close dropdown when not hovering
+                                onMouseEnter={handleMouseEnter}
+                                onMouseLeave={handleMouseLeave}
                             >
                                 <Link to="/ComapnyAccount">
                                     <button className='bg-[#3f72af] inline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af] py-1 rounded px-2.5'>Account</button>
                                 </Link>
-                                {dropdownOpen && ( // Conditional rendering for the dropdown
-                                    <div className="absolute bg-white text-black mt-[32px] rounded shadow-lg z-1">
+                                {dropdownOpen && (
+                                    <div className="absolute bg-white text-black mt-[1px] rounded shadow-lg z-1">
                                         <Link to="/Profile">
                                             <div className="py-2 px-4 hover:bg-[#3f72af] hover:text-white cursor-pointer">Profile</div>
                                         </Link>
@@ -67,13 +56,9 @@ const NavbarHome = () => {
                                         <Link to="/Dashboard">
                                             <div className="py-2 px-4 hover:bg-[#3f72af] hover:text-white cursor-pointer">Dashboard</div>
                                         </Link>
-                                        <hr style={{ border: '2px solid [#3f72af]' }}/>
-                                        <div
-                                            onClick={handleLogout} // Handle logout on click
-                                            className="py-2 px-4 hover:bg-red-500 hover:text-white cursor-pointer"
-                                        >
-                                            Logout
-                                        </div>
+                                        <hr style={{ border: '2px solid [#3f72af]' }} />
+                                        {/* Use the LogoutButton Component Here */}
+                                        <LogoutButton />
                                     </div>
                                 )}
                             </li>
@@ -92,4 +77,4 @@ const NavbarHome = () => {
     );
 }
 
-export default NavbarHome
+export default NavbarHome;

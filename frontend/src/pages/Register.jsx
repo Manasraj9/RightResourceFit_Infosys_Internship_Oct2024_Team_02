@@ -60,7 +60,7 @@ const Register = () => {
                     <div className='flex justify-center pt-8'>
                         <div
                             onClick={() => handleOptionChange('jobSeeker')}
-                            className={`h-10 px-3 py-[7px] ${selectedOption === 'jobSeeker' ? 'bg-white' : 'bg-[#dbe2ef]'} cursor-pointer justify-center items-center gap-2.5 inline-flex`}
+                            className={`h-10 px-3 py-[7px] ${selectedOption === 'jobSeeker' ? 'bg-white' : 'bg-[#dbe2ef]'} cursor-pointer justify-center items-center inline-flex`}
                         >
                             <div className={`text-base font-semibold font-['Epilogue'] leading-relaxed ${selectedOption === 'jobSeeker' ? 'text-[#3f72af]' : 'text-gray-500'}`}>Job Seeker</div>
                         </div>

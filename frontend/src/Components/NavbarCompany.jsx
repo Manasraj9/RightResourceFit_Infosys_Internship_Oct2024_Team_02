@@ -22,15 +22,15 @@ const NavbarCompany = () => {
     };
 
     // Function to handle logout
-    const handleLogout = () => {
-        // Clear local storage or any user session data
-        localStorage.removeItem('token');
-        localStorage.removeItem('userType');
-        localStorage.removeItem('loginTime');
+    // const handleLogout = () => {
+    //     // Clear local storage or any user session data
+    //     localStorage.removeItem('token');
+    //     localStorage.removeItem('userType');
+    //     localStorage.removeItem('loginTime');
 
-        // Optionally, redirect the user to the login page
-        window.location.href = '/login'; // Change to your actual login route
-    };
+    //     // Optionally, redirect the user to the login page
+    //     window.location.href = '/login'; // Change to your actual login route
+    // };
 
     return (
         <div>
@@ -69,7 +69,6 @@ const NavbarCompany = () => {
                                         </Link>
                                         <hr style={{ border: '2px solid [#3f72af]' }}/>
                                         <div
-                                            onClick={handleLogout} // Handle logout on click
                                             className="py-2 px-4 hover:bg-red-500 hover:text-white cursor-pointer"
                                         >
                                             Logout
