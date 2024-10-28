@@ -16,7 +16,7 @@ import Companypage from "./pages/Companypage";
 import LogoutButton from "./Components/Buttons/LogoutButton";
 import PostJob from './pages/PostJob';
 import PostJob2 from './pages/PostJob2';
-
+import Companypostpage_1 from "./pages/Companypostpage_1"; 
 function App() {
   return (
     <Router>
@@ -36,6 +36,7 @@ function App() {
         <Route path="/Companyhomepage" element={<Companyhomepage />} />
         <Route path="/PostJob" element={<PostJob />} />
         <Route path="/PostJob2" element={<PostJob2 />} />
+       <Route path="/Companypostpage_1" element={<Companypostpage_1 />} />
       </Routes>
     </Router>
   );
