@@ -6,36 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faBell, faBriefcase, faGift, faInfoCircle, faBold, faItalic, faListUl, faLink } from '@fortawesome/free-solid-svg-icons';
 
 const PostJob = () => {
-    const [jobData, setJobData] = useState({
-        title: '',
-        description: '',
-        responsibilities: '',
-        qualifications: '',
-        niceToHaves: '',
-        company: 'Nomad', // or any input for company name
-    });
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setJobData((prevData) => ({ ...prevData, [name]: value }));
-    };
-
-    const handleSubmit = async () => {
-        try {
-            const response = await fetch('http://localhost:5000/api/jobs', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(jobData),
-            });
-
-            const data = await response.json();
-            console.log('Job posted:', data);
-        } catch (error) {
-            console.error('Error posting job:', error);
-        }
-    };
+    
 
     return (
         <div className='bg-[#dbe2ef]'>
