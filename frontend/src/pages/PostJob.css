@@ -2,8 +2,7 @@
 
 body {
   font-family: 'Inter', sans-serif, Arial, sans-serif;
-  background-color: #f9fafb;
-  padding: 2rem;
+  background-color: rgb(219 226 239 / var(--tw-bg-opacity));
 }
 .bg-gray-100 {
   background-color: #f7fafc;
@@ -40,6 +39,9 @@ body {
 .w-10 {
   width: 2.5rem;
 }
+.w-full{
+    width: 100%;
+}
 
 .px-6 {
   padding-left: 1.5rem;
@@ -71,6 +73,9 @@ body {
   align-items: space-evenly;
 }
 
+.justify-around{
+    justify-content: space-around;
+}
 .justify-between {
   justify-content: space-between;
 }
@@ -170,6 +175,7 @@ body {
     font-size: 0.875rem;
     color: #718096;
     margin-bottom: 0.5rem;
+    width: 40%;
   }
   .description-input {
     width: 66.6667%;

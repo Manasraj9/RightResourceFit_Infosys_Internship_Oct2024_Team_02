@@ -36,9 +36,9 @@ const PostJob = () => {
                     Post a Job
                 </a>
                 </div>
-                <div className="border-t border-gray-200">
-                <div className="flex justify-center py-6">
-                    <div className="flex items-center">
+                <div className="border-t border-gray-200 w-full">
+                <div className="flex justify-center py-6 w-full">
+                    <div className="flex justify-around items-center w-full">
                     <div className="flex flex-col items-center">
                         <div className="bg-blue-600 text-white rounded-full h-10 w-10 flex items-center justify-center">
                         <FontAwesomeIcon icon={faBriefcase} />

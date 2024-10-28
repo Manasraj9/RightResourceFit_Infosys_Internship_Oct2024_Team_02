@@ -1,9 +1,9 @@
 import React from 'react'
 import Navbar from '../Components/NavbarHome'
 import Footer from '../Components/Footer'
-import './PostJob.css'
+import './PostJob2.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft, faBell, faBriefcase, faGift, faInfoCircle, faBold, faItalic, faListUl, faLink} from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faBell, faBriefcase, faPlus, faStethoscope, faTimes} from '@fortawesome/free-solid-svg-icons'
 
 
 const PostJob2 = () => {
@@ -36,9 +36,9 @@ const PostJob2 = () => {
                     Post a Job
                 </a>
                 </div>
-                <div className="border-t border-gray-200">
-                <div className="flex justify-center py-6">
-                    <div className="flex items-center">
+                <div className="border-t border-gray-200 w-full">
+                <div className="flex justify-center py-6 w-full">
+                    <div className="flex justify-around items-center w-full">
                     <div className="flex flex-col items-center">
                         <div className="bg-blue-600 text-white rounded-full h-10 w-10 flex items-center justify-center">
                         <FontAwesomeIcon icon={faBriefcase} />
@@ -56,8 +56,8 @@ const PostJob2 = () => {
                     </div>
                     <div className="mx-8 border-r border-gray-200 h-10"></div>
                     <div className="flex flex-col items-center">
-                        <div className="bg-gray-200 text-gray-500 rounded-full h-10 w-10 flex items-center justify-center">
-                        <FontAwesomeIcon icon={faGift} />
+                        <div className="bg-blue-600 text-white rounded-full h-10 w-10 flex items-center justify-center">
+                        <FontAwesomeIcon icon={faBriefcase} />
                         </div>
                         <div className="mt-2 text-sm text-gray-500">Step 3/3</div>
                         <div className="mt-1 text-sm font-semibold text-gray-800">Perks & Benefit</div>
@@ -66,96 +66,58 @@ const PostJob2 = () => {
                 </div>
                 </div><hr />
             </div>
-            <div className="container2">
-            <div className="details">
-                <h2>Details</h2>
-                <p>Add the description of the job, responsibilities, who you are, and nice-to-haves.</p>
-            </div>
-            <hr /><br />
-            <div className="job-description">
-                <div className="description-text">
-                <h3>Job Descriptions</h3>
-                <p>Job titles must be describe one position</p>
+                <div className="container2">
+                <div className="details">
+                    <h2>Basic Information</h2>
+                    <p>List out your top perks and benefits.</p>
+                </div><hr /><br />
+            <div className="flex">
+                <div className="sidebar">
+                <div className="details">
+                    <h3>Perks and Benefits</h3>
+                    <p>Encouage more people to apply by sharing the attractive rewards and benefits you offer your employees</p>
                 </div>
-                <div className="description-input">
-                <textarea placeholder="Enter job description"></textarea>
-                <hr /><div className="toolbar">
-                    <div className="icons">
-                    <button><FontAwesomeIcon icon={faInfoCircle} /><span/></button>
-                    <button><FontAwesomeIcon icon={faBold} />{ }</button>
-                    <button><FontAwesomeIcon icon={faItalic} /></button>
-                    <button><FontAwesomeIcon icon={faListUl} />  </button>
-                    <button><FontAwesomeIcon icon={faLink} /></button>
+                </div>
+                <div className="content">
+                <button className="add-benefit-btn">
+                    <FontAwesomeIcon icon={faPlus} className="icon" />Add Benefit
+                </button>
+                <div className="benefits-grid">
+                    <div className="benefit-card">
+                    <div className="card-header">
+                        <FontAwesomeIcon icon={faStethoscope} className="icon stethoscope" />
+                        <FontAwesomeIcon icon={faTimes} className="icon close" />
                     </div>
-                    <div className="char-limit">Maximum 500 characters</div>
-                </div>
-                <div className="char-count">0 / 500</div>
-                </div>
-            </div>
-            <br /><hr /><br />
-            <div className="job-description">
-                <div className="description-text">
-                <h3>Responsibilities</h3>
-                <p>Outline the core responsibilities of the position</p>
-                </div>
-                <div className="description-input">
-                <textarea placeholder="Enter job responsibilities"></textarea>
-                <hr /><div className="toolbar">
-                    <div className="icons">
-                    <button><FontAwesomeIcon icon={faInfoCircle} /><span/></button>
-                    <button><FontAwesomeIcon icon={faBold} />{ }</button>
-                    <button><FontAwesomeIcon icon={faItalic} /></button>
-                    <button><FontAwesomeIcon icon={faListUl} />  </button>
-                    <button><FontAwesomeIcon icon={faLink} /></button>
+                    <h3 className="card-title">Full Healthcare</h3>
+                    <p className="card-description">
+                        We believe in thriving communities and that starts with our team being happy and healthy.
+                    </p>
                     </div>
-                    <div className="char-limit">Maximum 500 characters</div>
-                </div>
-                <div className="char-count">0 / 500</div>
-                </div>
-            </div>
-            <br /><hr /><br />
-            <div className="job-description">
-                <div className="description-text">
-                <h3>Who You Are</h3>
-                <p>Add your preferred candidates qualifications</p>
-                </div>
-                <div className="description-input">
-                <textarea placeholder="Enter qualifications"></textarea>
-                <hr /><div className="toolbar">
-                    <div className="icons">
-                    <button><FontAwesomeIcon icon={faInfoCircle} /><span/></button>
-                    <button><FontAwesomeIcon icon={faBold} />{ }</button>
-                    <button><FontAwesomeIcon icon={faItalic} /></button>
-                    <button><FontAwesomeIcon icon={faListUl} />  </button>
-                    <button><FontAwesomeIcon icon={faLink} /></button>
+                    <div className="benefit-card">
+                    <div className="card-header">
+                        <FontAwesomeIcon icon={faStethoscope} className="icon stethoscope" />
+                        <FontAwesomeIcon icon={faTimes} className="icon close" />
                     </div>
-                    <div className="char-limit">Maximum 500 characters</div>
+                    <h3 className="card-title">Unlimited Vacation</h3>
+                    <p className="card-description">
+                        We believe you should have a flexible schedule that makes space for family, wellness, and fun.
+                    </p>
+                    </div>
+                    <div className="benefit-card">
+                    <div className="card-header">
+                        <FontAwesomeIcon icon={faStethoscope} className="icon stethoscope" />
+                        <FontAwesomeIcon icon={faTimes} className="icon close" />
+                    </div>
+                    <h3 className="card-title">Skill Development</h3>
+                    <p className="card-description">
+                        We believe in always learning and leveling up our skills. Whether it's a conference or online course.
+                    </p>
+                    </div>
                 </div>
-                <div className="char-count">0 / 500</div>
                 </div>
             </div>
             <br /><hr /><br />
-            <div className="job-description">
-                <div className="description-text">
-                <h3>Nice-To-Haves</h3>
-                <p>Add nice-tohave skills and qualifications for the role to encourage a more diverse set of candidates to apply</p>
-                </div>
-                <div className="description-input">
-                <textarea placeholder="Enter job description"></textarea>
-                <hr /><div className="toolbar">
-                    <div className="icons">
-                    <button><FontAwesomeIcon icon={faInfoCircle} /><span/></button>
-                    <button><FontAwesomeIcon icon={faBold} />{ }</button>
-                    <button><FontAwesomeIcon icon={faItalic} /></button>
-                    <button><FontAwesomeIcon icon={faListUl} />  </button>
-                    <button><FontAwesomeIcon icon={faLink} /></button>
-                    </div>
-                    <div className="char-limit">Maximum 500 characters</div>
-                </div>
-                <div className="char-count">0 / 500</div>
-                </div>
-            </div> <br /><hr /><br />
-            <div className='next'><button className='next-step'>Next Step</button><br /></div>
+            <div className='next'><button className='next-step'>Save</button><br /></div>
             </div>
             </div>
         <Footer />

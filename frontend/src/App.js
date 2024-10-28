@@ -9,16 +9,12 @@ import Register from "./pages/Register";
 import Resetpassword from "./pages/Resetpassword";
 import OtpVerification from "./pages/OtpVerification";
 import Homepage from "./pages/Homepage";
-import Companyhomepage from "./pages/Companyhomepage";
+import Companyhomepage from "./pages/companyhomepage.jsx";
 import Jobseekerpage from "./pages/Jobseekerpage";
 import Browsecompanies from "./pages/Browsecompanies";
 import Companypage from "./pages/Companypage";
-<<<<<<< HEAD
 import PostJob from './pages/PostJob';
-=======
-import dashboard from "./Components/dashboard";
-
->>>>>>> 14e113427d3c6207646951f8a52e67c45dd81c89
+import PostJob2 from './pages/PostJob2';
 
 function App() {
   return (
@@ -35,12 +31,9 @@ function App() {
         <Route path="/Jobseekerpage" element={<Jobseekerpage />} />
         <Route path="/Companypage" element={<Companypage />} />
         <Route path="/Browsecompanies" element={<Browsecompanies />} />
-<<<<<<< HEAD
         <Route path="/Companyhomepage" element={<Companyhomepage />} />
         <Route path="/PostJob" element={<PostJob />} />
-=======
-  <Route path="/Companyhomepage" element={<Companyhomepage />} />
->>>>>>> 14e113427d3c6207646951f8a52e67c45dd81c89
+        <Route path="/PostJob2" element={<PostJob2 />} />
       </Routes>
     </Router>
   );
