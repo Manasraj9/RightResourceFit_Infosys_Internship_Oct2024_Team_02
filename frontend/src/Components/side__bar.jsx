@@ -12,21 +12,21 @@ import HelpIcon from '@mui/icons-material/Help';
 const Sidebar = () => {
   return (
     <Drawer
-      variant="permanent"
-      anchor="left"
-      sx={{
-        width: 240,
-        flexShrink: 0,
-        position: 'fixed',
-        top: '64px', // Assuming the Navbar height is 64px
-        height: 'calc(100% - 200px)', // Full height minus Navbar
-        [`& .MuiDrawer-paper`]: {
+    variant="permanent"
+    anchor="left"
+    sx={{
+      width: 240,
+      flexShrink: 0,
+      position: 'absolute', // Changed from 'fixed' to 'absolute'
+      top: '64px', // Space from the top, assuming navbar height is 64px
+      height: 'calc(100vh - 8px)', // Total height excluding navbar and footer (assuming each is 64px)
+      [`& .MuiDrawer-paper`]: {
           width: 240,
           boxSizing: 'border-box',
-          height: '100%',
-          overflowY: 'auto', // Make sidebar scrollable
-        },
-      }}
+          height: 'calc(100vh - 128px)', // Same calculation to set the paper height
+          overflowY: 'auto', // Enables scrolling if content overflows
+      },
+    }}
     >
       <List>
         {[

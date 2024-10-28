@@ -8,9 +8,9 @@ import { faArrowLeft, faBell, faBriefcase, faPlus, faStethoscope, faTimes} from 
 
 const PostJob2 = () => {
   return (
-    <div> 
-        <Navbar />    
-            <div className="bg-gray-100 min-h-screen">
+    <div className='bg-[#dbe2ef]'> 
+    <Navbar />    
+        <div className="bg-[#dbe2ef] min-h-screen mx-16">
             <div className="bg-white shadow-md">
                 <div className="flex items-center justify-between px-6 py-4">
                 <div className="flex items-center">
