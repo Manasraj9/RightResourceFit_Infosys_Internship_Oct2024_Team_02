@@ -140,6 +140,10 @@ const verifyOTP = async (req, res) => {
     }
 };
 
+const logout = (req, res) => {
+    res.clearCookie('token');
+    res.status(200).json({ message: 'Logged out successfully' });
+};
 
 
 module.exports = {
@@ -147,5 +151,6 @@ module.exports = {
     login,
     sendOTP,
     verifyOTP,
+    logout,
     // changePassword, // Uncomment this if implemented
 };

@@ -9,10 +9,11 @@ import Register from "./pages/Register";
 import Resetpassword from "./pages/Resetpassword";
 import OtpVerification from "./pages/OtpVerification";
 import Homepage from "./pages/Homepage";
-import Companyhomepage from "./pages/companyhomepage.jsx";
+import Companyhomepage from "./pages/Companyhomepage";
 import Jobseekerpage from "./pages/Jobseekerpage";
 import Browsecompanies from "./pages/Browsecompanies";
 import Companypage from "./pages/Companypage";
+import LogoutButton from "./Components/Buttons/LogoutButton";
 import PostJob from './pages/PostJob';
 import PostJob2 from './pages/PostJob2';
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/About" element={<About />} />
+        <Route path="/LogoutButton" element={<LogoutButton />} />
         <Route path="/Resetpassword" element={<Resetpassword />} />
         <Route path="/OtpVerification" element={<OtpVerification />} />
         <Route path="/Homepage" element={<Homepage />} />

@@ -69,9 +69,9 @@ body {
   display: flex;
 }
 
-.items-center {
+/* .items-center {
   align-items: space-evenly;
-}
+} */
 
 .justify-around{
     justify-content: space-around;
@@ -80,9 +80,9 @@ body {
   justify-content: space-between;
 }
 
-.justify-center {
+/* .justify-center {
   justify-content: space-evenly;
-}
+} */
 
 .rounded-full {
   border-radius: 9999px;
