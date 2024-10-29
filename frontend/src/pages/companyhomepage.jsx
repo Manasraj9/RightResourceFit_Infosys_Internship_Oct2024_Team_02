@@ -36,7 +36,7 @@ const Companyhomepage = () => {
                 <div>
                     <ul className='flex gap-3 text-white justify-center'>
                         <li>
-                            <Link to="/PostJob">
+                            <Link to="/PostJob1">
                                 <button className='bg-[#3f72af] inline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af] py-2 rounded px-3.5'>Post Job</button>
                             </Link>
                         </li>
@@ -49,7 +49,7 @@ const Companyhomepage = () => {
                             Start Hiring<br />today <br />
                             <br />
                             <div className='text-center'> 
-                                <Link to="/PostJob">
+                                <Link to="/PostJob1">
                                     <button className='search-button2'>Post Jobs</button>
                                 </Link>
                             </div>
