@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import Navbar from '../Components/NavbarCompany';
 import Footer from '../Components/Footer';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './PostJob3.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faBell, faBriefcase, faPlus, faStethoscope, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faBriefcase, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-const PostJob2 = () => {
+const PostJob3 = () => {
   const [jobTitle, setJobTitle] = useState('');
   const [perks, setPerks] = useState([{ title: '', description: '' }]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (index, event) => {
     const newPerks = perks.map((perk, perkIndex) => {
@@ -24,93 +26,54 @@ const PostJob2 = () => {
     setPerks([...perks, { title: '', description: '' }]);
   };
 
+  const removeBenefit = (index) => {
+    const newPerks = perks.filter((_, perkIndex) => perkIndex !== index);
+    setPerks(newPerks);
+  };
+
   const handleSubmit = async () => {
+    // Validate perks
+    const isValid = perks.every(perk => perk.title && perk.description);
+    if (!isValid) {
+      setError('Please fill in all perk titles and descriptions.');
+      return;
+    }
+  
+    setLoading(true);
     const jobData = {
       companyName: 'Nomad',
-      jobTitle,
       perks,
     };
-
+  
     try {
-      const response = await fetch('http://localhost:5000/api/jobs', {
+      const response = await fetch('http://localhost:1000/Jobs', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(jobData),
       });
-
+  
       if (response.ok) {
         const result = await response.json();
         console.log('Job posted:', result);
-        // Optionally, reset the form or show success message
       } else {
-        console.error('Failed to post job');
+        const errorText = await response.text(); // Capture the response body
+        setError('Failed to post job: ' + errorText); // Show the error message
       }
     } catch (error) {
-      console.error('Error:', error);
+      setError('Error: ' + error.message);
+    } finally {
+      setLoading(false);
     }
   };
-
+  
   return (
-    <div className='bg-[#dbe2ef]'> 
-      <Navbar />    
+    <div className='bg-[#dbe2ef]'>
+      <Navbar />
       <div className="bg-[#dbe2ef] min-h-screen mx-16">
-        <div className="bg-white shadow-md">
-          <div className="flex items-center justify-between px-6 py-4">
-            <div className="flex items-center">
-              <img
-                src="https://storage.googleapis.com/a1aa/image/hGrYhMRiegWQb66QvnPsBBtR4k3o5PXxViune4a0LDAehdVnA.jpg"
-                alt="Company Logo"
-                className="h-10 w-10"
-              />
-              <div className="ml-3">
-                <div className="text-sm text-gray-500">Company</div>
-                <div className="text-lg font-semibold text-gray-800">Nomad</div>
-              </div>
-            </div>
-            <div>
-              <FontAwesomeIcon icon={faBell} className="text-gray-500" />
-            </div>
-          </div>
-        </div>
         <div className="bg-white shadow-md mt-4 max-w-4xl mx-auto">
-          <div className="flex items-center px-6 py-4">
-            <a href="#" className="text-lg font-semibold text-gray-800 flex items-center">
-              <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
-              Post a Job
-            </a>
-          </div>
-          <div className="border-t border-gray-200 w-full">
-            <div className="flex justify-center py-6 w-full">
-              <div className="flex justify-around items-center w-full">
-                <div className="flex flex-col items-center">
-                  <div className="bg-blue-600 text-white rounded-full h-10 w-10 flex items-center justify-center">
-                    <FontAwesomeIcon icon={faBriefcase} />
-                  </div>
-                  <div className="mt-2 text-sm text-gray-500">Step 1/3</div>
-                  <div className="mt-1 text-sm font-semibold text-gray-800">Job Information</div>
-                </div>
-                <div className="mx-8 border-r border-gray-200 h-10"></div>
-                <div className="flex flex-col items-center">
-                  <div className="bg-blue-600 text-white rounded-full h-10 w-10 flex items-center justify-center">
-                    <FontAwesomeIcon icon={faBriefcase} />
-                  </div>
-                  <div className="mt-2 text-sm text-gray-500">Step 2/3</div>
-                  <div className="mt-1 text-sm font-semibold text-gray-800">Job Description</div>
-                </div>
-                <div className="mx-8 border-r border-gray-200 h-10"></div>
-                <div className="flex flex-col items-center">
-                  <div className="bg-blue-600 text-white rounded-full h-10 w-10 flex items-center justify-center">
-                    <FontAwesomeIcon icon={faBriefcase} />
-                  </div>
-                  <div className="mt-2 text-sm text-gray-500">Step 3/3</div>
-                  <div className="mt-1 text-sm font-semibold text-gray-800">Perks & Benefit</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <hr />
+          {/* Step Navigation Code */}
         </div>
         <div className="container2">
           <div className="details">
@@ -132,9 +95,12 @@ const PostJob2 = () => {
               <div className="benefits-grid">
                 {perks.map((perk, index) => (
                   <div key={index} className="benefit-card">
-                    <div className="card-header">
-                      <FontAwesomeIcon icon={faStethoscope} className="icon stethoscope" />
-                      <FontAwesomeIcon icon={faTimes} className="icon close" />
+                    <div className="flex justify-between items-start">
+                      <FontAwesomeIcon
+                        icon={faTimes}
+                        className="icon close cursor-pointer"
+                        onClick={() => removeBenefit(index)}
+                      />
                     </div>
                     <input
                       type="text"
@@ -142,24 +108,35 @@ const PostJob2 = () => {
                       placeholder="Benefit Title"
                       value={perk.title}
                       onChange={(e) => handleChange(index, e)}
-                      className="perk-input"
+                      className="perk-input mt-10 border-2 border-gray-200 gap-2"
                     />
                     <textarea
                       name="description"
                       placeholder="Benefit Description"
                       value={perk.description}
                       onChange={(e) => handleChange(index, e)}
-                      className="perk-textarea"
+                      className="perk-textarea mt-1 border-2 border-gray-200"
                     />
                   </div>
                 ))}
               </div>
             </div>
           </div>
+          {error && <div className="text-red-500">{error}</div>}
           <br /><hr /><br />
-          <div className='next'>
-            <button className='next-step' onClick={handleSubmit}>Save</button>
-            <br />
+          <div className='flex justify-between'>
+            <Link to="/PostJob2">
+              <button className="bg-[#3f72af] text-white py-2 px-5 rounded-lg">
+                Previous
+              </button>
+            </Link>
+            <button 
+              className='bg-[#3f72af] text-white py-2 px-5 rounded-lg' 
+              onClick={handleSubmit}
+              disabled={loading} // Disable button while loading
+            >
+              {loading ? 'Saving...' : 'Save'}
+            </button>
           </div>
         </div>
       </div>
@@ -168,4 +145,4 @@ const PostJob2 = () => {
   );
 };
 
-export default PostJob2;
+export default PostJob3;

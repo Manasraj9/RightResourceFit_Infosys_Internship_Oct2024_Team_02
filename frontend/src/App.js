@@ -14,10 +14,10 @@ import Jobseekerpage from "./pages/Jobseekerpage";
 import Browsecompanies from "./pages/Browsecompanies";
 import Dashboardcompany from "./pages/Dashboardcompany";
 import LogoutButton from "./Components/Buttons/LogoutButton";
-import PostJob1 from './pages/PostJob1';
-import PostJob2 from './pages/PostJob2';
-import PostJob3 from "./pages/PostJob3"; 
-import JobListing from "./pages/JobListing"
+import JobListing from "./pages/JobListing";
+import PostJobFlow from './pages/PostJobFlow'; // Only include PostJobFlow
+import PostJob from './pages/PostJob'; 
+
 function App() {
   return (
     <Router>
@@ -35,10 +35,9 @@ function App() {
         <Route path="/Dashboardcompany" element={<Dashboardcompany />} />
         <Route path="/Browsecompanies" element={<Browsecompanies />} />
         <Route path="/Companyhomepage" element={<Companyhomepage />} />
-        <Route path="/PostJob1" element={<PostJob1 />} />
-        <Route path="/PostJob2" element={<PostJob2 />} />
-       <Route path="/PostJob3" element={<PostJob3 />} />
-       <Route path="/JobListing" element={<JobListing />} />
+        <Route path="/JobListing" element={<JobListing />} />
+        {/* <Route path="/PostJobFlow" element={<PostJobFlow />} /> Only keep this route */}
+        <Route path="/PostJob" element={<PostJob />} /> {/* Only keep this route */}
       </Routes>
     </Router>
   );
