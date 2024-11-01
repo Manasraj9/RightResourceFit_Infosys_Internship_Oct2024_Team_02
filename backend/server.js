@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv').config();
-
+const jobRoutes = require('./routes/jobRoutes');
 const authRoutes = require('./routes/authRoutes');
 
 const app = express();
@@ -17,6 +17,7 @@ mongoose.connect('mongodb://localhost:27017/RightResourceFit')
     .catch((err) => console.error('Could not connect to MongoDB:', err));
 
 app.use(authRoutes);
+app.use(jobRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
