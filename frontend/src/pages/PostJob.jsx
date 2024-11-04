@@ -34,7 +34,7 @@ const PostJob = ({ jobData = {}, updateJobData, nextStep }) => {
   const handleSalaryChange = (values) => {
     setValues(values);
   };
-  
+
   const handleLocationChange = (index, value) => {
     const newLocations = [...jobLocations];
     newLocations[index] = value;
@@ -58,7 +58,7 @@ const PostJob = ({ jobData = {}, updateJobData, nextStep }) => {
       setNewSkill("");
     }
   };
-  
+
   const handleChange = (index, event) => {
     const newPerks = perks.map((perk, perkIndex) => {
       if (index === perkIndex) {
@@ -87,7 +87,7 @@ const PostJob = ({ jobData = {}, updateJobData, nextStep }) => {
 
     const dataToSend = {
       title: jobDetails.title,
-      locations: jobLocations.filter((location) => location.trim() !== ''),
+      joblocations: jobLocations.filter((location) => location.trim() !== ''),
       employmentType: employmentTypes.join(','),  // if your backend expects a single string
       salaryRange: { min: values[0], max: values[1] },
       skills,
@@ -115,8 +115,8 @@ const PostJob = ({ jobData = {}, updateJobData, nextStep }) => {
       if (response.ok) {
         const result = await response.json();
         console.log('Job posted successfully:', result);
+        window.location.reload();
         toast.success('Job Posted Successfully!');
-        // Optionally, navigate to another page or display success message
       } else {
         console.error('Failed to post job:', response.status);
         toast.error(`Failed to post job ${error.message}`);
@@ -134,7 +134,7 @@ const PostJob = ({ jobData = {}, updateJobData, nextStep }) => {
       setJobDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
     }
   };
-  
+
   const [jobDetails, setJobDetails] = useState({
     title: '',
     description: '',
@@ -201,7 +201,7 @@ const PostJob = ({ jobData = {}, updateJobData, nextStep }) => {
             <div className="mx-10">
               {error && <p className="text-red-500 mb-4">{error}</p>}
               <div className="mb-6 border-b pb-4 flex items-start">
-                <label className="block text-gray-700 font-medium w-1/4">Job Title</label>
+                <label className="block text-gray-700 font-medium w-1/4">Job Title :</label>
                 <div className="w-3/4">
                   <input
                     type="text"
@@ -210,34 +210,37 @@ const PostJob = ({ jobData = {}, updateJobData, nextStep }) => {
                     value={jobDetails.title}
                     onChange={handleInputChange} // Ensure this updates jobDetails.title
                     required
+                    className="border border-gray-300 rounded p-2 w-[40vh]"
                   />
-                  <p className="text-xs text-gray-500">At least 80 characters</p>
+                  <p className="text-xs text-gray-500 pt-0.5">At least 80 characters</p>
                 </div>
               </div>
 
-              <div className="mb-6 border-b pb-4">
-                <label className="block text-gray-700 font-medium mb-2">Job Locations</label>
-                {jobLocations.map((location, index) => (
-                  <div key={index} className="mb-2 flex items-center">
-                    <input
-                      type="text"
-                      value={location}
-                      onChange={(e) => handleLocationChange(index, e.target.value)}
-                      placeholder="e.g. Mumbai, India"
-                      className="border border-gray-300 rounded p-2 w-[20vh]"
-                    />
-                    <button type="button" onClick={() => removeLocation(index)} className="ml-2 text-red-500">
-                      ×
-                    </button>
-                  </div>
-                ))}
-                <button type="button" onClick={addLocation} className="text-blue-500 mt-2">
-                  Add Another Location
-                </button>
+              <div className="mb-6 border-b pb-4 flex">
+                <label className="block text-gray-700 font-medium mb-2">Job Locations :</label>
+                <div className='pl-[29vh] flex flex-wrap'>
+                  {jobLocations.map((location, index) => (
+                    <div key={index} className="mb-0.5 items-center relative">
+                      <input
+                        type="text"
+                        value={location}
+                        onChange={(e) => handleLocationChange(index, e.target.value)}
+                        placeholder="e.g. Mumbai, India"
+                        className="border border-gray-300 rounded items-center p-2 mr-2 w-[25vh]"
+                      />
+                      <button type="button" onClick={() => removeLocation(index)} className="m-1 text-gray-500 hover:text-red-500 absolute right-3 top-1 bottom-1">
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                  <button type="button" onClick={addLocation} className="text-blue-500 mt-2">
+                    Add Another Location
+                  </button>
+                </div>
               </div>
 
               <div className="mb-6 border-b pb-4 flex items-start">
-                <label className="block text-gray-700 font-medium w-1/4">Type of Employment</label>
+                <label className="block text-gray-700 font-medium w-1/4">Type of Employment :</label>
                 <div className="w-3/4 space-y-1">
                   {['Full-Time', 'Part-Time', 'Remote', 'Internship', 'Contract'].map((type) => (
                     <label key={type} className="flex items-center">
@@ -253,49 +256,44 @@ const PostJob = ({ jobData = {}, updateJobData, nextStep }) => {
                 </div>
               </div>
 
-              <div className="max-w-[700px] ">
-                <h3 className="text-lg font-medium mb-2">Salary Range</h3>
-                <p className="text-sm text-gray-500 mb-8">Use the slider to select the minimum and maximum salary range.</p>
-                <Range className="flex"
-                  step={1000}
-                  min={MIN}
-                  max={MAX}
-                  values={values}
-                  onChange={handleSalaryChange}
-                  renderTrack={({ props, children }) => (
-                    <div {...props} style={{ height: '6px', background: '#ccc', borderRadius: '4px', width: '100%', margin: '0 auto' }}>
-                      {children}
-                    </div>
-                  )}
-                  renderThumb={({ props, index }) => (
-                    <div
-                      {...props}
-                      style={{
-                        height: '16px',
-                        width: '16px',
-                        backgroundColor: '#007bff',
-                        borderRadius: '50%',
-                        outline: 'none',
-                        display: 'flex',
-                      }}
-                    >
-
-                      <div style={{ position: 'absolute', top: '-28px', fontWeight: 'bold', textAlign: 'center', width: '40px', left: '-12px' }}>
-                        ₹{values[index]}
+              <div className=" mb-6 border-b pb-4">
+                <h3 className="text-lg font-medium mb-2">Salary Range :</h3>
+                <p className="text-sm text-gray-500 mb-10">Use the slider to select the minimum and maximum salary range.</p>
+                <div className='max-w-[700px]'>
+                  <Range className="flex items-center "
+                    step={1000}
+                    min={MIN}
+                    max={MAX}
+                    values={values}
+                    onChange={handleSalaryChange}
+                    renderTrack={({ props, children }) => (
+                      <div {...props} style={{ height: '6px', background: '#ccc', borderRadius: '4px', width: '100%', margin: '0 auto' }}>
+                        {children}
                       </div>
-                    </div>
-                  )}
-                />
-                <div className="flex justify-between mt-2">
-                  <span>₹{MIN}</span>
-                  <span>₹{MAX}</span>
+                    )}
+                    renderThumb={({ props, index }) => (
+                      <div
+                        {...props}
+                        className='h-[3vh] bg-blue-600 rounded-full w-[3vh] outline-none cursor-pointer'
+                      >
+
+                        <div style={{ position: 'absolute', top: '-28px', fontWeight: 'bold', textAlign: 'center', width: '40px', left: '-12px' }}>
+                          ₹{values[index]}
+                        </div>
+                      </div>
+                    )}
+                  />
+                  <div className="flex justify-between mt-4">
+                    <span>₹{MIN}</span>
+                    <span>₹{MAX}</span>
+                  </div>
                 </div>
               </div>
 
 
               {/* Required Skills */}
-              <div className="mb-6 border-b pb-4">
-                <h3 className="text-lg font-medium mb-2">Required Skills</h3>
+              <div className="mb-2 border-b pb-4">
+                <h3 className="text-lg font-medium mb-2">Required Skills :</h3>
                 <p className="text-sm text-gray-500 mb-4">Add required skills for the job</p>
                 <div className="flex items-center mb-4">
                   <input
@@ -325,6 +323,10 @@ const PostJob = ({ jobData = {}, updateJobData, nextStep }) => {
                     </span>
                   ))}
                 </div>
+              </div>
+
+              {/* Step -2 Description form  */}
+              <div className='pt-2'>
                 <div className="container2">
                   <div className="details">
                     <h2>Details</h2>
@@ -344,7 +346,7 @@ const PostJob = ({ jobData = {}, updateJobData, nextStep }) => {
                           value={jobDetails[field]}  // Use the corresponding value from the state
                           onChange={handleInputChange}  // Update state on change
                           placeholder={`Enter ${field}`}
-                          className="border rounded w-full p-2"
+                          className="border rounded w-full p-2 gap-2"
                         ></textarea>
                         <hr />
                         <div className="toolbar">
@@ -364,66 +366,73 @@ const PostJob = ({ jobData = {}, updateJobData, nextStep }) => {
                     </div>
                   ))}
                 </div>
-                <div className="container2">
-                  <div className="details">
-                    <h2>Basic Information</h2>
-                    <p>List out your top perks and benefits.</p>
-                  </div>
-                  <hr /><br />
-                  <div className="flex">
-                    <div className="sidebar">
-                      <div className="details">
-                        <h3>Perks and Benefits</h3>
-                        <p>Encourage more people to apply by sharing the attractive rewards and benefits you offer your employees</p>
-                      </div>
+              </div>
+
+{/* Step -3 Perks and Benefits form  */}
+              <div className="container2">
+                <div className="details">
+                  <h2>Basic Information</h2>
+                  <p>List out your top perks and benefits.</p>
+                </div>
+                <hr /><br />
+                <div className="flex">
+                  <div className="sidebar">
+                    <div className="details">
+                      <h3>Perks and Benefits</h3>
+                      <p>Encourage more people to apply by sharing the attractive rewards and benefits you offer your employees</p>
                     </div>
-                    <div className="content">
-                      <button className="add-benefit-btn" onClick={addBenefit}>
-                        <FontAwesomeIcon icon={faPlus} className="icon" /> Add Benefit
-                      </button>
-                      <div className="benefits-grid">
-                        {perks.map((perk, index) => (
-                          <div key={index} className="benefit-card">
-                            <div className="flex justify-between items-start">
+                  </div>
+                  <div className="content">
+                    <button className="add-benefit-btn" onClick={addBenefit}>
+                      <FontAwesomeIcon icon={faPlus} className="icon" /> Add Benefit
+                    </button>
+                    <div className="benefits-grid">
+                      {perks.map((perk, index) => (
+                        <div key={index} className="benefit-card">
+                          <div className='flex'>
+                            <div>
+                              <input
+                                type="text"
+                                name="title"
+                                placeholder="Benefit Title"
+                                value={perk.title}
+                                onChange={(e) => handleChange(index, e)}
+                                className="p-2 h-2vh border-2 border-gray-200 gap-2 w-full"
+                              />
+                              <input
+                                name="description"
+                                type="text"
+                                placeholder="Benefit Description"
+                                value={perk.description}
+                                onChange={(e) => handleChange(index, e)}
+                                className="mt-1 border-2 p-2 border-gray-200 w-full min-h-[5vh] resize-none"
+                              />
+                            </div>
+                            <div>
                               <FontAwesomeIcon
                                 icon={faTimes}
-                                className="icon close cursor-pointer"
+                                className="text-red-500 text-[4vh] ml-[2vh] cursor-pointer "
                                 onClick={() => removeBenefit(index)}
                               />
                             </div>
-                            <input
-                              type="text"
-                              name="title"
-                              placeholder="Benefit Title"
-                              value={perk.title}
-                              onChange={(e) => handleChange(index, e)}
-                              className="perk-input mt-10 border-2 border-gray-200 gap-2"
-                            />
-                            <textarea
-                              name="description"
-                              placeholder="Benefit Description"
-                              value={perk.description}
-                              onChange={(e) => handleChange(index, e)}
-                              className="perk-textarea mt-1 border-2 border-gray-200"
-                            />
                           </div>
-                        ))}
-                      </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-center">
-                  <button type="submit" className={`bg-blue-500 text-white rounded px-6 py-2 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`} disabled={loading}>
-                    {loading ? 'Posting...' : 'Post Job'}
-                  </button>
-                </div>
-
+              </div>
+              <div className="flex justify-center p-5">
+                <button type="submit" className={`bg-blue-500 text-white rounded px-6 py-2 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`} disabled={loading}>
+                  {loading ? 'Posting...' : 'Post Job'}
+                </button>
               </div>
             </div>
           </form>
         </div>
+        </div>
         <Footer />
-      </div>
+      
     </div>
   );
 };

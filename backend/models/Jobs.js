@@ -14,7 +14,7 @@ const salaryRangeSchema = new mongoose.Schema({
 const jobSchema = new mongoose.Schema({
   companyName: { type: String },  // Removed duplicate
   title: { type: String },
-  locations: { type: [String] },
+  joblocations: { type: [String] },
   employmentType: { type: String },
   salaryRange: salaryRangeSchema,
   skills: { type: [String] },

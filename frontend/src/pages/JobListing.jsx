@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from '../Components/Navbar';
+import Navbar from '../Components/NavbarCompany';
 import Footer from '../Components/Footer';
 import {
   Dialog,
@@ -36,6 +36,8 @@ import WorkIcon from '@mui/icons-material/Work';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HelpIcon from '@mui/icons-material/Help';
+import axios from 'axios';
+import { useParams } from "react-router-dom";
 
 const JobListing = () => {
   const [open, setOpen] = useState(false);
@@ -107,15 +109,16 @@ const JobListing = () => {
     { text: 'Help Center', icon: <HelpIcon />, path: '/help-center' },
   ];
 
-  const handleDelete = async (jobId) => {
+  const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:1000/jobs/${jobId}`, { method: 'DELETE' });
-      return response.ok;
+      await axios.delete(`http://localhost:1000/jobs/${id}`);
+      window.location.reload(); // Reload the page after deletion
     } catch (error) {
-      console.error('Error deleting job:', error);
-      return false;
+      console.error("Failed to delete job:", error);
     }
   };
+  
+
 
   const handleEdit = (job) => {
     if (job) {
@@ -138,15 +141,15 @@ const JobListing = () => {
       setOpen(true);
     }
   };
-  
+
   const handleUpdate = async () => {
     const jobId = jobDetails.id; // This should now correctly reference the job ID
-  
+
     if (!jobId) {
       console.error("Job ID is undefined.");
       return; // Exit early if jobId is not valid
     }
-  
+
     const updatedJobDetails = {
       ...jobDetails,
       perks: jobDetails.perks.map(perk => ({
@@ -154,10 +157,10 @@ const JobListing = () => {
         description: perk.description || '', // Ensure description exists
       })),
     };
-  
+
     console.log("Job Details:", updatedJobDetails); // Log updated job details
     console.log("Job ID:", jobId); // Log job ID
-  
+
     try {
       const updatedJob = await updateJob(jobId, updatedJobDetails);
       // Handle the updated job response as needed
@@ -165,8 +168,8 @@ const JobListing = () => {
       console.error('Error updating job:', error);
     }
   };
-  
-  
+
+
   const updateJob = async (jobId, jobData) => {
     try {
       const response = await fetch(`http://localhost:1000/jobs/${jobId}`, {
@@ -174,19 +177,19 @@ const JobListing = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(jobData),
       });
-  
+
       if (!response.ok) {
         const errorMessage = await response.text();
         throw new Error(`Failed to update job: ${errorMessage}`);
       }
-  
+
       return await response.json();
     } catch (error) {
       console.error('Error updating job:', error);
     }
   };
-  
-  
+
+
   const employmentTypeOptions = [
     "Full-time",
     "Part-time",
@@ -210,87 +213,87 @@ const JobListing = () => {
     updatedSkills[index] = value;
     setSkills(updatedSkills);
   };
- // Handle job detail changes
- const handleChange = (e) => {
-  setJobDetails({ ...jobDetails, [e.target.name]: e.target.value });
-};
+  // Handle job detail changes
+  const handleChange = (e) => {
+    setJobDetails({ ...jobDetails, [e.target.name]: e.target.value });
+  };
 
-// Handle adding new location
-const handleAddLocation = () => {
-  if (newLocation) {
+  // Handle adding new location
+  const handleAddLocation = () => {
+    if (newLocation) {
+      setJobDetails((prevDetails) => ({
+        ...prevDetails,
+        locations: [...prevDetails.locations, newLocation],
+      }));
+      setNewLocation('');
+    }
+  };
+
+  // Handle deleting location
+  const handleDeleteLocation = (locationToDelete) => {
     setJobDetails((prevDetails) => ({
       ...prevDetails,
-      locations: [...prevDetails.locations, newLocation],
+      locations: prevDetails.locations.filter((location) => location !== locationToDelete),
     }));
-    setNewLocation('');
-  }
-};
+  };
 
-// Handle deleting location
-const handleDeleteLocation = (locationToDelete) => {
-  setJobDetails((prevDetails) => ({
-    ...prevDetails,
-    locations: prevDetails.locations.filter((location) => location !== locationToDelete),
-  }));
-};
+  // Handle adding new skill
+  const handleAddSkill = () => {
+    if (newSkill) {
+      setJobDetails((prevDetails) => ({
+        ...prevDetails,
+        skills: [...prevDetails.skills, newSkill],
+      }));
+      setNewSkill('');
+    }
+  };
 
-// Handle adding new skill
-const handleAddSkill = () => {
-  if (newSkill) {
+  // Handle deleting skill
+  const handleDeleteSkill = (skillToDelete) => {
     setJobDetails((prevDetails) => ({
       ...prevDetails,
-      skills: [...prevDetails.skills, newSkill],
+      skills: prevDetails.skills.filter((skill) => skill !== skillToDelete),
     }));
-    setNewSkill('');
-  }
-};
+  };
 
-// Handle deleting skill
-const handleDeleteSkill = (skillToDelete) => {
-  setJobDetails((prevDetails) => ({
-    ...prevDetails,
-    skills: prevDetails.skills.filter((skill) => skill !== skillToDelete),
-  }));
-};
+  // Handle adding new perk
+  const handleAddPerk = () => {
+    if (newPerk && newPerkDescription) {
+      setJobDetails((prevDetails) => ({
+        ...prevDetails,
+        perks: [...prevDetails.perks, { name: newPerk, description: newPerkDescription }],
+      }));
+      setNewPerk('');
+      setNewPerkDescription('');
+    }
+  };
 
-// Handle adding new perk
-const handleAddPerk = () => {
-  if (newPerk && newPerkDescription) {
+  // Handle deleting perk
+  const handleDeletePerk = (perkToDelete) => {
     setJobDetails((prevDetails) => ({
       ...prevDetails,
-      perks: [...prevDetails.perks, { name: newPerk, description: newPerkDescription }],
+      perks: prevDetails.perks.filter((perk) => perk.name !== perkToDelete.name),
     }));
-    setNewPerk('');
-    setNewPerkDescription('');
-  }
-};
+  };
 
-// Handle deleting perk
-const handleDeletePerk = (perkToDelete) => {
-  setJobDetails((prevDetails) => ({
-    ...prevDetails,
-    perks: prevDetails.perks.filter((perk) => perk.name !== perkToDelete.name),
-  }));
-};
+  // Handle updating employment type
+  const handleUpdateEmploymentType = () => {
+    if (employmentType) {
+      setJobDetails((prevDetails) => ({
+        ...prevDetails,
+        employmentTypes: [...prevDetails.employmentTypes, employmentType],
+      }));
+      setEmploymentType('');
+    }
+  };
 
-// Handle updating employment type
-const handleUpdateEmploymentType = () => {
-  if (employmentType) {
+  // Handle deleting employment type
+  const handleDeleteEmploymentType = (typeToDelete) => {
     setJobDetails((prevDetails) => ({
       ...prevDetails,
-      employmentTypes: [...prevDetails.employmentTypes, employmentType],
+      employmentTypes: prevDetails.employmentTypes.filter((type) => type !== typeToDelete),
     }));
-    setEmploymentType('');
-  }
-};
-
-// Handle deleting employment type
-const handleDeleteEmploymentType = (typeToDelete) => {
-  setJobDetails((prevDetails) => ({
-    ...prevDetails,
-    employmentTypes: prevDetails.employmentTypes.filter((type) => type !== typeToDelete),
-  }));
-};
+  };
   return (
     <div>
       <Navbar />
@@ -307,29 +310,31 @@ const handleDeleteEmploymentType = (typeToDelete) => {
           <Divider />
         </Box>
 
-        <div className="flex">
+        <div className="flex w-full">
           <div className="flex-grow p-4">
             <SecondaryNavbar />
             <Box>
               <Typography variant="h4" sx={{ marginTop: '20px' }}>Job Listings</Typography>
-              {jobUpdates.map((job) => (
-                <Card key={job._id} sx={{ marginBottom: '20px' }}>
-                  <CardContent>
-                    <Typography variant="h5">{job.title}</Typography>
-                    <Typography variant="body2">{job.description}</Typography>
-                    <IconButton onClick={() => handleEdit(job)}>
-                      <EditIcon />
-                    </IconButton>
-                    <IconButton onClick={() => handleClickOpen(job)}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </CardContent>
-                </Card>
-              ))}
+              <div className='flex flex-wrap w-full gap-6'>
+                {jobUpdates.map((job) => (
+                  <Card key={job._id} sx={{ marginBottom: '20px' }} className='min-w-[25vh]'>
+                    <CardContent>
+                      <Typography variant="h5">{job.title}</Typography>
+                      <Typography variant="body2">{job.description}</Typography>
+                      <IconButton onClick={() => handleEdit(job)}>
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton onClick={() => handleClickOpen(job)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
               <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Confirm Deletion</DialogTitle>
                 <DialogContent>
-                  <Typography>Are you sure you want to delete the job listing for "{jobToDelete?.title}"?</Typography>
+                  <Typography>Are you sure you want to delete the job listing for "{jobDetails.title}"?</Typography>
                 </DialogContent>
                 <DialogActions>
                   <Button onClick={handleClose}>Cancel</Button>
@@ -338,9 +343,9 @@ const handleDeleteEmploymentType = (typeToDelete) => {
               </Dialog>
 
               <Dialog open={Boolean(selectedJob)} onClose={() => setSelectedJob(null)}>
-                <DialogTitle>Edit Job Listing</DialogTitle>
-                <DialogContent>
-                  <TextField name="title" label="Job Title" value={jobDetails.title} onChange={handleChange} fullWidth />
+                <DialogTitle className='text-2xl pb-2 z-0' >Edit Job Listing</DialogTitle>
+                <DialogContent className='p-4 flex flex-col gap-4'>
+                  <TextField className='pt-2 z-10' name="title" label="Job Title" value={jobDetails.title} onChange={handleChange} fullWidth />
                   <TextField name="description" label="Job Description" value={jobDetails.description} onChange={handleChange} fullWidth multiline rows={4} />
                   <TextField name="responsibilities" label="Responsibilities" value={jobDetails.responsibilities} onChange={handleChange} fullWidth multiline rows={4} />
                   <TextField name="qualifications" label="Qualifications" value={jobDetails.qualifications} onChange={handleChange} fullWidth multiline rows={4} />
@@ -349,102 +354,102 @@ const handleDeleteEmploymentType = (typeToDelete) => {
                   <TextField name="salaryMax" label="Max Salary" type="number" value={jobDetails.salaryRange.max} onChange={(e) => setJobDetails({ ...jobDetails, salaryRange: { ...jobDetails.salaryRange, max: e.target.value } })} fullWidth />
 
                   <Box>
-            <List>
-              {jobDetails.locations.map((location, index) => (
-                <ListItem key={index}>
-                  <ListItemText primary={location} />
-                  <ListItemSecondaryAction>
-                    <IconButton edge="end" onClick={() => handleDeleteLocation(location)}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              ))}
-            </List>
-            <TextField
-              label="Add Location"
-              value={newLocation}
-              onChange={(e) => setNewLocation(e.target.value)}
-              fullWidth
-            />
-            <Button onClick={handleAddLocation}>Add Location</Button>
-          </Box>
+                    <List>
+                      {jobDetails.locations.map((location, index) => (
+                        <ListItem key={index}>
+                          <ListItemText primary={location} />
+                          <ListItemSecondaryAction>
+                            <IconButton edge="end" onClick={() => handleDeleteLocation(location)}>
+                              <DeleteIcon />
+                            </IconButton>
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      ))}
+                    </List>
+                    <TextField
+                      label="Add Location"
+                      value={newLocation}
+                      onChange={(e) => setNewLocation(e.target.value)}
+                      fullWidth
+                    />
+                    <Button onClick={handleAddLocation}>Add Location</Button>
+                  </Box>
 
-          <Typography>Skills:</Typography>
-          <Box>
-            <List>
-              {jobDetails.skills.map((skill, index) => (
-                <ListItem key={index}>
-                  <ListItemText primary={skill} />
-                  <ListItemSecondaryAction>
-                    <IconButton edge="end" onClick={() => handleDeleteSkill(skill)}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              ))}
-            </List>
-            <TextField
-              label="Add Skill"
-              value={newSkill}
-              onChange={(e) => setNewSkill(e.target.value)}
-              fullWidth
-            />
-            <Button onClick={handleAddSkill}>Add Skill</Button>
-          </Box>
+                  <Typography>Skills:</Typography>
+                  <Box>
+                    <List>
+                      {jobDetails.skills.map((skill, index) => (
+                        <ListItem key={index}>
+                          <ListItemText primary={skill} />
+                          <ListItemSecondaryAction>
+                            <IconButton edge="end" onClick={() => handleDeleteSkill(skill)}>
+                              <DeleteIcon />
+                            </IconButton>
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      ))}
+                    </List>
+                    <TextField
+                      label="Add Skill"
+                      value={newSkill}
+                      onChange={(e) => setNewSkill(e.target.value)}
+                      fullWidth
+                    />
+                    <Button onClick={handleAddSkill}>Add Skill</Button>
+                  </Box>
 
-          <Typography>Perks:</Typography>
-          <Box>
-            {jobDetails.perks.map((perk, index) => (
-              <Box key={index}>
-                <Typography variant="h6">{perk.name}</Typography>
-                <Typography>{perk.description}</Typography>
-                <IconButton edge="end" onClick={() => handleDeletePerk(perk)}>
-                  <DeleteIcon />
-                </IconButton>
-              </Box>
-            ))}
-            <TextField
-              label="Add Perk"
-              value={newPerk}
-              onChange={(e) => setNewPerk(e.target.value)}
-              fullWidth
-            />
-            <TextField
-              label="Perk Description"
-              value={newPerkDescription}
-              onChange={(e) => setNewPerkDescription(e.target.value)}
-              fullWidth
-            />
-            <Button onClick={handleAddPerk}>Add Perk</Button>
-          </Box>
+                  <Typography>Perks:</Typography>
+                  <Box>
+                    {jobDetails.perks.map((perk, index) => (
+                      <Box key={index}>
+                        <Typography variant="h6">{perk.name}</Typography>
+                        <Typography>{perk.description}</Typography>
+                        <IconButton edge="end" onClick={() => handleDeletePerk(perk)}>
+                          <DeleteIcon />
+                        </IconButton>
+                      </Box>
+                    ))}
+                    <TextField
+                      label="Add Perk"
+                      value={newPerk}
+                      onChange={(e) => setNewPerk(e.target.value)}
+                      fullWidth
+                    />
+                    <TextField
+                      label="Perk Description"
+                      value={newPerkDescription}
+                      onChange={(e) => setNewPerkDescription(e.target.value)}
+                      fullWidth
+                    />
+                    <Button onClick={handleAddPerk}>Add Perk</Button>
+                  </Box>
 
-          <Typography>Employment Types:</Typography>
-          <Box>
-            {jobDetails.employmentTypes.map((type, index) => (
-              <ListItem key={index}>
-                <ListItemText primary={type} />
-                <ListItemSecondaryAction>
-                  <IconButton edge="end" onClick={() => handleDeleteEmploymentType(type)}>
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))}
-            <TextField
-              label="Add Employment Type"
-              value={employmentType}
-              onChange={(e) => setEmploymentType(e.target.value)}
-              fullWidth
-            />
-            <Button onClick={handleUpdateEmploymentType}>Add Employment Type</Button>
-          </Box>
+                  <Typography>Employment Types:</Typography>
+                  <Box>
+                    {jobDetails.employmentTypes.map((type, index) => (
+                      <ListItem key={index}>
+                        <ListItemText primary={type} />
+                        <ListItemSecondaryAction>
+                          <IconButton edge="end" onClick={() => handleDeleteEmploymentType(type)}>
+                            <DeleteIcon />
+                          </IconButton>
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    ))}
+                    <TextField
+                      label="Add Employment Type"
+                      value={employmentType}
+                      onChange={(e) => setEmploymentType(e.target.value)}
+                      fullWidth
+                    />
+                    <Button onClick={handleUpdateEmploymentType}>Add Employment Type</Button>
+                  </Box>
                 </DialogContent>
                 <DialogActions>
-          <Button onClick={() => setSelectedJob(null)}>Cancel</Button>
-          <Button onClick={handleUpdate} color="primary">Update</Button>
-        </DialogActions>
-      </Dialog>
+                  <Button onClick={() => setSelectedJob(null)}>Cancel</Button>
+                  <Button onClick={handleUpdate} color="primary">Update</Button>
+                </DialogActions>
+              </Dialog>
             </Box>
           </div>
         </div>

@@ -13,14 +13,31 @@ exports.createJob = async (req, res) => {
 };
 
 // Get all job postings
+// Get all job postings with optional filters
 exports.getAllJobs = async (req, res) => {
-  try {
-    const jobs = await Job.find();
-    res.status(200).json(jobs);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+  const { title, location, skills } = req.query;
+    const skillsArray = skills ? skills.split(',') : [];
+    
+    let filter = {};
+    if (title) filter.title = title; // Exact match on title
+    if (location) {
+        filter.location = new RegExp(location, 'i'); // Case insensitive match
+    }
+    if (skillsArray.length > 0) {
+        filter.skills = { $all: skillsArray }; // Match all skills in the array
+    }
+
+    console.log("Filter being applied:", filter); // Debugging log
+
+    try {
+        const jobs = await Job.find(filter);
+        console.log("Jobs fetched:", jobs); // Log fetched jobs
+        res.json(jobs);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching jobs' });
+    }
 };
+
 
 // Get a job by ID
 exports.getJobById = async (req, res) => {

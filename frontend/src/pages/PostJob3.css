@@ -216,9 +216,6 @@ body {
     position: relative; /* Positioning context for absolute elements */
   }
   
-  .icon {
-    margin-right: 500px; /* Space between icons */
-  }
   
   .close {
     color: red; /* Change color to indicate removal */
