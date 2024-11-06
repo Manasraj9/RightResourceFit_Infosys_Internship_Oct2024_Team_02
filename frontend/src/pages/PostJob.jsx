@@ -164,38 +164,9 @@ const PostJob = ({ jobData = {}, updateJobData, nextStep }) => {
         <div className="bg-white shadow-md mt-4 max-w-4xl mx-auto">
           <div className="flex items-center px-6 py-4">
             <a href="#" className="text-lg font-semibold text-gray-800 flex items-center">
-              <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
-              Post a Job
+              <FontAwesomeIcon icon={faArrowLeft} className="mr-2 " />
+              <h1 className='text-3xl text-underline'>Post a Job</h1>
             </a>
-          </div>
-          <div className="border-t border-gray-200 w-full">
-            <div className="flex justify-center py-6 w-full">
-              <div className="flex justify-around items-center w-full">
-                <div className="flex flex-col items-center">
-                  <div className="bg-blue-600 text-white rounded-full h-10 w-10 flex items-center justify-center">
-                    <FontAwesomeIcon icon={faBriefcase} />
-                  </div>
-                  <div className="mt-2 text-sm text-gray-500">Step 1/3</div>
-                  <div className="mt-1 text-sm font-semibold text-gray-800">Job Information</div>
-                </div>
-                <div className="mx-8 border-r border-gray-200 h-10"></div>
-                <div className="flex flex-col items-center">
-                  <div className="bg-gray-200 text-gray-500 rounded-full h-10 w-10 flex items-center justify-center">
-                    <FontAwesomeIcon icon={faBriefcase} />
-                  </div>
-                  <div className="mt-2 text-sm text-gray-500">Step 2/3</div>
-                  <div className="mt-1 text-sm font-semibold text-gray-800">Job Description</div>
-                </div>
-                <div className="mx-8 border-r border-gray-200 h-10"></div>
-                <div className="flex flex-col items-center">
-                  <div className="bg-gray-200 text-gray-500 rounded-full h-10 w-10 flex items-center justify-center">
-                    <FontAwesomeIcon icon={faGift} />
-                  </div>
-                  <div className="mt-2 text-sm text-gray-500">Step 3/3</div>
-                  <div className="mt-1 text-sm font-semibold text-gray-800">Perks & Benefit</div>
-                </div>
-              </div>
-            </div>
           </div>
           <form onSubmit={handleSubmit}>
             <div className="mx-10">
@@ -316,7 +287,7 @@ const PostJob = ({ jobData = {}, updateJobData, nextStep }) => {
                       {skill}
                       <button
                         onClick={() => handleRemoveSkill(index)}
-                        className="ml-2 text-gray-500 hover:text-gray-700"
+                        className="ml-2 text-gray-500 hover:text-red-700"
                       >
                         ×
                       </button>

@@ -16,55 +16,50 @@ const JobseekerPage = () => {
     const [skills, setSkills] = useState('');
     const [employmentType, setemploymentType] = useState('');
     const [salaryRange, setSalaryRange] = useState('');
+    const [showAllJobs, setShowAllJobs] = useState(false);
     const [checkedStates, setCheckedStates] = useState(Array(18).fill(false));
 
-    // Handle checkbox change
-    const handleCheckboxChange = (index) => {
-        const newCheckedStates = [...checkedStates];
-        newCheckedStates[index] = !newCheckedStates[index];
-        setCheckedStates(newCheckedStates);
-    };
-
-    // Fetch jobs based on search criteria
+    // Function to fetch jobs
     const fetchJobs = async () => {
-        // Log the parameters being sent
         console.log("Fetching jobs with parameters:", {
             title,
             joblocations,
             skills,
             employmentType,
             salaryRange,
+            showAllJobs
         });
 
         try {
             const response = await axios.get('http://localhost:1000/jobs', {
-                params: {
-                    title,
-                    joblocations,
-                    skills,
-                    employmentType,
-                    salaryRange,
-                },
+                params: showAllJobs
+                    ? {} // Empty params fetches all jobs
+                    : { title, joblocations, skills, employmentType, salaryRange }
             });
 
-            // Log the response data
             console.log("Response data:", response.data);
-
             setJobs(response.data);
         } catch (error) {
             console.error('Error fetching jobs:', error);
         }
     };
 
-
-
+    // Handle form submission for job search
     const handleSearch = (e) => {
         e.preventDefault();
-        // Log input values to ensure they are correct
         console.log("Search criteria:", { title, joblocations, skills });
         fetchJobs();
     };
 
+    // Handle "Show All Jobs" checkbox change
+    const handleShowAllJobsChange = (event) => {
+        setShowAllJobs(event.target.checked);
+        fetchJobs();
+    };
+
+    useEffect(() => {
+        fetchJobs(); // Initial job fetch on component mount
+    }, []);
 
     return (
         <div>
@@ -103,29 +98,29 @@ const JobseekerPage = () => {
                                     onChange={(e) => setSkills(e.target.value)}
                                 />
                             </li>
-                            </ul>
-                            <div className='flex items-center gap-2 pl-4'>
+                        </ul>
+                        <div className='flex items-center gap-2 pl-4'>
 
-                                <button onClick={handleSearch} className='searchbutton'>Search</button>
+                            <button onClick={handleSearch} className='searchbutton'>Search</button>
 
-                                <button
-                                    onClick={() => {
-                                        setTitle('');
-                                        setJoblocations('');
-                                        setSkills('');
-                                        setJobs([]);
-                                    }}
-                                    className='clearbutton '
-                                >
-                                    Clear All
-                                </button>
-                            </div>
-                        
+                            <button
+                                onClick={() => {
+                                    setTitle('');
+                                    setJoblocations('');
+                                    setSkills('');
+                                    setJobs([]);
+                                }}
+                                className='clearbutton '
+                            >
+                                Clear All
+                            </button>
+                        </div>
+
                     </div>
                 </div><br />
 
-                <div className='flex '>
-                    <div className='pl-6 max-w-[60vh] pb-6'>
+                <div className='flex'>
+                    <div className='pl-6 min-w-[60vh] pb-6'>
                         <div className="bg-[#FCFCFC] text-black p-4 gridcol1">
                             <div className='mx-8 font-bold text-2xl'>Salary Range</div><br />
                             <div className='mx-8' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginLeft: '32px', marginRight: '32px' }}>
@@ -202,31 +197,31 @@ const JobseekerPage = () => {
                         </div>
                     </div>
                     {/* Display jobs */}
-                    <div className="w-full flex flex-wrap gap-10 pl-10">
+                    <div className=" flex mx-10 gap-10 flex-wrap max-h-[30vh]">
                         {jobs.length > 0 ? (
                             jobs.map((job, index) => (
-                                <div key={index} className="job-container mb-10">
+                                <div key={index} className="min-w-[480px]">
                                     <div className="job-details bg-white text-black p-4">
                                         <div className='font-bold text-2xl'>{job.title}</div>
                                         <br />
                                         <div className='flex justify-between items-center'>
-                                        <div className="job-typebtn">
-                                            <Link><button>{job.employmentType.split(',')[0]}</button></Link>
-                                        </div>
-                                        {job.salaryRange &&
-                                            typeof job.salaryRange === 'object' &&
-                                            job.salaryRange.min !== undefined &&
-                                            job.salaryRange.max !== undefined && (
-                                                <p>
-                                                    Salary: {job.salaryRange.min} - {job.salaryRange.max}
-                                                </p>
-                                            )}
+                                            <div className="job-typebtn">
+                                                <Link><button>{job.employmentType.split(',')[0]}</button></Link>
                                             </div>
+                                            {job.salaryRange &&
+                                                typeof job.salaryRange === 'object' &&
+                                                job.salaryRange.min !== undefined &&
+                                                job.salaryRange.max !== undefined && (
+                                                    <p>
+                                                        Salary: {job.salaryRange.min} - {job.salaryRange.max}
+                                                    </p>
+                                                )}
+                                        </div>
                                         <img src={job.icon} alt="Company Icon" className='h-20 w-20' />
                                         <div className='custom-title2 font-bold'>{job.title2}</div>
                                         <p>
-                                        
-                                        <img src={joblocationIcon} alt="Location Icon" className='h-5 w-5 ml-24' />
+
+                                            <img src={joblocationIcon} alt="Location Icon" className='h-5 w-5 ml-24' />
                                             <div className='ml-28 custom-loc'>{job.joblocations[0]}...</div>
                                         </p><br /><br />
                                         <div className="buttons-container flex justify-between items-center gap-10 mt-5">

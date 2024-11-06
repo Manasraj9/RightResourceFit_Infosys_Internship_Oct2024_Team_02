@@ -79,3 +79,17 @@ exports.deleteJob = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+// Function to fetch jobs with optional "show all" filter
+exports.fetchJobs = async (req, res) => {
+  const showAll = req.query.all === 'true';
+  try {
+    const jobs = showAll
+      ? await Job.find() // Fetch all jobs
+      : await Job.find({ isActive: true }); // Fetch only active jobs
+
+    res.json(jobs);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching jobs' });
+  }
+};
