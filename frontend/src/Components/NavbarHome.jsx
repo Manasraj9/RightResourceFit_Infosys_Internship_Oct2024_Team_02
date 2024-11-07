@@ -53,7 +53,7 @@ const NavbarHome = () => {
                                             <div className="py-2 px-4 hover:bg-[#3f72af] hover:text-white cursor-pointer">Profile</div>
                                         </Link>
                                         <hr />
-                                        <Link to="/Dashboard">
+                                        <Link to="/JobDashboard">
                                             <div className="py-2 px-4 hover:bg-[#3f72af] hover:text-white cursor-pointer">Dashboard</div>
                                         </Link>
                                         <hr style={{ border: '2px solid [#3f72af]' }} />

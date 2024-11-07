@@ -5,7 +5,7 @@ import Footer from '../Components/Footer'
 import backgroundImage from '../images/homebgimg.png'
 import jobPoster from '../images/jobposter.png'
 import { Link } from 'react-router-dom'
-import './Companyhomepage.css'
+import './companyhomepage.css'
 import jobStatusimg from '../images/jobstatusview.png'
 
 
