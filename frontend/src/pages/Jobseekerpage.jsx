@@ -52,7 +52,7 @@ const JobseekerPage = () => {
     };
 
     // Handle "Show All Jobs" checkbox change
-    const handleShowAllJobsChange = (event) => {
+    const handleCheckboxChange = (event) => {
         setShowAllJobs(event.target.checked);
         fetchJobs();
     };
