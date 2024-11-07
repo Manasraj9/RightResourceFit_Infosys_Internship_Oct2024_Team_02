@@ -1,39 +1,31 @@
+const jobDb = require('../config/dbJob');
 const mongoose = require('mongoose');
 
-const jobSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true
-  },
-  description: {
-    type: String,
-    required: true
-  },
-  employmentType: {
-    type: [String], // e.g., ['Full-time', 'Part-time']
-    required: true
-  },
-  workingSchedule: {
-    type: [String], // e.g., ['Day shift', 'Night shift', 'Weekend availability']
-  },
-  salary: {
-    amount: {
-      type: Number,
-      required: true
-    },
-    type: {
-      type: String, // e.g., 'Hourly', 'Yearly'
-      required: true
-    },
-    negotiable: {
-      type: Boolean,
-      default: false
-    }
-  },
-  multipleCandidates: {
-    type: Boolean,
-    default: false
-  }
+const perkSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  description: { type: String, required: true },
 });
 
-module.exports = mongoose.model('Job', jobSchema);
+const salaryRangeSchema = new mongoose.Schema({
+  min: { type: Number, required: true },
+  max: { type: Number, required: true },
+});
+
+const jobSchema = new mongoose.Schema({
+  companyName: { type: String },  // Removed duplicate
+  title: { type: String },
+  joblocations: { type: [String] },
+  employmentType: { type: String },
+  salaryRange: salaryRangeSchema,
+  skills: { type: [String] },
+  description: { type: String },
+  responsibilities: { type: String },
+  qualifications: { type: String },
+  niceToHaves: { type: String },
+  perks: [perkSchema],
+  createdAt: { type: Date, default: Date.now },
+});
+
+module.exports = jobDb.model('Job', jobSchema);
+
+

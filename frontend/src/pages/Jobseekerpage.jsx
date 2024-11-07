@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../Components/NavbarHome';
 import Footer from '../Components/Footer';
 import { Link } from 'react-router-dom';
@@ -7,110 +7,59 @@ import joblocationIcon from '../images/joblocation.png';
 import jobskillsIcon from '../images/jobskills.png';
 import './Jobseekerpage.css';
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
-import googleIcon from '../images/google.png';
-import appleIcon from '../images/apple.png';
-import intelIcon from '../images/intel.png';
-
-const Alljobs = [
-    { 
-        title: 'Technical Support Specialist', 
-        button: 'Part-Time', 
-        salary: 'Salary: 20,000 INR - 25,000 INR', 
-        icon: googleIcon, 
-        title2: 'Google.Inc', 
-        icon2: joblocationIcon, 
-        location: 'New Delhi, India', 
-        button1: 'View Details', 
-        button2: 'Apply Now',
-        bookmarked: false 
-    },
-    {
-        title: 'Marketing Officer', 
-        button: 'Part-Time', 
-        salary: 'Salary: 15,000 INR - 35,000 INR', 
-        icon: intelIcon, 
-        title2: 'Intel Corp',
-        icon2: joblocationIcon, 
-        location: 'Bangalore, India', 
-        button1: 'View Details', 
-        button2: 'Apply Now',
-        bookmarked: false 
-    },
-    { 
-        title: 'Senior UI/UX Designer', 
-        button: 'Full-Time', 
-        salary: 'Salary: 30,000 INR - 45,000 INR', 
-        icon: googleIcon, 
-        title2: 'Google.Inc', 
-        icon2: joblocationIcon, 
-        location: 'New Delhi, India', 
-        button1: 'View Details', 
-        button2: 'Apply Now',
-        bookmarked: false 
-    },
-];
-
-const Alljobcolumn3 = [
-    { 
-        title: 'Senior UI/UX Designer', 
-        button: 'Part-Time', 
-        salary: 'Salary: 40,000 INR - 60,000 INR', 
-        icon: appleIcon, 
-        title2: 'Apple', 
-        icon2: joblocationIcon, 
-        location: 'Boston, USA', 
-        button1: 'View Details', 
-        button2: 'Apply Now',
-        bookmarked: false 
-    },
-    {
-        title: 'Technical Support Specialist', 
-        button: 'Full-Time', 
-        salary: 'Salary: 35,000 INR - 55,000 INR', 
-        icon: intelIcon, 
-        title2: 'Intel Corp',
-        icon2: joblocationIcon, 
-        location: 'Bangalore, India', 
-        button1: 'View Details', 
-        button2: 'Apply Now',
-        bookmarked: false 
-    },
-    { 
-        title: 'Marketing Officer', 
-        button: 'Full-Time', 
-        salary: 'Salary: 40,000 INR - 50,000 INR', 
-        icon: appleIcon, 
-        title2: 'Apple', 
-        icon2: joblocationIcon, 
-        location: 'Boston, USA', 
-        button1: 'View Details', 
-        button2: 'Apply Now',
-        bookmarked: false 
-    },
-];
+import axios from 'axios';
 
 const JobseekerPage = () => {
-    const [jobs, setJobs] = useState(Alljobs); 
-    const [column3Jobs, setColumn3Jobs] = useState(Alljobcolumn3); // Manage state for column 3
+    const [jobs, setJobs] = useState([]);
+    const [title, setTitle] = useState('');
+    const [joblocations, setJoblocations] = useState('');
+    const [skills, setSkills] = useState('');
+    const [employmentType, setemploymentType] = useState('');
+    const [salaryRange, setSalaryRange] = useState('');
+    const [showAllJobs, setShowAllJobs] = useState(false);
     const [checkedStates, setCheckedStates] = useState(Array(18).fill(false));
 
-    const handleCheckboxChange = (index) => {
-        const newCheckedStates = [...checkedStates];
-        newCheckedStates[index] = !newCheckedStates[index]; 
-        setCheckedStates(newCheckedStates);
-    };
+    // Function to fetch jobs
+    const fetchJobs = async () => {
+        console.log("Fetching jobs with parameters:", {
+            title,
+            joblocations,
+            skills,
+            employmentType,
+            salaryRange,
+            showAllJobs
+        });
 
-    const toggleBookmark = (index, column) => {
-        if (column === 1) {
-            const newJobs = [...jobs];
-            newJobs[index].bookmarked = !newJobs[index].bookmarked; 
-            setJobs(newJobs); 
-        } else if (column === 2) {
-            const newColumn3Jobs = [...column3Jobs];
-            newColumn3Jobs[index].bookmarked = !newColumn3Jobs[index].bookmarked; 
-            setColumn3Jobs(newColumn3Jobs); 
+        try {
+            const response = await axios.get('http://localhost:1000/jobs', {
+                params: showAllJobs
+                    ? {} // Empty params fetches all jobs
+                    : { title, joblocations, skills, employmentType, salaryRange }
+            });
+
+            console.log("Response data:", response.data);
+            setJobs(response.data);
+        } catch (error) {
+            console.error('Error fetching jobs:', error);
         }
     };
+
+    // Handle form submission for job search
+    const handleSearch = (e) => {
+        e.preventDefault();
+        console.log("Search criteria:", { title, joblocations, skills });
+        fetchJobs();
+    };
+
+    // Handle "Show All Jobs" checkbox change
+    const handleShowAllJobsChange = (event) => {
+        setShowAllJobs(event.target.checked);
+        fetchJobs();
+    };
+
+    useEffect(() => {
+        fetchJobs(); // Initial job fetch on component mount
+    }, []);
 
     return (
         <div>
@@ -118,38 +67,60 @@ const JobseekerPage = () => {
             <div className='bg-[#dbe2ef]'><br />
                 <div className='flex items-center justify-center'>
                     <div className='searchbox-container flex justify-center items-center'>
-                    <ul className='flex justify-center items-center text-white gap-10'>
-                        <li className='flex flex-col items-center'>
-                            <img src={jobsearchIcon} alt="Search Icon" className='icon icon-search' />
-                            <input type='text' placeholder='Enter job title' className='inputfield1' />
-                        </li>
-                        <li className='flex flex-col items-center'>
-                            <img src={joblocationIcon} alt="Location Icon" className='icon icon-location' />
-                            <input type='text' placeholder='Enter location' className='inputfield2' />
-                        </li>
-                        <li className='flex flex-col items-center'>
-                            <img src={jobskillsIcon} alt="Business Icon" className='icon icon-skills' />
-                            <input type='text' placeholder='Enter skills' className='inputfield3' />
-                        </li>
-                        <li>
-                            <Link to="/">
-                                <button className='searchbutton'>Search</button>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link className='text-[#808080] custom-clear'>
-                                <button className='clearbutton'>clear all</button>
-                            </Link>
-                        </li>
-                    </ul>
+                        <ul className='flex justify-center items-center text-white gap-12'>
+                            <li className='flex flex-col items-center'>
+                                <img src={jobsearchIcon} alt="Search Icon" className='icon icon-search' />
+                                <input
+                                    type='text'
+                                    placeholder='Enter job title'
+                                    className='inputfield1'
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                />
+                            </li>
+                            <li className='flex flex-col items-center'>
+                                <img src={joblocationIcon} alt="Location Icon" className='icon icon-location' />
+                                <input
+                                    type='text'
+                                    placeholder='Enter location'
+                                    className='inputfield2'
+                                    value={joblocations}
+                                    onChange={(e) => setJoblocations(e.target.value)}
+                                />
+                            </li>
+                            <li className='flex flex-col items-center'>
+                                <img src={jobskillsIcon} alt="Skills Icon" className='icon icon-skills' />
+                                <input
+                                    type='text'
+                                    placeholder='Enter skills (comma-separated)'
+                                    className='inputfield3'
+                                    value={skills}
+                                    onChange={(e) => setSkills(e.target.value)}
+                                />
+                            </li>
+                        </ul>
+                        <div className='flex items-center gap-2 pl-4'>
+
+                            <button onClick={handleSearch} className='searchbutton'>Search</button>
+
+                            <button
+                                onClick={() => {
+                                    setTitle('');
+                                    setJoblocations('');
+                                    setSkills('');
+                                    setJobs([]);
+                                }}
+                                className='clearbutton '
+                            >
+                                Clear All
+                            </button>
+                        </div>
+
                     </div>
                 </div><br />
 
-
-                <div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-16 p-4 px-14">
-
-                        {/* grid column 1 */}
+                <div className='flex'>
+                    <div className='pl-6 min-w-[60vh] pb-6'>
                         <div className="bg-[#FCFCFC] text-black p-4 gridcol1">
                             <div className='mx-8 font-bold text-2xl'>Salary Range</div><br />
                             <div className='mx-8' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginLeft: '32px', marginRight: '32px' }}>
@@ -165,7 +136,7 @@ const JobseekerPage = () => {
                                         type="checkbox"
                                         checked={checkedStates[index]}
                                         onChange={() => handleCheckboxChange(index)}
-                                        className='mr-4 mx-12 w-4 h-4'/>
+                                        className='mr-4 mx-12 w-4 h-4' />
                                     <span style={{ fontSize: '18px' }}>
                                         {label}
                                     </span>
@@ -181,7 +152,7 @@ const JobseekerPage = () => {
                                         type="checkbox"
                                         checked={checkedStates[index + 5]}
                                         onChange={() => handleCheckboxChange(index + 5)}
-                                        className='mr-4 mx-12 w-4 h-4'/>
+                                        className='mr-4 mx-12 w-4 h-4' />
                                     <span style={{ fontSize: '18px' }}>
                                         {label}
                                     </span>
@@ -224,75 +195,47 @@ const JobseekerPage = () => {
                                 <Link>Expand all</Link>
                             </div>
                         </div>
-
-                        {/* grid column 2 */}
-                        <div className="bg-[#dbe2ef] gridcol2"> 
-                            {jobs.map((job, index) => (
-                                <div key={index} className="job-container mb-10">
+                    </div>
+                    {/* Display jobs */}
+                    <div className=" flex mx-10 gap-10 flex-wrap max-h-[30vh]">
+                        {jobs.length > 0 ? (
+                            jobs.map((job, index) => (
+                                <div key={index} className="min-w-[480px]">
                                     <div className="job-details bg-white text-black p-4">
                                         <div className='font-bold text-2xl'>{job.title}</div>
-                                        <div onClick={() => toggleBookmark(index, 1)} className='custom-bookmark'>
-                                            {job.bookmarked ? (
-                                                <BsBookmarkFill style={{ cursor: 'pointer', color: '#ACB2B9', height: '20px', width: '20px' }} />
-                                            ) : (
-                                                <BsBookmark style={{ cursor: 'pointer', height: '20px', width: '20px' }} />
-                                            )}
+                                        <br />
+                                        <div className='flex justify-between items-center'>
+                                            <div className="job-typebtn">
+                                                <Link><button>{job.employmentType.split(',')[0]}</button></Link>
+                                            </div>
+                                            {job.salaryRange &&
+                                                typeof job.salaryRange === 'object' &&
+                                                job.salaryRange.min !== undefined &&
+                                                job.salaryRange.max !== undefined && (
+                                                    <p>
+                                                        Salary: {job.salaryRange.min} - {job.salaryRange.max}
+                                                    </p>
+                                                )}
                                         </div>
-                                        <br /><div className="job-typebtn">
-                                            <Link><button>{job.button}</button></Link>
-                                        </div>
-                                        <p className='custom-salary'>{job.salary}</p><br /><br />
-                                        <img src={job.icon} alt="Company Icon" className='h-20 w-20'/>
+                                        <img src={job.icon} alt="Company Icon" className='h-20 w-20' />
                                         <div className='custom-title2 font-bold'>{job.title2}</div>
                                         <p>
-                                            <img src={job.icon2} alt="Location Icon" className='h-5 w-5 ml-24' />
-                                            <div className='ml-28 custom-loc'>{job.location}</div>
+
+                                            <img src={joblocationIcon} alt="Location Icon" className='h-5 w-5 ml-24' />
+                                            <div className='ml-28 custom-loc'>{job.joblocations[0]}...</div>
                                         </p><br /><br />
-                                        <div className="buttons-container flex justify-between items-center">
-                                            <Link><button className="view-button">{job.button1}</button></Link>
-                                            <Link><button className="apply-button">{job.button2}</button></Link>
+                                        <div className="buttons-container flex justify-between items-center gap-10 mt-5">
+                                            <Link><button className="view-button">View Details</button></Link>
+                                            <Link><button className="apply-button">Apply Now</button></Link>
                                         </div><br />
                                     </div>
                                 </div>
-                            ))}
-                        </div>
-
-                        {/* grid column 3 */}
-                        <div className="bg-[#dbe2ef] gridcol2"> 
-                            {column3Jobs.map((job, index) => (
-                                <div key={index} className="job-container mb-10">
-                                    <div className="job-details bg-white text-black p-4">
-                                        <div className='font-bold text-2xl'>{job.title}</div>
-                                        <div onClick={() => toggleBookmark(index, 2)} className='custom-bookmark'>
-                                            {job.bookmarked ? (
-                                                <BsBookmarkFill style={{ cursor: 'pointer', color: '#ACB2B9', height: '20px', width: '20px' }} />
-                                            ) : (
-                                                <BsBookmark style={{ cursor: 'pointer', height: '20px', width: '20px' }} />
-                                            )}
-                                        </div>
-                                        <br /><div className="job-typebtn">
-                                            <Link><button>{job.button}</button></Link>
-                                        </div>
-                                        <p className='custom-salary'>{job.salary}</p><br /><br />
-                                        <img src={job.icon} alt="Company Icon" className='h-20 w-20'/>
-                                        <div className='custom-title2 font-bold'>{job.title2}</div>
-                                        <p>
-                                            <img src={job.icon2} alt="Location Icon" className='h-5 w-5 ml-24' />
-                                            <div className='ml-28 custom-loc'>{job.location}</div>
-                                        </p><br /><br />
-                                        <div className="buttons-container flex justify-between items-center">
-                                            <Link><button className="view-button">{job.button1}</button></Link>
-                                            <Link><button className="apply-button">{job.button2}</button></Link>
-                                        </div><br />
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                            ))
+                        ) : (
+                            <p>No jobs found matching your criteria.</p>
+                        )}
                     </div>
                 </div>
-                <div className='underline text-2xl text-center text-[#4E81BA]'>
-                    <Link>View more</Link>
-                </div><br />
             </div>
             <Footer />
         </div>

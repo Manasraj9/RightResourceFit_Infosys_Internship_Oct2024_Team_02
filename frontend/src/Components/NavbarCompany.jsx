@@ -27,7 +27,7 @@ const NavbarCompany = () => {
                             <ul className='flex gap-3 text-white'>
                                 <li>
                                     <Link to="/PostJob">
-                                        <button className='bg-[#3f72af] inline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af] py-1 rounded px-2.5'>Jobs</button>
+                                        <button className='bg-[#3f72af] inline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af] py-1 rounded px-2.5'>Post Jobs</button>
                                     </Link>
                                 </li>
                                 <li>
@@ -51,7 +51,7 @@ const NavbarCompany = () => {
                                                 <div className="py-2 px-4 hover:bg-[#3f72af] hover:text-white cursor-pointer">Profile</div>
                                             </Link>
                                             <hr />
-                                            <Link to="/Companypage">
+                                            <Link to="/Dashboardcompany">
                                                 <div className="py-2 px-4 hover:bg-[#3f72af] hover:text-white cursor-pointer">Dashboard</div>
                                             </Link>
                                             <hr style={{ border: '2px solid [#3f72af]' }} />
