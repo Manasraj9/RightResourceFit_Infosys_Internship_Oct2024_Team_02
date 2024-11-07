@@ -6,6 +6,7 @@
     border-radius: 2px;
     display: flex;
     align-items: center;
+    width: 80%;
 }
 .nomad-icon {
     justify-content: left;
@@ -28,4 +29,57 @@
     margin-left: 20px;
     justify-content: center;
     display: flex;
+}
+.progress-container {
+    background-color: white;
+    height: 80px;
+    width: 350px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+.progress-bar {
+    width: 300px;
+    margin-top: -10px;
+}
+.jobtype {
+    color: #515B6F;
+}
+.jobdate {
+    color: #515B6F;
+}
+.hr-line {
+    border-top: 3px solid white;
+}
+.marketing-btn {
+    height: 40px;
+    width: 120px;
+    color: orange;
+    border-radius: 25px;
+    border: 2px solid none;
+    background-color: lightyellow;
+}
+.design-btn {
+    height: 40px;
+    width: 120px;
+    color: green;
+    border-radius: 25px;
+    border: 2px solid none;
+    background-color: lightgreen;
+    margin-left: 40px;
+}
+.nomad-title {
+    margin-left: 150px;
+    margin-top: -80px;
+}
+.nomad-readmore {
+    margin-left: 150px;
+}
+.arrow-img {
+    margin-left: 350px;
+    margin-top: -28px;
+}
+.company-img {
+    display: flex;
+    justify-content: right;
 }

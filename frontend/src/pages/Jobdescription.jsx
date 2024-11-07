@@ -8,6 +8,28 @@ import nomadIcon from '../images/nomad.png';
 import shareIcon from '../images/shareimg.png';
 import vrImg from '../images/vrimg.png';
 
+import healthcareIcon from '../images/healthcare.png';
+import vacationIcon from '../images/vacation.png';
+import skilldevIcon from '../images/skill-dev.png';
+import summitsIcon from '../images/summits.png';
+import remoteworkIcon from '../images/remote-work.png';
+import commuterbenefitIcon from '../images/commuter-net.png';
+import savingIcon from '../images/saving.png';
+import arrowIcon from '../images/arrow.png';
+import nomadcompanyIcon from '../images/nomadcompany.png';
+
+
+const PerksandBenefits = [
+    { title: 'Full Healthcare', description: 'We believe in thriving communities and that starts with our team being happy and healthy.', icon: healthcareIcon },
+    { title: 'Unlimited Vacation', description: 'We believe you should have a flexible schedule that makes space for family, wellness, and fun.', icon: vacationIcon},
+    { title: 'Skill Development', description: 'We believe in always learning and leveling up our skills. Whether its a conference or online course.', icon: skilldevIcon},
+    { title: 'Team Summits', description: 'Every 6 months we have a full team summit where we have fun, reflect, and plan for the upcoming quarter.', icon: summitsIcon},
+    { title: 'Remote Working', description: 'You know how you perform your best. Work from home, coffee shop or anywhere when you feel like it.', icon: remoteworkIcon},
+    { title: 'Commuter Benefits', description: 'We’re grateful for all the time and energy each team member puts into getting to work every day.', icon: commuterbenefitIcon},
+    { title: 'We give back', description: 'We double-match employee donations up to $/€600 to support their chosen organizations.', icon: savingIcon},
+];
+
+
 const Jobdescription = () => {
     return (
         <div>
@@ -34,12 +56,14 @@ const Jobdescription = () => {
                     </Link>
                 </div><br /><br /><br /><br />
 
-                <div className='grid grid-cols-1 md:grid-cols-3 gap-16 p-4 px-8 ml-36 mr-36'>
+                <div className='grid grid-cols-1 md:grid-cols-3 gap-16 ml-36 mr-36'>
                     {/* grid column 1 & 2 */}
-                    <div className='text-blackp-4 col-span-2'>
+                    <div className='text-black col-span-2'>
+                        {/* Description */}
                         <p className='font-bold text-3xl text-[#25324B]'>Description</p><br />
                         <p className='text-[#515B6F]'>Nomad is a global company specializing in creative solutions for remote work and digital collaboration. 
                             Based in Paris, they focus on social media, brand development, and content strategy to enhance online presence and community engagement.</p><br />
+                        {/* Responsibilities */}
                         <p className='font-bold text-3xl text-[#25324B]'>Responsibilities</p><br />
                         <ul className='text-[#515B6F]'>
                             <li>➡️ Community engagement to ensure that is supported and actively represented online</li>
@@ -48,6 +72,7 @@ const Jobdescription = () => {
                             <li>➡️ Stay on top of trends on social media platforms, and suggest content ideas to the team</li>
                             <li>➡️ Engage with online communities</li>
                         </ul><br />
+                        {/* Who are you */}
                         <p className='font-bold text-3xl text-[#25324B]'>Who Are You</p><br />
                         <ul className='text-[#515B6F]'>
                             <li>➡️ You get energy from people and building the ideal work environment</li>
@@ -56,20 +81,92 @@ const Jobdescription = () => {
                             <li>➡️ You're detail-oriented and creative</li>
                             <li>➡️ You're a growth marketer and know how to run campaigns</li>
                         </ul><br />
-                        <p className='font-bold text-3xl text-[#25324B]'>Nice-To-Haves</p>
+                        {/* Nice to haves */}
+                        <p className='font-bold text-3xl text-[#25324B]'>Nice-To-Haves</p><br />
                         <ul className='text-[#515B6F]'>
                             <li>➡️ Fluent in English</li>
                             <li>➡️ Project management skills</li>
                             <li>➡️ Copy editing skills</li>
-                        </ul><br />
+                        </ul>
                     </div>
 
                     {/* grid column 3 */}
                     <div>
-                        <p className='font-bold text-3xl text-[#25324B]'>About this Role</p><br />
+                        {/* About this role */}
+                        <p className='font-bold text-3xl text-[#25324B]'>About this role</p><br />
+                        <div className='progress-container'>
+                            <div className="h-2 bg-gray-200 rounded-full progress-bar">
+                                <div className="h-full bg-green-500 rounded-full" style={{ width: `${(5 / 10) * 100}%` }}></div>
+                                <p className='text-gray-500'>5 applied <span className='text-[black]'>of 10 capacity</span></p>
+                            </div>
+                        </div><br />
+                        <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
+                            <div className='jobtype'>
+                                <p>Appy Before</p><br />
+                                <p>Job Posted On</p><br />
+                                <p>Job Type</p><br />
+                                <p>Salary</p><br />
+                            </div>
+                            <div className='jobdate font-bold'>
+                                <p>July 31, 2021</p><br />
+                                <p>July 1, 2021</p><br />
+                                <p>Full-Time</p><br />
+                                <p>$75k-$85k USD</p><br />
+                            </div>
+                        </div>
+                        <hr className='hr-line'/><br />
+                        {/* Categories */}
+                        <p className='font-bold text-3xl text-[#25324B]'>Categories</p><br />
+                        <Link>
+                            <button className='marketing-btn'>Marketing</button>
+                        </Link>
+                        <Link>
+                            <button className='design-btn'>Design</button>
+                        </Link>
+                        <br /><br />
+                        <hr className='hr-line' /><br />
+                        {/* Required skills */}
+                        <p className='font-bold text-3xl text-[#25324B]'>Required Skills</p><br />
+                        <div className='text-[#515B6F]'>
+                            <p>-> Project Management</p>
+                            <p>-> Copy Writing</p>
+                            <p>-> Social Media Marketing</p>
+                            <p>-> English</p>
+                            <p>-> Copy Editing</p>
+                        </div>
                     </div>
-                </div>
-                <br /><br />
+                </div><br /><br /><br /><br />
+
+                {/* Perks & Benefits */}
+                <div>
+                    <p className='font-bold text-3xl text-[#25324B] ml-36'>Perks & Benefits</p>
+                    <p className='text-[#515B6F] ml-36'>This job comes with several perks and benefits</p><br /><br />
+                    <div className='grid grid-cols-2 md:grid-cols-4 ml-36 mr-36 gap-8'>
+                        {PerksandBenefits.map((category, index) => (
+                            <Link to={category.link} key={index}>
+                                <img src={category.icon} alt={category.title} className='h-16 w-16' /><br />
+                                <div className='text-2xl text-[#25324B] font-bold'>{category.title}</div><br />
+                                <div className='text-[#515B6F]'>{category.description}</div><br /><br />
+                            </Link>
+                        ))}
+                    </div>
+                </div><br /><br /><br /><br />
+
+                <div className='grid grid-cols-1 md:grid-cols-2 ml-36 mr-36 gap-16'>
+                    <div>
+                        <img src={nomadIcon} alt="Nomad Icon" className='h-24 w-24'/>
+                        <p className='text-[#25324B] font-bold text-3xl nomad-title'>Nomad</p>
+                        <p className='text-[#4640DE] nomad-readmore'>Read more about nomad</p>
+                        <Link>
+                            <img src={arrowIcon} alt="Arrow Icon" className='h-8 w-8 arrow-img' />
+                        </Link>
+                        <p className='text-[#515B6F] mt-12'>Stripe is a technology company that builds economic infrastructure for the internet. Businesses of every size from new 
+                            startups to public companies use our software to accept payments and manage their businesses online.</p>
+                    </div>
+                    <div className='company-img'>
+                        <img src={nomadcompanyIcon} alt='Nomad Company Icon' className='h-56 w-280' />
+                    </div>
+                </div><br /><br /><br /><br />
             </div>
 
             <Footer />
