@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Components/Navbar.jsx';
 import Footer from '../Components/Footer.jsx';
-import SecondaryNavbar from '../Components/Sec_Navbar.jsx';
+import SecondaryNavbar from '../Components/SecondaryNavbar.jsx';
 import { FaArrowLeft } from 'react-icons/fa';
 
 const Companypostpage_1 = () => {

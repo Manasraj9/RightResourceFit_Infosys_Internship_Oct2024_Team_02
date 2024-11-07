@@ -17,6 +17,8 @@ import LogoutButton from "./Components/Buttons/LogoutButton";
 import PostJob from './pages/PostJob';
 import PostJob2 from './pages/PostJob2';
 import Companypostpage_1 from "./pages/Companypostpage_1"; 
+import Jobdescription from './pages/Jobdescription';
+
 function App() {
   return (
     <Router>
@@ -37,6 +39,7 @@ function App() {
         <Route path="/PostJob" element={<PostJob />} />
         <Route path="/PostJob2" element={<PostJob2 />} />
        <Route path="/Companypostpage_1" element={<Companypostpage_1 />} />
+       <Route path="/Jobdescription" element={<Jobdescription />} />
       </Routes>
     </Router>
   );
