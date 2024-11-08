@@ -34,7 +34,7 @@ const PerksandBenefits = [
     { title: 'Team Summits', description: 'Every 6 months we have a full team summit where we have fun, reflect, and plan for the upcoming quarter.', icon: summitsIcon},
     { title: 'Remote Working', description: 'You know how you perform your best. Work from home, coffee shop or anywhere when you feel like it.', icon: remoteworkIcon},
     { title: 'Commuter Benefits', description: 'We’re grateful for all the time and energy each team member puts into getting to work every day.', icon: commuterbenefitIcon},
-    { title: 'We give back', description: 'We double-match employee donations up to $/€600 to support their chosen organizations.', icon: divyIcon},
+    { title: 'We give back', description: 'We double-match employee donations up to $/€600 to support their chosen organizations.', icon: savingIcon},
 ];
 
 
@@ -46,7 +46,7 @@ const SimilarJobs = [
     { title: 'Interactive Developer', location: 'Webflow . Hamburg, Germany', time: 'Full Time', button1: 'Marketing', button2: 'Design', icon: webflowIcon},
     { title: 'Interactive Developer', location: 'Foundation . Hamburg, Germany', time: 'Full Time', button1: 'Marketing', button2: 'Design', icon: foundationIcon},
     { title: 'HR Manager', location: 'Square . Lucern, Switzerland', time: 'Full Time', button1: 'Marketing', button2: 'Design', icon: squareIcon},
-    { title: 'HR Manager', location: 'Divy . Lucern, Switzerland', time: 'Full Time', button1: 'Marketing', button2: 'Design', icon: discordIcon},
+    { title: 'HR Manager', location: 'Divy . Lucern, Switzerland', time: 'Full Time', button1: 'Marketing', button2: 'Design', icon: divyIcon},
 ];
 
 
@@ -197,7 +197,7 @@ const Jobdescription = () => {
                         </Link>
                     </div>
                 </div><br />
-                <div className='grid grid-cols-1 md:grid-cols-2 px-4 md:px-12 lg:px-36 gap-8 jobs-container'>
+                <div className='grid grid-cols-1 md:grid-cols-2 px-4 md:px-12 lg:px-36 gap-8'>
                     {SimilarJobs.map((category, index) => (
                         <Link to={category.link} key={index} className='bg-white border-gray-300 p-4'>
                             <img src={category.icon} alt={category.title} className='h-20 w-20' />
