@@ -32,6 +32,19 @@ import foundationIcon from '../images/foundation.png';
 import squareIcon from '../images/square.png';
 import divyIcon from '../images/divy.png';
 
+import htmlIcon from '../images/html5.png';
+import cssIcon from '../images/css3.png';
+import jsIcon from '../images/js.png';
+import rubyIcon from '../images/ruby.png';
+import mixpanelIcon from '../images/mixpanel.png';
+import framerIcon from '../images/framer.png';
+
+import usImg from '../images/us.png';
+import englandImg from '../images/england.png';
+import australiaImg from '../images/australia.png';
+import japanImg from '../images/japan.png';
+import chinaImg from '../images/china.png';
+import profileImg from '../images/profile.png';
 
 const PerksandBenefits = [
     { title: 'Full Healthcare', description: 'We believe in thriving communities and that starts with our team being happy and healthy.', icon: healthcareIcon },
@@ -53,6 +66,23 @@ const SimilarJobs = [
     { title: 'Interactive Developer', location: 'Foundation . Hamburg, Germany', time: 'Full Time', button1: 'Marketing', button2: 'Design', icon: foundationIcon},
     { title: 'HR Manager', location: 'Square . Lucern, Switzerland', time: 'Full Time', button1: 'Marketing', button2: 'Design', icon: squareIcon},
     { title: 'HR Manager', location: 'Divy . Lucern, Switzerland', time: 'Full Time', button1: 'Marketing', button2: 'Design', icon: divyIcon},
+];
+
+const TechStack = [
+    { title: 'HTML5', icon: htmlIcon},
+    { title: 'CSS3', icon: cssIcon},
+    { title: 'JavaScript', icon: jsIcon},
+    { title: 'ruby', icon: rubyIcon},
+    { title: 'Mixpanel', icon: mixpanelIcon},
+    { title: 'Framer', icon: framerIcon},
+];
+
+const Teams = [
+    { image: profileImg, name: 'Celestin Gardinier', position: 'CEO & Co-Founder', icon1: facebookIcon, icon2: linkedinIcon},
+    { image: profileImg, name: 'Reynaud Colbert', position: 'Co-Founder', icon1: facebookIcon, icon2: linkedinIcon},
+    { image: profileImg, name: 'Arienne Lyon', position: 'Managing Director', icon1: facebookIcon, icon2: linkedinIcon},
+    { image: profileImg, name: 'Bernard Alexander', position: 'Managing Director', icon1: facebookIcon, icon2: linkedinIcon},
+    { image: profileImg, name: 'Christine Jhonson', position: 'Managing Director', icon1: facebookIcon, icon2: linkedinIcon},
 ];
 
 const Jobprofile = () => {
@@ -120,7 +150,61 @@ const Jobprofile = () => {
 
                         <img src={nomadcompanyImage} alt="Nomad Company Image" className='h-120 w-120' /><br /><br />
                     </div>
-                </div>
+
+                    {/* Grid column 2 */}
+                    <div className='mr-36'>
+                        <p className='text-[#25324B] text-3xl font-bold'>Tech Stack</p><br />
+                        <p className='text-[#515B6F]'>Nomad uses technologies like Ruby, JavaScript, React, Kubernetes, AWS, PostgreSQL, Redis, Docker, and tools like 
+                            Jenkins, Terraform, and Datadog for development.</p><br />
+                        <div className='grid grid-cols-2 md:grid-cols-3 gap-8'>
+                            {TechStack.map((category, index) => (
+                                <Link to={category.link} key={index}>
+                                    <img src={category.icon} alt={category.title} className='h-24 w-24 align-center' />
+                                    <div className='text-[#25324B] ml-4'>{category.title}</div>
+                                </Link>
+                            ))}
+                        </div><br />
+                        <Link>
+                            <p className='text-[#4640DE]'>View tech stack</p>
+                            <img src={arrowIcon} alt="Arrow Icon" className='h-8 w-8' style={{ marginLeft: '130px', marginTop: '-28px' }}/>
+                        </Link><br /><br />
+                        <p className='text-[#25324B] text-3xl font-bold'>Office Location</p><br />
+                        <p className='text-[#515B6F]'>Stripe offices spread across 20 countries</p><br />
+                        <img src={usImg} alt="US Image" className='h-20 w-16 align-left' />
+                        <p className='font-bold ml-24' style={{ marginTop: '-50px' }}>United States</p>
+                        <img src={englandImg} alt="England Image" className='h-12 w-16 align-left mt-8'/>
+                        <p className='font-bold ml-24' style={{ marginTop: '-35px' }}>England</p>
+                        <img src={australiaImg} alt="Australia Image" className='h-28 w-16 align-left' />
+                        <p className='font-bold ml-24' style={{ marginTop: '-70px' }}>Australia</p>
+                        <img src={japanImg} alt="Japan Image" className='h-12 w-16 align-left mt-8' />
+                        <p className='font-bold ml-24' style={{ marginTop: '-40px' }}>Japan</p>
+                        <img src={chinaImg} alt="China Image" className='h-12 w-16 align-left mt-8' />
+                        <p className='font-bold ml-24' style={{ marginTop: '-40px' }}>China</p><br /><br />
+                        <Link>
+                            <p className='text-[#4640DE]'>View countires</p>
+                            <img src={arrowIcon} alt="Arrow Icon" className='h-8 w-8' style={{ marginLeft: '130px', marginTop: '-28px' }}/>
+                        </Link><br /><br />
+                    </div>
+                </div><br /><br /><br />
+
+                {/* Teams */}
+                <div className='ml-36 mr-36'>
+                    <p className='text-[#25324B] text-3xl font-bold'>Team</p>
+                    <Link>
+                        <p className='text-[#4640DE] text-right' style={{ marginTop: '-30px' }}>see all(47)</p>
+                    </Link><br />
+                    <div className='grid grid-cols-1 md:grid-cols-5 gap-8'>
+                        {Teams.map((category, index) => (
+                            <Link to={category.link} key={index} className='bg-white p-4 flex flex-col items-center'>
+                                <img src={category.image} alt={category.name} className='h-12 w-12 profile' />
+                                <div className='text-[#25324B] mt-4'>{category.name}</div>
+                                <div className='text-[#7C8493]'>{category.position}</div>
+                                <img src={facebookIcon} alt="Facebook Icon" className='h-8 w-8 mt-4'  style={{ marginLeft: '-60px' }}/>
+                                <img src={linkedinIcon} alt="Linked Icon" className='h-8 w-8 ml-12'   style={{ marginTop: '-32px' }}/>
+                            </Link>
+                        ))}
+                    </div>
+                </div><br /><br /><br />
 
                 {/* Perks & Benefits */}
                 <div>
