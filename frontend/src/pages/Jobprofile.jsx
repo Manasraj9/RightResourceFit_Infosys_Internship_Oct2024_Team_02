@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../Components/NavbarHome';
+import Navbar from '../Components/Bars/NavbarJobseeker';
 import Footer from '../Components/Footer';
 import './Jobprofile.css';
 import nomadIcon from '../images/nomad.png';

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Range } from 'react-range';
 import { Link, useNavigate } from 'react-router-dom';
-import Navbar from '../Components/NavbarCompany';
+import Navbar from '../Components/Bars/NavbarCompany';
 import Footer from '../Components/Footer.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faBell, faBriefcase, faInfoCircle, faBold, faItalic, faListUl, faLink, faGift, faPlus, faStethoscope, faTimes } from '@fortawesome/free-solid-svg-icons';

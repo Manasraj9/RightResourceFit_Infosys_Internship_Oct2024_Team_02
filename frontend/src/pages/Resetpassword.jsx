@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Navbar from '../Components/Navbar';
+import Navbar from '../Components/Bars/Navbar';
 import Footer from '../Components/Footer';
 import { Oval } from 'react-loader-spinner'; // Import loader
 import { toast } from 'react-toastify'; // Import Toastify
