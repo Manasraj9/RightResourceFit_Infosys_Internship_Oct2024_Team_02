@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../Components/NavbarHome';
+import Navbar from '../Components/Bars/NavbarJobseeker';
 import Footer from '../Components/Footer';
 import './Jobdescription.css';
 import { Link } from 'react-router-dom';
@@ -148,15 +148,14 @@ const Jobdescription = () => {
                         {/* Required skills */}
                         <p className='font-bold text-3xl text-[#25324B]'>Required Skills</p><br />
                         <div className='text-[#515B6F]'>
-                            <p>-> Project Management</p>
-                            <p>-> Copy Writing</p>
-                            <p>-> Social Media Marketing</p>
-                            <p>-> English</p>
-                            <p>-> Copy Editing</p>
+                            <p>-{'>'} Project Management</p>
+                            <p>-{'>'} Copy Writing</p>
+                            <p>-{'>'} Social Media Marketing</p>
+                            <p>-{'>'} English</p>
+                            <p>-{'>'} Copy Editing</p>
                         </div>
                     </div>
-                </div><br /><br /><br /><br />
-
+                </div><br /><br /><br /><br />{'>'}
                 {/* Perks & Benefits */}
                 <div>
                     <p className='font-bold text-3xl text-[#25324B] ml-36'>Perks & Benefits</p>

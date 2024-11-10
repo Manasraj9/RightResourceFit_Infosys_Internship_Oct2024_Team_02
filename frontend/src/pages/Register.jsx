@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'; // Importing icons from react-icons
 import { Link } from 'react-router-dom';
-import Navbar from '../Components/Navbar';
+import Navbar from '../Components/Bars/Navbar';
 import Footer from '../Components/Footer';
 import { toast } from 'react-toastify'; // Import Toastify
 

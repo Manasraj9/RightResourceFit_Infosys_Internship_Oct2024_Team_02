@@ -1,9 +1,8 @@
-// Companypostpage_1.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../Components/Navbar.jsx';
+import Navbar from '../Components/Bars/Navbar.jsx';
 import Footer from '../Components/Footer.jsx';
-import SecondaryNavbar from '../Components/SecondaryNavbar.jsx';
+import SecondaryNavbar from '../Components/Bars/SecondaryNavbar.jsx';
 import { FaArrowLeft } from 'react-icons/fa';
 
 const Companypostpage_1 = () => {

@@ -21,8 +21,11 @@ import Jobdescription from './pages/Jobdescription';
 import Jobprofile from './pages/Jobprofile';
 import JobListing from "./pages/JobListing";
 import Jobseekerdashboard from "./pages/Jobseekerdashboard";
+<<<<<<< HEAD
 import ApplicantStatus1 from "./pages/ApplicantStatus1";
 import PostJobFlow from './pages/PostJobFlow'; // Only include PostJobFlow
+=======
+>>>>>>> 99bf2abe7e510c25f416e897b65c562158b963bb
 
 function App() {
   return (
@@ -48,7 +51,6 @@ function App() {
        <Route path="/Jobprofile" element={<Jobprofile />} />
        <Route path="/ApplicantStatus1" element={<ApplicantStatus1 />} />
         <Route path="/JobListing" element={<JobListing />} />
-        {/* <Route path="/PostJobFlow" element={<PostJobFlow />} /> Only keep this route */}
         <Route path="/PostJob" element={<PostJob />} /> {/* Only keep this route */}
         <Route path="/Jobseekerdashboard" element={<Jobseekerdashboard />} /> {/* Only keep this route */}
       </Routes>

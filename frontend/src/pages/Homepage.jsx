@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../Components/NavbarHome'
+import Navbar from '../Components/Bars/NavbarJobseeker'
 import Footer from '../Components/Footer'
 import backgroundImage from '../images/homebgimg.png'
 import jobPoster from '../images/jobposter.png'

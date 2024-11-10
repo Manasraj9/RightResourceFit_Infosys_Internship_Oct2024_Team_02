@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../Components/NavbarHome'
+import Navbar from '../Components/Bars/NavbarJobseeker'
 import Footer from '../Components/Footer'
 import { Link } from 'react-router-dom'
 import searchIcon from '../images/search.png';
