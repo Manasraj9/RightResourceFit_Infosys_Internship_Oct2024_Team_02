@@ -54,7 +54,7 @@
 .marketing-btn {
     height: 40px;
     width: 120px;
-    color: orange;
+    color: #FFB836;
     border-radius: 25px;
     border: 2px solid none;
     background-color: lightyellow;
@@ -62,7 +62,7 @@
 .design-btn {
     height: 40px;
     width: 120px;
-    color: green;
+    color: #56CDAD;
     border-radius: 25px;
     border: 2px solid none;
     background-color: lightgreen;
@@ -82,4 +82,45 @@
 .company-img {
     display: flex;
     justify-content: right;
+}
+.alljobs {
+    margin-left: 88%;
+    margin-top: -30px;
+}
+.jobs-arrow {
+    margin-left: 97%;
+    margin-top: -28px;
+}
+.company-name {
+    margin-left: 130px;
+    margin-top: -80px;
+}
+.company-location {
+    margin-left: 130px;
+}
+.work-time {
+    margin-left: 130px;
+    margin-top: 20px
+}
+.btn1 {
+    height: 40px;
+    width: 120px;
+    color: #FFB836;
+    border-radius: 25px;
+    border: 2px solid #FFB836;
+    margin-left: 220px;
+}
+.btn2 {
+    height: 40px;
+    width: 120px;
+    color: #4640DE;
+    border-radius: 25px;
+    border: 2px solid #4640DE;
+    margin-left: 370px;
+}
+.button1-container {
+    margin-top: -30px; 
+}
+.button2-container {
+    margin-top: -40px; 
 }

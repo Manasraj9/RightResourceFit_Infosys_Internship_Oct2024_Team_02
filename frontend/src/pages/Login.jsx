@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
-import Navbar from '../Components/Navbar';
+import Navbar from '../Components/Bars/Navbar';
 import Footer from '../Components/Footer';
 import { toast } from 'react-toastify'; // Import toast
 

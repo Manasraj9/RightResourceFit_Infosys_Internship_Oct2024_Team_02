@@ -1,0 +1,149 @@
+/* Job Profile */
+
+.profile-container {
+    height: 100px;
+    width: 80%;
+    display: flex;
+}
+.nomad-company {
+    margin-left: 30px;
+    margin-top: 10px
+}
+.btn-job {
+    border: 2px solid #4640DE;
+    color: #4640DE;
+    height: 35px;
+    width: 80px;
+    cursor: pointer;
+    margin-left: 30px;
+    margin-top: 10px
+}
+.nomad-link {
+    margin-left: -212px;
+}
+.founded-icon {
+    margin-left: -210px;
+    margin-top: 80px;
+}
+.founded {
+    margin-top: 80px;
+    margin-left: 10px;
+}
+.founded-date {
+    margin-top: 110px;
+    margin-left: -70px;
+}
+.employees-icon {
+    margin-top: 80px;
+    margin-left: 40px;
+}
+.employees {
+    margin-top: 80px;
+    margin-left: 10px;
+}
+.employees-count {
+    margin-top: 110px;
+    margin-left: -80px;
+}
+.location-icon {
+    margin-top: 80px;
+    margin-left: 70px;
+}
+.location {
+    margin-top: 80px;
+    margin-left: 10px;
+}
+.location-country {
+    margin-top: 110px;
+    margin-left: -65px;
+}
+.industry-icon {
+    margin-top: 80px;
+    margin-left: 40px;
+}
+.industry {
+    margin-top: 80px;
+    margin-left: 20px;
+}
+.industry-payment {
+    margin-top: 110px;
+    margin-left: -60px;
+}
+.twitter-btn {
+    border: 2px solid #4640DE;
+    color: #4640DE;
+    height: 40px;
+    width: 300px;
+    cursor: pointer;
+}
+.facebook-btn {
+    border: 2px solid #4640DE;
+    color: #4640DE;
+    height: 40px;
+    width: 300px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+.linkedin-btn {
+    border: 2px solid #4640DE;
+    color: #4640DE;
+    height: 40px;
+    width: 300px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+.twitter-link {
+    margin-top: -30px;
+    margin-left: -45px;
+}
+.facebook-link {
+    margin-top: -30px;
+}
+.linkedin-link {
+    margin-top: -30px;
+    margin-left: 40px;
+}
+.alljobs {
+    margin-left: 88%;
+    margin-top: -30px;
+}
+.jobs-arrow {
+    margin-left: 97%;
+    margin-top: -28px;
+}
+.company-name {
+    margin-left: 130px;
+    margin-top: -80px;
+}
+.company-location {
+    margin-left: 130px;
+}
+.work-time {
+    margin-left: 130px;
+    margin-top: 20px
+}
+.btn1 {
+    height: 40px;
+    width: 120px;
+    color: #FFB836;
+    border-radius: 25px;
+    border: 2px solid #FFB836;
+    margin-left: 220px;
+}
+.btn2 {
+    height: 40px;
+    width: 120px;
+    color: #4640DE;
+    border-radius: 25px;
+    border: 2px solid #4640DE;
+    margin-left: 370px;
+}
+.button1-container {
+    margin-top: -30px; 
+}
+.button2-container {
+    margin-top: -40px; 
+}
+.profile {
+    border-radius: 25px;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../Components/NavbarHome';
+import Navbar from '../Components/Bars/NavbarJobseeker';
 import Footer from '../Components/Footer';
 import './Jobdescription.css';
 import { Link } from 'react-router-dom';
@@ -18,6 +18,14 @@ import savingIcon from '../images/saving.png';
 import arrowIcon from '../images/arrow.png';
 import nomadcompanyIcon from '../images/nomadcompany.png';
 
+import discordIcon from '../images/discord.png';
+import mazeIcon from '../images/maze.png';
+import udacityIcon from '../images/udacity.png';
+import webflowIcon from '../images/webflow.png';
+import foundationIcon from '../images/foundation.png';
+import squareIcon from '../images/square.png';
+import divyIcon from '../images/divy.png';
+
 
 const PerksandBenefits = [
     { title: 'Full Healthcare', description: 'We believe in thriving communities and that starts with our team being happy and healthy.', icon: healthcareIcon },
@@ -27,6 +35,18 @@ const PerksandBenefits = [
     { title: 'Remote Working', description: 'You know how you perform your best. Work from home, coffee shop or anywhere when you feel like it.', icon: remoteworkIcon},
     { title: 'Commuter Benefits', description: 'We’re grateful for all the time and energy each team member puts into getting to work every day.', icon: commuterbenefitIcon},
     { title: 'We give back', description: 'We double-match employee donations up to $/€600 to support their chosen organizations.', icon: savingIcon},
+];
+
+
+const SimilarJobs = [
+    { title: 'Social media Assistant', location: 'Nomad . Paris, France', time: 'Full Time', button1: 'Marketing', button2: 'Design', icon: nomadIcon},
+    { title: 'Social media Assistant', location: 'Discord . Paris, France', time: 'Full Time', button1: 'Marketing', button2: 'Design', icon: discordIcon},
+    { title: 'Brand Designer', location: 'Maze . San Fransisco, USA', time: 'Full Time', button1: 'Marketing', button2: 'Design', icon: mazeIcon},
+    { title: 'Brand Designer', location: 'Udacity . San Fransisco, USA', time: 'Full Time', button1: 'Marketing', button2: 'Design', icon: udacityIcon},
+    { title: 'Interactive Developer', location: 'Webflow . Hamburg, Germany', time: 'Full Time', button1: 'Marketing', button2: 'Design', icon: webflowIcon},
+    { title: 'Interactive Developer', location: 'Foundation . Hamburg, Germany', time: 'Full Time', button1: 'Marketing', button2: 'Design', icon: foundationIcon},
+    { title: 'HR Manager', location: 'Square . Lucern, Switzerland', time: 'Full Time', button1: 'Marketing', button2: 'Design', icon: squareIcon},
+    { title: 'HR Manager', location: 'Divy . Lucern, Switzerland', time: 'Full Time', button1: 'Marketing', button2: 'Design', icon: divyIcon},
 ];
 
 
@@ -128,15 +148,14 @@ const Jobdescription = () => {
                         {/* Required skills */}
                         <p className='font-bold text-3xl text-[#25324B]'>Required Skills</p><br />
                         <div className='text-[#515B6F]'>
-                            <p>-> Project Management</p>
-                            <p>-> Copy Writing</p>
-                            <p>-> Social Media Marketing</p>
-                            <p>-> English</p>
-                            <p>-> Copy Editing</p>
+                            <p>-{'>'} Project Management</p>
+                            <p>-{'>'} Copy Writing</p>
+                            <p>-{'>'} Social Media Marketing</p>
+                            <p>-{'>'} English</p>
+                            <p>-{'>'} Copy Editing</p>
                         </div>
                     </div>
-                </div><br /><br /><br /><br />
-
+                </div><br /><br /><br /><br />{'>'}
                 {/* Perks & Benefits */}
                 <div>
                     <p className='font-bold text-3xl text-[#25324B] ml-36'>Perks & Benefits</p>
@@ -167,6 +186,37 @@ const Jobdescription = () => {
                         <img src={nomadcompanyIcon} alt='Nomad Company Icon' className='h-56 w-280' />
                     </div>
                 </div><br /><br /><br /><br />
+
+                <div className='gird grid-cols-1 md:grid-cols-2 ml-36 mr-36 gap-16'>
+                    <div className='text-3xl font-bold text-[#25324B]'>Similar Jobs</div>
+                    <div>
+                        <p className='text-[#4640DE] alljobs'>Show all jobs</p>
+                        <Link>
+                            <img src={arrowIcon} alt="Arrow Icon" className='h-8 w-8 jobs-arrow' />
+                        </Link>
+                    </div>
+                </div><br />
+                <div className='grid grid-cols-1 md:grid-cols-2 px-4 md:px-12 lg:px-36 gap-8'>
+                    {SimilarJobs.map((category, index) => (
+                        <Link to={category.link} key={index} className='bg-white border-gray-300 p-4'>
+                            <img src={category.icon} alt={category.title} className='h-20 w-20' />
+                            <div className='text-2xl text-[#25324B] font-bold company-name'>{category.title}</div>
+                            <div className='text-[#515B6F] company-location'>{category.location}</div>
+                            <div className='text-[#56CDAD] work-time'>{category.time}</div>
+                            <div className='button1-container'>
+                            <Link to={category.link}>
+                                    <button className='btn1'>{category.button1}</button>
+                            </Link>
+                            <div className='button2-container'>
+                            <Link to={category.link}>
+                                <button className='btn2'>{category.button2}</button>
+                            </Link>
+                            </div>
+                            </div>
+                        </Link>
+                    ))}
+                </div><br /><br />
+
             </div>
 
             <Footer />

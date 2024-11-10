@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from '../Components/NavbarCompany';
+import Navbar from '../Components/Bars/NavbarCompany';
 import Footer from '../Components/Footer';
 import {
   Dialog,
@@ -26,7 +26,7 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import SecondaryNavbar from '../Components/SecondaryNavbar';
+import SecondaryNavbar from '../Components/Bars/SecondaryNavbar';
 import { useLocation } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import MessageIcon from '@mui/icons-material/Message';

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../Components/NavbarHome';
+import Navbar from '../Components/Bars/NavbarJobseeker';
 import Footer from '../Components/Footer';
 import { Link } from 'react-router-dom';
 import jobsearchIcon from '../images/jobsearch.png';
