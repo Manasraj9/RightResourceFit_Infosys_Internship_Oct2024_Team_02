@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Navbar from '../Components/Navbar';
+import Navbar from '../Components/Bars/Navbar';
 import Footer from '../Components/Footer';
 import axios from 'axios';
 

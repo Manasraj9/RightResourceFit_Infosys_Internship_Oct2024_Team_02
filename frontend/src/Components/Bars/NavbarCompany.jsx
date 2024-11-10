@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import NotificationImage from '../images/notification.png';
-import LogoutButton from './Buttons/LogoutButton';
+import NotificationImage from '../../images/notification.png';
+import LogoutButton from '../Buttons/LogoutButton';
 import { AppBar } from '@mui/material';
 
 const NavbarCompany = () => {
@@ -31,8 +31,8 @@ const NavbarCompany = () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/About">
-                                        <button className='bg-[#3f72af] inline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af] py-1 rounded px-2.5'>About</button>
+                                    <Link to="/Dashboardcompany">
+                                        <button className='bg-[#3f72af] inline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af] py-1 rounded px-2.5'>Dashboard</button>
                                     </Link>
                                 </li>
                                 <li
