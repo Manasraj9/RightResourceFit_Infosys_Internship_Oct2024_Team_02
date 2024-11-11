@@ -1,8 +1,10 @@
 import React from 'react'
-import Navbar from '../Components/Bars/NavbarJobseeker';
+import Navbar from '../Components/Bars/NavbarCompany';
 import Footer from '../Components/Footer';
+import Sidebar from '../Components/side__bar.jsx'; // Assuming this includes the Drawer
 import SecondaryNavbar from '../Components/Bars/SecondaryNavbar.jsx';
-import JobDashboard from '../Components/JobDashboard.jsx';
+import Dashboard from '../Components/dashboard.jsx';
+import { styled } from '@mui/material/styles';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -16,23 +18,30 @@ import WorkIcon from '@mui/icons-material/Work';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HelpIcon from '@mui/icons-material/Help';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom'; 
 
-const Jobseekerdashboard = () => {
-    const location = useLocation();
-    const sidebarItems = [
-        { text: 'Dashboard', icon: <DashboardIcon />, path: '/Jobseekerdashboard' },
-        { text: 'Messages', icon: <MessageIcon />, path: '/Notifications' },
-        { text: 'Profile', icon: <AccountBoxIcon />, path: '/Jobseeker-profile' },
-        { text: 'All Applications', icon: <PeopleIcon />, path: '/all-applications' },
-        { text: 'Job Listing', icon: <WorkIcon />, path: '/joblisting' },
-        { text: 'My Schedule', icon: <ScheduleIcon />, path: '/my-schedule' },
-        { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
-        { text: 'Help Center', icon: <HelpIcon />, path: '/help-center' },
-      ];
+
+
+const Companyprofile = () => {
+  const location = useLocation();
+
+  // Define the sidebar items with their paths
+  const sidebarItems = [
+    { text: 'Dashboard', icon: <DashboardIcon />, path: '/Dashboardcompany' },
+    { text: 'Messages', icon: <MessageIcon />, path: '/Notifications' },
+    { text: 'Company Profile', icon: <AccountBoxIcon />, path: '/Companyprofile' },
+    { text: 'All Applicants', icon: <PeopleIcon />, path: '/ApplicantStatus1' },
+    { text: 'Job Listing', icon: <WorkIcon />, path: '/joblisting' },
+    { text: 'My Schedule', icon: <ScheduleIcon />, path: '/my-schedule' },
+    { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
+    { text: 'Help Center', icon: <HelpIcon />, path: '/help-center' },
+  ];
   return (
     <div>
+      {/* Navbar */}
       <Navbar />
+
+      {/* Content Section with Sidebar and Main Content */}
       <div className="flex flex-grow">
         {/* Sidebar */}
         <Box
@@ -71,9 +80,10 @@ const Jobseekerdashboard = () => {
 
           <Divider />
         </Box>
+
+        {/* Main Content */}
         <div className="flex-grow p-4">
           <SecondaryNavbar />
-          <JobDashboard />
         </div>
       </div>
       <Footer />
@@ -81,4 +91,4 @@ const Jobseekerdashboard = () => {
   )
 }
 
-export default Jobseekerdashboard
+export default Companyprofile
