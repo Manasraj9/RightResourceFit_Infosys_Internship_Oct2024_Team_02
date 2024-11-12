@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect,useState} from 'react'
 import Navbar from '../Components/Bars/NavbarCompany';
 import Footer from '../Components/Footer';
 import SecondaryNavbar from '../Components/Bars/SecondaryNavbar.jsx';
@@ -18,6 +18,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import HelpIcon from '@mui/icons-material/Help';
 import { useLocation } from 'react-router-dom'; 
 import DeleteIcon from '@mui/icons-material/Delete';
+import axios from 'axios';
 
 
 const Notifications = () => {
