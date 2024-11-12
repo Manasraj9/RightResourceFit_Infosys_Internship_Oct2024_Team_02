@@ -21,11 +21,8 @@ import Jobdescription from './pages/Jobdescription';
 import Jobprofile from './pages/Jobprofile';
 import JobListing from "./pages/JobListing";
 import Jobseekerdashboard from "./pages/Jobseekerdashboard";
-<<<<<<< HEAD
 import ApplicantStatus1 from "./pages/ApplicantStatus1";
 import PostJobFlow from './pages/PostJobFlow'; // Only include PostJobFlow
-=======
->>>>>>> 99bf2abe7e510c25f416e897b65c562158b963bb
 
 function App() {
   return (
