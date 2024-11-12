@@ -16,13 +16,18 @@ import Dashboardcompany from "./pages/Dashboardcompany";
 import LogoutButton from "./Components/Buttons/LogoutButton";
 import PostJob from './pages/PostJob';
 import PostJob2 from './pages/PostJob2';
-import Companypostpage_1 from "./pages/Companypostpage_1"; 
+import Companypostpage_1 from "./pages/Companypostpage_1";
 import Jobdescription from './pages/Jobdescription';
 import Jobprofile from './pages/Jobprofile';
 import JobListing from "./pages/JobListing";
 import Jobseekerdashboard from "./pages/Jobseekerdashboard";
 import ApplicantStatus1 from "./pages/ApplicantStatus1";
+<<<<<<< HEAD
 import PostJobFlow from './pages/PostJobFlow'; // Only include PostJobFlow
+=======
+import Notifications from "./pages/Notifications";
+import Companyprofile from "./pages/Companyprofile";
+>>>>>>> f351711f5bd32f604ee313c6f6a24e05656f3a26
 
 function App() {
   return (
@@ -43,13 +48,15 @@ function App() {
         <Route path="/companyhomepage" element={<Companyhomepage />} />
         <Route path="/PostJob" element={<PostJob />} />
         <Route path="/PostJob2" element={<PostJob2 />} />
-       <Route path="/Companypostpage_1" element={<Companypostpage_1 />} />
-       <Route path="/Jobdescription" element={<Jobdescription />} />
-       <Route path="/Jobprofile" element={<Jobprofile />} />
-       <Route path="/ApplicantStatus1" element={<ApplicantStatus1 />} />
+        <Route path="/Companypostpage_1" element={<Companypostpage_1 />} />
+        <Route path="/Jobdescription" element={<Jobdescription />} />
+        <Route path="/Jobprofile" element={<Jobprofile />} />
+        <Route path="/ApplicantStatus1" element={<ApplicantStatus1 />} />
         <Route path="/JobListing" element={<JobListing />} />
-        <Route path="/PostJob" element={<PostJob />} /> {/* Only keep this route */}
-        <Route path="/Jobseekerdashboard" element={<Jobseekerdashboard />} /> {/* Only keep this route */}
+        <Route path="/PostJob" element={<PostJob />} />
+        <Route path="/Jobseekerdashboard" element={<Jobseekerdashboard />} />
+        <Route path="/Notifications" element={<Notifications />} />
+        <Route path="/Companyprofile" element={<Companyprofile />} />
       </Routes>
     </Router>
   );

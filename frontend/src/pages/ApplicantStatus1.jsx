@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Navbar from '../Components/NavbarCompany';
+import Navbar from '../Components/Bars/NavbarCompany';
 import Footer from '../Components/Footer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -19,6 +19,9 @@ import './ApplicantStatus1.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import 'font-awesome/css/font-awesome.min.css';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
 
 
 export const ApplicantStatus1 = () => {
@@ -28,8 +31,8 @@ export const ApplicantStatus1 = () => {
   const sidebarItems = [
     { text: 'Dashboard', icon: <DashboardIcon />, path: '/Dashboardcompany' },
     { text: 'Messages', icon: <MessageIcon />, path: '/messages' },
-    { text: 'Company Profile', icon: <AccountBoxIcon />, path: '/company-profile' },
-    { text: 'All Applicants', icon: <PeopleIcon />, path: '/all-applicants' },
+    { text: 'Company Profile', icon: <AccountBoxIcon />, path: '/Companyprofile' },
+    { text: 'All Applicants', icon: <PeopleIcon />, path: '/ApplicantStatus1' },
     { text: 'Job Listing', icon: <WorkIcon />, path: '/joblisting' },
     { text: 'My Schedule', icon: <ScheduleIcon />, path: '/my-schedule' },
     { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
@@ -97,10 +100,10 @@ export const ApplicantStatus1 = () => {
               <thead className="table-header">
                 <tr>
                   <th className="py-2 px-4 text-left">Applicants Name</th>
-                  <th className="py-2 px-4 text-left">Score</th>
                   <th className="py-2 px-4 text-left">Hiring Stage</th>
                   <th className="py-2 px-4 text-left">Applied Date</th>
                   <th className="py-2 px-4 text-left">Job Role</th>
+                  <th className="py-2 px-4 text-left">View Applications</th>
                   <th className="py-2 px-4 text-left">Action</th>
                 </tr>
               </thead>
@@ -133,8 +136,13 @@ export const ApplicantStatus1 = () => {
                       <td className="py-2 px-4">{applicant.role}</td>
                       <td className="py-2 px-4">
                         <button className="bg-blue-500 text-white px-4 py-2 rounded-lg">
-                          See Application
+                          View Application
                         </button>
+                      </td>
+                      <td className="py-2 px-4 ">
+                      <IconButton className='hover:bg-red-500' >
+                        <DeleteIcon className='hover:text-red-600'/>
+                      </IconButton>
                       </td>
                     </tr>
                   ))}
