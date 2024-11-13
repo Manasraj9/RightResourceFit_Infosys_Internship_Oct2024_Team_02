@@ -3,11 +3,13 @@ import Navbar from '../Components/Bars/NavbarJobseeker';
 import Footer from '../Components/Footer';
 import './Jobdescription.css';
 import { Link } from 'react-router-dom';
-
+import { useState } from 'react';
+ 
+ 
 import nomadIcon from '../images/nomad.png';
 import shareIcon from '../images/shareimg.png';
 import vrImg from '../images/vrimg.png';
-
+ 
 import healthcareIcon from '../images/healthcare.png';
 import vacationIcon from '../images/vacation.png';
 import skilldevIcon from '../images/skill-dev.png';
@@ -17,7 +19,7 @@ import commuterbenefitIcon from '../images/commuter-net.png';
 import savingIcon from '../images/saving.png';
 import arrowIcon from '../images/arrow.png';
 import nomadcompanyIcon from '../images/nomadcompany.png';
-
+ 
 import discordIcon from '../images/discord.png';
 import mazeIcon from '../images/maze.png';
 import udacityIcon from '../images/udacity.png';
@@ -25,8 +27,8 @@ import webflowIcon from '../images/webflow.png';
 import foundationIcon from '../images/foundation.png';
 import squareIcon from '../images/square.png';
 import divyIcon from '../images/divy.png';
-
-
+ 
+ 
 const PerksandBenefits = [
     { title: 'Full Healthcare', description: 'We believe in thriving communities and that starts with our team being happy and healthy.', icon: healthcareIcon },
     { title: 'Unlimited Vacation', description: 'We believe you should have a flexible schedule that makes space for family, wellness, and fun.', icon: vacationIcon},
@@ -36,8 +38,8 @@ const PerksandBenefits = [
     { title: 'Commuter Benefits', description: 'We’re grateful for all the time and energy each team member puts into getting to work every day.', icon: commuterbenefitIcon},
     { title: 'We give back', description: 'We double-match employee donations up to $/€600 to support their chosen organizations.', icon: savingIcon},
 ];
-
-
+ 
+ 
 const SimilarJobs = [
     { title: 'Social media Assistant', location: 'Nomad . Paris, France', time: 'Full Time', button1: 'Marketing', button2: 'Design', icon: nomadIcon},
     { title: 'Social media Assistant', location: 'Discord . Paris, France', time: 'Full Time', button1: 'Marketing', button2: 'Design', icon: discordIcon},
@@ -48,20 +50,27 @@ const SimilarJobs = [
     { title: 'HR Manager', location: 'Square . Lucern, Switzerland', time: 'Full Time', button1: 'Marketing', button2: 'Design', icon: squareIcon},
     { title: 'HR Manager', location: 'Divy . Lucern, Switzerland', time: 'Full Time', button1: 'Marketing', button2: 'Design', icon: divyIcon},
 ];
-
-
+ 
+ 
 const Jobdescription = () => {
+ 
+    const [isFormVisible, setIsFormVisible] = useState(false);
+ 
+    const handleApplyClick = () => {
+        setIsFormVisible(true);
+    };
+ 
     return (
         <div>
             <Navbar />
-
+ 
             {/*Job Description*/}
-            <div className='bg-[#dbe2ef]'><br /><br />
+            <div className={`bg-[#dbe2ef] ${isFormVisible ? 'blur-background' : ''}`}><br /><br />
                 <div className='company-container ml-36 mr-36'>
                     <img src={nomadIcon} alt="Nomad Icon" className='nomad-icon h-12 w-15'/>
                     <div className='job-info'>
-                        <p className='nomad font-bold text-2xl'>Social Media Assistant</p>
-                        <p className='location'>Nomad . Paris, France . Full-Time</p>
+                        <p className='font-bold text-2xl'>Social Media Assistant</p>
+                        <p className='nomad-location'>Nomad . Paris, France . Full-Time</p>
                     </div>
                     <Link>
                         <img src={shareIcon} alt="share Icon" className='share-icon h-8 w-8 mr-4' />
@@ -70,18 +79,67 @@ const Jobdescription = () => {
                         <img src={vrImg} alt="vertical Image" className='h-10 w-8 color-[#D6DDEB]' />
                     </Link>
                     <Link>
-                        <button className='bg-[#3f72af] flex items-center hover:bg-white hover:text-[#3f72af] apply-btn'>
+                        <button onClick={handleApplyClick}  className='bg-[#3f72af] flex items-center hover:bg-white hover:text-[#3f72af] apply-btn'>
                             Apply
                         </button>
                     </Link>
                 </div><br /><br /><br /><br />
-
+ 
+                {/* Application Form */}
+                {isFormVisible && (
+                    <div className='application-overlay fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
+                        <div className='application-form-container ml-36 mr-36 bg-white shadow-md max-h-[80vh] w-[90%] sm:w-[60%] md:w-[50%] lg:w-[40%] p-8 overflow-y-auto rounded-md'>
+                                <form>
+                                    <img src={nomadIcon} alt='Nomad Icon' className='left-8 h-12 w-15'/>
+                                    <div className='job-info'>
+                                        <p className='font-bold text-2xl nomad-job'>Social Media Assistant</p>
+                                        <p className='nomad-jobloc text-[#7C8493]'>Nomad . Paris, France . Full-Time</p>
+                                    </div><br /><hr /><br />
+ 
+                                    <p className='font-bold text-2xl'>Submit Your Application</p>
+                                    <p className='text-[#7C8493]'>The following is required and will only be shared with Nomad</p>
+ 
+                                    <label className='block text-gray-700 mt-4'>Full name</label>
+                                    <input type='text' className='border p-2 w-full' placeholder='Enter your full name' />
+ 
+                                    <label className='block text-gray-700 mt-4'>Email address</label>
+                                    <input type='email' className='border p-2 w-full' placeholder='Enter your email address'/>
+ 
+                                    <label className='block text-gray-700 mt-4'>Phone number</label>
+                                    <input type='email' className='border p-2 w-full' placeholder='Enter your phone number'/>
+ 
+                                    <label className='block text-gray-700 mt-4'>Current of previous job title</label>
+                                    <input type='email' className='border p-2 w-full' placeholder='What’s your current or previous job title?'/><br /><br /><hr /><br />
+ 
+                                    <p className='font-bold text-2xl'>Links</p>
+ 
+                                    <label className='block text-gray-700 mt-4'>LinkedIn URL</label>
+                                    <input type='email' className='border p-2 w-full' placeholder='Link to yourLinkedIn URL'/>
+ 
+                                    <label className='block text-gray-700 mt-4'>Portfolio URL</label>
+                                    <input type='email' className='border p-2 w-full' placeholder='Link to your portfolio URL'/>
+ 
+                                    <label className='block text-gray-700 mt-4'>Additional information</label>
+                                    <textarea className='border p-2 w-full h-32' placeholder='Add a cover letter or anything else you want to share'></textarea>
+ 
+                                    <label className='block text-gray-700 mt-4'>Attach your resume</label>
+                                    <input type='file' className='border p-2 w-full'/><br /><br />
+ 
+                                    <button className='bg-[#3f72af] text-white px-4 py-2 mt-4 hover:bg-[#2b4865] submit-button'>
+                                        Submit Application
+                                    </button><br />
+                                </form>
+                        </div>
+                    </div>
+                )}
+ 
+ 
                 <div className='grid grid-cols-1 md:grid-cols-3 gap-16 ml-36 mr-36'>
                     {/* grid column 1 & 2 */}
                     <div className='text-black col-span-2'>
                         {/* Description */}
                         <p className='font-bold text-3xl text-[#25324B]'>Description</p><br />
-                        <p className='text-[#515B6F]'>Nomad is a global company specializing in creative solutions for remote work and digital collaboration. 
+                        <p className='text-[#515B6F]'>Nomad is a global company specializing in creative solutions for remote work and digital collaboration.
                             Based in Paris, they focus on social media, brand development, and content strategy to enhance online presence and community engagement.</p><br />
                         {/* Responsibilities */}
                         <p className='font-bold text-3xl text-[#25324B]'>Responsibilities</p><br />
@@ -109,7 +167,7 @@ const Jobdescription = () => {
                             <li>➡️ Copy editing skills</li>
                         </ul>
                     </div>
-
+ 
                     {/* grid column 3 */}
                     <div>
                         {/* About this role */}
@@ -148,14 +206,15 @@ const Jobdescription = () => {
                         {/* Required skills */}
                         <p className='font-bold text-3xl text-[#25324B]'>Required Skills</p><br />
                         <div className='text-[#515B6F]'>
-                            <p>-{'>'} Project Management</p>
-                            <p>-{'>'} Copy Writing</p>
-                            <p>-{'>'} Social Media Marketing</p>
-                            <p>-{'>'} English</p>
-                            <p>-{'>'} Copy Editing</p>
+                            <p>➡️ Project Management</p>
+                            <p>➡️ Copy Writing</p>
+                            <p>➡️ Social Media Marketing</p>
+                            <p>➡️ English</p>
+                            <p>➡️ Copy Editing</p>
                         </div>
                     </div>
-                </div><br /><br /><br /><br />{'>'}
+                </div><br /><br /><br /><br />
+               
                 {/* Perks & Benefits */}
                 <div>
                     <p className='font-bold text-3xl text-[#25324B] ml-36'>Perks & Benefits</p>
@@ -170,7 +229,7 @@ const Jobdescription = () => {
                         ))}
                     </div>
                 </div><br /><br /><br /><br />
-
+ 
                 <div className='grid grid-cols-1 md:grid-cols-2 ml-36 mr-36 gap-16'>
                     <div>
                         <img src={nomadIcon} alt="Nomad Icon" className='h-24 w-24'/>
@@ -179,14 +238,14 @@ const Jobdescription = () => {
                         <Link>
                             <img src={arrowIcon} alt="Arrow Icon" className='h-8 w-8 arrow-img' />
                         </Link>
-                        <p className='text-[#515B6F] mt-12'>Stripe is a technology company that builds economic infrastructure for the internet. Businesses of every size from new 
+                        <p className='text-[#515B6F] mt-12'>Stripe is a technology company that builds economic infrastructure for the internet. Businesses of every size from new
                             startups to public companies use our software to accept payments and manage their businesses online.</p>
                     </div>
                     <div className='company-img'>
                         <img src={nomadcompanyIcon} alt='Nomad Company Icon' className='h-56 w-280' />
                     </div>
                 </div><br /><br /><br /><br />
-
+ 
                 <div className='gird grid-cols-1 md:grid-cols-2 ml-36 mr-36 gap-16'>
                     <div className='text-3xl font-bold text-[#25324B]'>Similar Jobs</div>
                     <div>
@@ -216,11 +275,12 @@ const Jobdescription = () => {
                         </Link>
                     ))}
                 </div><br /><br />
-
+ 
             </div>
-
+ 
             <Footer />
         </div>
     );
 };
 export default Jobdescription;
+ 
