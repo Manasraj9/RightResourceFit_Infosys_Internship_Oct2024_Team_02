@@ -16,13 +16,10 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import HelpIcon from '@mui/icons-material/Help';
 import { useLocation } from 'react-router-dom';
 import './ApplicantStatus1.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import 'font-awesome/css/font-awesome.min.css';
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
-
+import StarRateIcon from '@mui/icons-material/StarRate';
 
 export const ApplicantStatus1 = () => {
   const location = useLocation();
@@ -124,8 +121,7 @@ export const ApplicantStatus1 = () => {
                         {applicant.cname}
                       </td>
                       <td className="py-2 px-4 flex items-center">
-                        <i className="fas fa-star text-yellow-500 mr-1"></i>
-                        {applicant.score}
+                        <StarRateIcon />{applicant.score}
                       </td>
                       <td className="py-2 px-4">
                         <span className={`badge ${applicant.badgeClass}`}>
