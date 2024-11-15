@@ -6,6 +6,7 @@ require('dotenv').config();
 const jobRoutes = require('./routes/jobRoutes');
 const authRoutes = require('./routes/authRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
+const applicationRoutes = require('./routes/applicationRoutes');
 
 const app = express();
 const PORT = 1000;
@@ -31,6 +32,9 @@ app.post('/notifications', (req, res) => {
 app.use(authRoutes);
 app.use(jobRoutes);
 app.use(notificationRoutes);
+app.use(applicationRoutes);
+app.use('/uploads', express.static('uploads'));
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

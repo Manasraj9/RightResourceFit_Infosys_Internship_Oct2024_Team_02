@@ -225,7 +225,9 @@ const JobseekerPage = () => {
                                             <div className='ml-28 custom-loc'>{job.joblocations[0]}...</div>
                                         </p><br /><br />
                                         <div className="buttons-container flex justify-between items-center gap-10 mt-5">
-                                            <Link><button className="view-button">View Details</button></Link>
+                                            <Link to={`/job/${job._id}`}>
+                                                <button className="view-button">View Details</button>
+                                            </Link>
                                             <Link><button className="apply-button">Apply Now</button></Link>
                                         </div><br />
                                     </div>
