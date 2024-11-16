@@ -49,7 +49,7 @@ function App() {
         <Route path="/PostJob" element={<PostJob />} />
         <Route path="/PostJob2" element={<PostJob2 />} />
         <Route path="/Companypostpage_1" element={<Companypostpage_1 />} />
-        <Route path="/Jobdescription" element={<Jobdescription />} />
+        <Route path="//job/:jobId" element={<Jobdescription />} />
         <Route path="/Jobprofile" element={<Jobprofile />} />
         <Route path="/ApplicantStatus1" element={<ApplicantStatus1 />} />
         <Route path="/ApplicantStatus2" element={<ApplicantStatus2 />} />
