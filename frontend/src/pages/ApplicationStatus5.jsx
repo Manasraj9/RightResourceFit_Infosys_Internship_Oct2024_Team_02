@@ -21,9 +21,27 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LanguageIcon from '@mui/icons-material/Language';
 import StarRateIcon from '@mui/icons-material/StarRate';
-import { yellow } from '@mui/material/colors';
+import { blue, yellow } from '@mui/material/colors';
+import AddIcon from '@mui/icons-material/Add';
+import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
+import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 
-const ApplicantStatus2 = () => {
+const CurrentStage = () => {
+  return (
+    <div className="max-w-2xl mx-auto bg-white shadow-md rounded-lg p-6">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-xl font-semibold text-gray-800">Current Stage</h2>
+        <button className="text-purple-600 font-medium flex items-center">
+          <span className="mr-2">Give Rating</span>
+          <i className="fas fa-chevron-down"></i>
+        </button>
+      </div>
+      {/* Additional content goes here */}
+    </div>
+  );
+};
+
+const ApplicantStatus5 = () => {
   const location = useLocation();
 
   // Define the sidebar items with their paths
@@ -41,7 +59,6 @@ const ApplicantStatus2 = () => {
   return (
     <div>
       <Navbar />
-
       <div className="flex flex-grow">
         {/* Sidebar */}
         <Box
@@ -81,7 +98,7 @@ const ApplicantStatus2 = () => {
         </Box>
 
         {/* Main Content */}
-        <div className="bg-gray-100 p-8 flex-grow w-3/4 mx-auto bg-white rounded-lg shadow-lg ">
+        <div className="bg-gray-100 p-8 flex-grow w-3/4 mx-auto bg-white rounded-lg shadow-lg">
           <div className="flex items-center mb-6">
             <h1 className="text-2xl font-bold">Applicant Details</h1>
           </div>
@@ -98,12 +115,13 @@ const ApplicantStatus2 = () => {
                   <h2 className="text-xl font-bold">Jerome Bell</h2>
                   <p className="text-gray-600">Product Designer</p>
                   <div className="flex items-center mt-2">
-                    <StarRateIcon sx={{ color: yellow[800] }}/><span className="ml-2 text-gray-600">4.0</span>
+                    <StarRateIcon sx={{ color: yellow[800] }} />
+                    <span className="ml-2 text-gray-600">4.0</span>
                   </div>
                 </div>
               </div>
               <div className="bg-gray-100 p-4 rounded-lg mb-4">
-                <div className='flex space-x-64'>
+                <div className='flex justify-between'>
                 <h3 className="text-gray-600 mb-2">Applied Jobs</h3>
                 <p className="text-gray-600 text-sm mb-2">2 days ago</p>
                 </div>
@@ -116,7 +134,7 @@ const ApplicantStatus2 = () => {
                   <h4 className="text-gray-600 mb-2">Stage</h4>
                   <div className="flex items-center">
                     <div className="w-full bg-gray-300 rounded-full h-2.5 mr-2">
-                      <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '25%' }}></div>
+                      <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '65%' }}></div>
                     </div>
                     <span className="text-gray-600">Interview</span>
                   </div>
@@ -163,88 +181,54 @@ const ApplicantStatus2 = () => {
 
             {/* Right Sidebar - Professional Info */}
             <div className="w-2/3 p-4 border m-4">
-              {/* Tabs */}
-              <div className="flex border-b mb-4">
-                <button className="py-2 px-4 text-blue-600 border-b-2 border-blue-600">
-                  Applicant Profile
-                </button>
+            {/* Tabs */}
+            <div className="flex border-b mb-4">
+                <button className="py-2 px-4 text-gray-600">Applicant Profile</button>
                 <button className="py-2 px-4 text-gray-600">Resume</button>
                 <button className="py-2 px-4 text-gray-600">Hiring Progress</button>
-                <button className="py-2 px-4 text-gray-600">Interview Schedule</button>
+                <button className="py-2 px-4 text-blue-600 border-b-2 border-blue-600">Interview Schedule</button>
               </div>
-
-              <div>
-                {/* Personal Info */}
-                <h3 className="text-lg font-bold mb-4">Personal Info</h3>
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                  <div>
-                    <p className="text-gray-600">Full Name</p>
-                    <p className="font-bold">Jerome Bell</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-600">Gender</p>
-                    <p className="font-bold">Male</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-600">Date of Birth</p>
-                    <p className="font-bold">March 23, 1995</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-600">Language</p>
-                    <p className="font-bold">English, French, Bahasa</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-600">Address</p>
-                    <p className="font-bold">4517 Washington Ave.<br />Manchester, Kentucky 39495</p>
-                  </div>
-                  {/* Additional fields */}
+              
+              <div className='p-4'>
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-xl font-semibold text-gray-800">Interview List</h2>
+                  <button class="flex items-center text-blue-600 font-bold border-2 p-3">
+                  <AddIcon /><span class="mr-2 px-1">Add Schedule Interview</span>
+                  </button>
                 </div>
-              </div>
-              <hr /><br />
-              <div>
-                {/* Professional Info */}
-                <h3 className="text-lg font-bold mb-4">Professional Info</h3>
-                  <div>
-                    <p className="text-gray-600">About me</p>
-                    <p className="font-bold">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi, laudantium amet fuga dolorem ad error odit ratione assumenda aspernatur. Quae, dolorem. Nemo vero at suscipit dicta odit delectus esse blanditiis!
-                    Quos totam dolore placeat accusantium, incidunt dolor aliquam sed minus maxime omnis, amet quia vitae nam. Cumque molestias, nisi dolorum aliquam necessitatibus amet laudantium sint dignissimos quas, sit vero repudiandae?
-                    Odio quia pariatur nam neque! <br /><br /> Obcaecati, natus.
-                    Quaerat incidunt totam, eos atque doloremque doloribus veniam laboriosam modi cumque reprehenderit aspernatur iure nesciunt sed officiis id tempora quis dolores ipsam fugit possimus ducimus voluptatibus nihil. Aliquid, inventore at.</p>
-                  </div>
-                  <br />
-                  <div className="grid grid-cols-2 gap-4 mb-4">
-                  <div>
-                    <p className="text-gray-600">Current Job</p>
-                    <p className="font-bold">Product Designer</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-600">Experience in Years</p>
-                    <p className="font-bold">4 Years</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-600">Highest Qualification Held</p>
-                    <p className="font-bold">Bachelors in Engineering</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-600">Skills set</p>
-                    <button className='bg-slate-100 text-violet-800 p-1.5 m-1'>Project Management</button>
-                    <button className='bg-slate-100 text-violet-800 p-1.5 m-1'>Copywriting</button>
-                    <button className='bg-slate-100 text-violet-800 p-1.5 m-1'>English</button>
-                  </div>
-                  {/* Additional fields */}
-                </div>
+                <div className='text-gray-800'><p>11 July, 2024</p>
+                <div className="flex items-center justify-between bg-white p-4 shadow-sm mb-2 border-2">
+                        <div className="flex items-center">
+                            <img src="https://placehold.co/32x32" alt="profile-img" className="w-12 h-12 rounded-full mr-4" />
+                            <div>
+                                <div className="font-semibold">Jenny Wilson</div>
+                                <div className="text-gray-500">Test type</div>
+                            </div>
+                        </div>
+                        <div className="text-start">
+                            <div className="font-semibold">10.00 AM - 11.00 AM</div>
+                            <div className="text-gray-500">Location</div>
+                        </div>
+                        <div className="flex items-center	">
+                            <button className="flex justify-center text-blue-500 border border-blue-500 rounded-lg p-2 mr-2 w-48">
+                                <CreateOutlinedIcon sx={{ color: blue[800] }}/>Add Feedback
+                            </button>
+                            <button className='px-3'><MoreHorizOutlinedIcon /></button>
+                        </div>
+                    </div>
+                    </div>
               </div>
             </div>
           </div>
-          <div className='flex justify-end'>
+          <div className='flex justify-between'>
+          <button className='bg-blue-500 text-white rounded px-6 py-2'>Previous</button>
           <button className='bg-blue-500 text-white rounded px-6 py-2'>Next</button>
         </div>
         </div>
       </div>
-
       <Footer />
     </div>
   );
 };
 
-export default ApplicantStatus2;
+export default ApplicantStatus5;

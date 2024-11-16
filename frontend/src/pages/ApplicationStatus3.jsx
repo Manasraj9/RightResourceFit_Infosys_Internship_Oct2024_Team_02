@@ -21,8 +21,9 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LanguageIcon from '@mui/icons-material/Language';
 import StarRateIcon from '@mui/icons-material/StarRate';
+import { yellow } from '@mui/material/colors';
 
-const ApplicantStatus2 = () => {
+const ApplicantStatus3 = () => {
   const location = useLocation();
 
   // Define the sidebar items with their paths
@@ -97,7 +98,8 @@ const ApplicantStatus2 = () => {
                   <h2 className="text-xl font-bold">Jerome Bell</h2>
                   <p className="text-gray-600">Product Designer</p>
                   <div className="flex items-center mt-2">
-                    <StarRateIcon /><span className="ml-2 text-gray-600">4.0</span>
+                    <StarRateIcon sx={{ color: yellow[800] }} />
+                    <span className="ml-2 text-gray-600">4.0</span>
                   </div>
                 </div>
               </div>
@@ -127,39 +129,39 @@ const ApplicantStatus2 = () => {
               <div className="bg-gray-100 p-4 rounded-lg">
                 <h3 className="text-gray-600 mb-4">Contact</h3>
                 <div className="flex flex-col items-start mb-2">
-                <div className="flex items-center">
+                <div className="flex items-center space-x-2">
                   <EmailIcon /><p className="text-gray-600">Email</p>
                 </div>
-                  <span className="ml-6">jeromeBell45@email.com</span>
+                  <span className="ml-8">jeromeBell45@email.com</span>
                 </div>
 
                 <div className="flex flex-col items-start mb-2">
-                <div className="flex items-center">
+                <div className="flex items-center space-x-2">
                   <PhoneAndroidIcon /><p className="text-gray-600">Phone</p>
                   </div>
-                  <span className="ml-6">+44 2113 548 255</span>
+                  <span className="ml-8">+44 2113 548 255</span>
                 </div>
                 <div className="flex flex-col items-start mb-2">
-                <div className="flex items-center">
+                <div className="flex items-center space-x-2">
                   <InstagramIcon /><p className="text-gray-600">Instagram</p>
                   </div>
-                  <span className="ml-6">instagram.com/jeromebell</span>
+                  <span className="ml-8">instagram.com/jeromebell</span>
                 </div>
                 <div className="flex flex-col items-start mb-2">
-                <div className="flex items-center">
+                <div className="flex items-center space-x-2">
                   <TwitterIcon /><p className="text-gray-600">Twitter</p>
                   </div>
-                  <span className="ml-6">twitter.com/jeromebell</span>
+                  <span className="ml-8">twitter.com/jeromebell</span>
                 </div>
                 <div className="flex flex-col items-start mb-2">
-                <div className="flex items-center">
+                <div className="flex items-center space-x-2">
                   <LanguageIcon /><p className="text-gray-600">Website</p>
                   </div>
-                  <span className="ml-6">www.jeromebell.com</span>
+                  <span className="ml-8">www.jeromebell.com</span>
                 </div>
               </div>
             </div>
-
+ 
             {/* Right Sidebar - Professional Info */}
             <div className="w-2/3 p-4 border m-4">
               {/* Tabs */}
@@ -177,6 +179,10 @@ const ApplicantStatus2 = () => {
               
             </div>
           </div>
+          <div className='flex justify-between'>
+          <button className='bg-blue-500 text-white rounded px-6 py-2'>Previous</button>
+          <button className='bg-blue-500 text-white rounded px-6 py-2'>Next</button>
+        </div>
         </div>
       </div>
 
@@ -185,4 +191,4 @@ const ApplicantStatus2 = () => {
   );
 };
 
-export default ApplicantStatus2;
+export default ApplicantStatus3;

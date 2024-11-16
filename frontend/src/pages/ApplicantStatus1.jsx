@@ -20,6 +20,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import StarRateIcon from '@mui/icons-material/StarRate';
+import { yellow } from '@mui/material/colors';
 
 export const ApplicantStatus1 = () => {
   const location = useLocation();
@@ -121,7 +122,7 @@ export const ApplicantStatus1 = () => {
                         {applicant.cname}
                       </td>
                       <td className="py-2 px-4 flex items-center">
-                        <StarRateIcon />{applicant.score}
+                        <StarRateIcon sx={{ color: yellow[800] }}/>{applicant.score}
                       </td>
                       <td className="py-2 px-4">
                         <span className={`badge ${applicant.badgeClass}`}>
