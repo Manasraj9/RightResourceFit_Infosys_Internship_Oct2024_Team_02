@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../Components/Bars/NavbarHome';
+import Navbar from '../Components/Bars/NavbarCompany';
 import Footer from '../Components/Footer';
 //import SecondaryNavbar from '../Components/SecondaryNavbar.jsx';
 
@@ -24,7 +24,7 @@ import Applicant3 from '../images/applicant3.png';
 import './ApplicationStatus.css';
 
 
-const ApplicationStatu= () => {
+const ApplicationStatus4= () => {
      const location = useLocation();
     const sidebarItems = [
         { text: 'Dashboard', icon: <DashboardIcon />, path: '/Jobseekerdashboard' },
@@ -176,5 +176,5 @@ const ApplicationStatu= () => {
     );
 };
 
-export default ApplicationStatu;
+export default ApplicationStatus4;
 

@@ -23,6 +23,8 @@ import JobListing from "./pages/JobListing";
 import Jobseekerdashboard from "./pages/Jobseekerdashboard";
 import ApplicantStatus1 from "./pages/ApplicantStatus1";
 import ApplicantStatus2 from './pages/ApplicationStatus2';
+import ApplicationStatus4 from './pages/ApplicationStatus4';
+import ApplicationStatus5 from './pages/ApplicationStatus5';
 import Notifications from "./pages/Notifications";
 import Companyprofile from "./pages/Companyprofile";
 
@@ -50,6 +52,8 @@ function App() {
         <Route path="/Jobprofile" element={<Jobprofile />} />
         <Route path="/ApplicantStatus1" element={<ApplicantStatus1 />} />
         <Route path="/ApplicantStatus2" element={<ApplicantStatus2 />} />
+        <Route path="/ApplicationStatus4" element={<ApplicationStatus4 />} />
+        <Route path="/ApplicationStatus5" element={<ApplicationStatus5 />} />
         <Route path="/JobListing" element={<JobListing />} />
         <Route path="/PostJob" element={<PostJob />} />
         <Route path="/Jobseekerdashboard" element={<Jobseekerdashboard />} />
