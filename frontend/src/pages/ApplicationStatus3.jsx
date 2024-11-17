@@ -23,7 +23,7 @@ import LanguageIcon from '@mui/icons-material/Language';
 import StarRateIcon from '@mui/icons-material/StarRate';
 import { yellow } from '@mui/material/colors';
 
-const ApplicantStatus2 = () => {
+const ApplicantStatus3 = () => {
   const location = useLocation();
 
   // Define the sidebar items with their paths
@@ -98,12 +98,13 @@ const ApplicantStatus2 = () => {
                   <h2 className="text-xl font-bold">Jerome Bell</h2>
                   <p className="text-gray-600">Product Designer</p>
                   <div className="flex items-center mt-2">
-                    <StarRateIcon sx={{ color: yellow[800] }}/><span className="ml-2 text-gray-600">4.0</span>
+                    <StarRateIcon sx={{ color: yellow[800] }} />
+                    <span className="ml-2 text-gray-600">4.0</span>
                   </div>
                 </div>
               </div>
               <div className="bg-gray-100 p-4 rounded-lg mb-4">
-                <div className='flex space-x-64'>
+                <div className='flex justify-between'>
                 <h3 className="text-gray-600 mb-2">Applied Jobs</h3>
                 <p className="text-gray-600 text-sm mb-2">2 days ago</p>
                 </div>
@@ -116,7 +117,7 @@ const ApplicantStatus2 = () => {
                   <h4 className="text-gray-600 mb-2">Stage</h4>
                   <div className="flex items-center">
                     <div className="w-full bg-gray-300 rounded-full h-2.5 mr-2">
-                      <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '25%' }}></div>
+                      <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '50%' }}></div>
                     </div>
                     <span className="text-gray-600">Interview</span>
                   </div>
@@ -160,83 +161,26 @@ const ApplicantStatus2 = () => {
                 </div>
               </div>
             </div>
-
+ 
             {/* Right Sidebar - Professional Info */}
             <div className="w-2/3 p-4 border m-4">
               {/* Tabs */}
               <div className="flex border-b mb-4">
-                <button className="py-2 px-4 text-blue-600 border-b-2 border-blue-600">
-                  Applicant Profile
-                </button>
-                <button className="py-2 px-4 text-gray-600">Resume</button>
+                <button className="py-2 px-4 text-gray-600">Applicant Profile</button>
+                <button className="py-2 px-4 text-blue-600 border-b-2 border-blue-600">Resume</button>
                 <button className="py-2 px-4 text-gray-600">Hiring Progress</button>
                 <button className="py-2 px-4 text-gray-600">Interview Schedule</button>
               </div>
 
-              <div>
-                {/* Personal Info */}
-                <h3 className="text-lg font-bold mb-4">Personal Info</h3>
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                  <div>
-                    <p className="text-gray-600">Full Name</p>
-                    <p className="font-bold">Jerome Bell</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-600">Gender</p>
-                    <p className="font-bold">Male</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-600">Date of Birth</p>
-                    <p className="font-bold">March 23, 1995</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-600">Language</p>
-                    <p className="font-bold">English, French, Bahasa</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-600">Address</p>
-                    <p className="font-bold">4517 Washington Ave.<br />Manchester, Kentucky 39495</p>
-                  </div>
-                  {/* Additional fields */}
-                </div>
+              
+              <div className='border h-5/6 m-8'>
+              {/* Resume */}
               </div>
-              <hr /><br />
-              <div>
-                {/* Professional Info */}
-                <h3 className="text-lg font-bold mb-4">Professional Info</h3>
-                  <div>
-                    <p className="text-gray-600">About me</p>
-                    <p className="font-bold">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi, laudantium amet fuga dolorem ad error odit ratione assumenda aspernatur. Quae, dolorem. Nemo vero at suscipit dicta odit delectus esse blanditiis!
-                    Quos totam dolore placeat accusantium, incidunt dolor aliquam sed minus maxime omnis, amet quia vitae nam. Cumque molestias, nisi dolorum aliquam necessitatibus amet laudantium sint dignissimos quas, sit vero repudiandae?
-                    Odio quia pariatur nam neque! <br /><br /> Obcaecati, natus.
-                    Quaerat incidunt totam, eos atque doloremque doloribus veniam laboriosam modi cumque reprehenderit aspernatur iure nesciunt sed officiis id tempora quis dolores ipsam fugit possimus ducimus voluptatibus nihil. Aliquid, inventore at.</p>
-                  </div>
-                  <br />
-                  <div className="grid grid-cols-2 gap-4 mb-4">
-                  <div>
-                    <p className="text-gray-600">Current Job</p>
-                    <p className="font-bold">Product Designer</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-600">Experience in Years</p>
-                    <p className="font-bold">4 Years</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-600">Highest Qualification Held</p>
-                    <p className="font-bold">Bachelors in Engineering</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-600">Skills set</p>
-                    <button className='bg-slate-100 text-violet-800 p-1.5 m-1'>Project Management</button>
-                    <button className='bg-slate-100 text-violet-800 p-1.5 m-1'>Copywriting</button>
-                    <button className='bg-slate-100 text-violet-800 p-1.5 m-1'>English</button>
-                  </div>
-                  {/* Additional fields */}
-                </div>
-              </div>
+              
             </div>
           </div>
-          <div className='flex justify-end'>
+          <div className='flex justify-between'>
+          <button className='bg-blue-500 text-white rounded px-6 py-2'>Previous</button>
           <button className='bg-blue-500 text-white rounded px-6 py-2'>Next</button>
         </div>
         </div>
@@ -247,4 +191,4 @@ const ApplicantStatus2 = () => {
   );
 };
 
-export default ApplicantStatus2;
+export default ApplicantStatus3;
