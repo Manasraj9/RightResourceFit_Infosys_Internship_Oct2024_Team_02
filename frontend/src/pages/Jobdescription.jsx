@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 import nomadIcon from '../images/nomad.png';
@@ -95,30 +97,44 @@ const Jobdescription = () => {
         if (file && file.type === 'application/pdf') {
             setFormData({ ...formData, resume: file });
         } else {
-            alert('Please upload a valid PDF file.');
+            toast.error('Please upload a valid PDF file.', {
+                position: "top-right",
+                autoClose: 5000,
+            });
         }
     };
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         
         // Validate required fields
         if (!formData.fullName || !formData.email || !formData.resume) {
-            alert('Please fill out all required fields.');
+            toast.error('Please fill out all required fields.', {
+                position: "top-right",
+                autoClose: 5000,
+            });
             return;
         }
-
+    
         const formDataToSend = new FormData();
         Object.keys(formData).forEach((key) => {
             formDataToSend.append(key, formData[key]);
         });
-
+    
         try {
             // Post the application along with the jobId
             const response = await axios.post(`http://localhost:1000/apply/${jobId}`, formDataToSend, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
-            alert('Application submitted successfully');
+            toast.success('Application submitted successfully', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
             setIsFormVisible(false);  // Hide the form after successful submission
             setFormData({  // Reset the form data
                 fullName: '',
@@ -131,7 +147,10 @@ const Jobdescription = () => {
                 resume: null,
             });
         } catch (error) {
-            alert('Error submitting application');
+            toast.error('Unexpected error. Please try again.', {
+                position: "top-right",
+                autoClose: 5000,
+            });
             console.error(error);
         }
     };
@@ -271,6 +290,7 @@ const Jobdescription = () => {
                                             Submit Application
                                         </button>
                                     </form>
+                                    <ToastContainer />
                                 </div>
                             </div>
                         )}
@@ -313,10 +333,10 @@ const Jobdescription = () => {
                                 <p>Salary</p><br />
                             </div>
                             <div className='jobdate font-bold'>
-                                <p>July 31, 2021</p><br />
-                                <p>July 1, 2021</p><br />
-                                <p>Full-Time</p><br />
-                                <p>$75k-$85k USD</p><br />
+                                <p>Dec 31, 2024</p><br />
+                                <p>Nov 1, 2024</p><br />
+                                <p>{job.employmentType}</p><br />
+                                <p>₹{job.salaryRange.min} - ₹{job.salaryRange.max}</p><br />
                             </div>
                         </div>
                         <hr className='hr-line' /><br />
