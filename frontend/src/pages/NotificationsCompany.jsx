@@ -1,13 +1,14 @@
-import React, {useEffect,useState} from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useParams, useLocation, Link } from 'react-router-dom';
 import Navbar from '../Components/Bars/NavbarCompany.jsx';
 import Footer from '../Components/Footer.jsx';
 import SecondaryNavbar from '../Components/Bars/SecondaryNavbar.jsx';
-import { styled } from '@mui/material/styles';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { Box, Divider,Typography,Card,CardContent,IconButton } from '@mui/material';
+import { Box, Divider, Typography, Card, CardContent, IconButton, Button } from '@mui/material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import MessageIcon from '@mui/icons-material/Message';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
@@ -16,38 +17,63 @@ import WorkIcon from '@mui/icons-material/Work';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HelpIcon from '@mui/icons-material/Help';
-import { useLocation } from 'react-router-dom'; 
 import DeleteIcon from '@mui/icons-material/Delete';
-import axios from 'axios';
-
 
 const NotificationsCompany = () => {
     const location = useLocation();
+    const { userId } = useParams();
+    console.log('userId:', userId);
+
     const [notifications, setNotifications] = useState([]);
-    const userId = "userId";  // Replace with dynamic user ID from state or props
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Fetch notifications for the logged-in user
-        axios.get(`/notifications/${userId}`)
-            .then((response) => {
+        const fetchNotifications = async () => {
+            try {
+                const response = await axios.get(`http://localhost:1000/notifications/${userId}`);
                 setNotifications(response.data);
-            })
-            .catch((error) => {
-                console.error('Error fetching notifications', error);
-            });
+            } catch (error) {
+                console.error('Error fetching notifications:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+    
+        if (userId) {  // Ensure userId exists before making the request
+            fetchNotifications();
+        }
     }, [userId]);
+      
 
-    const handleDelete = (notificationId) => {
-        axios.delete(`/api/notifications/${notificationId}`)
-            .then(() => {
-                setNotifications(notifications.filter(notification => notification._id !== notificationId));
-            })
-            .catch((error) => {
-                console.error('Error deleting notification', error);
-            });
+    const markAsRead = async (notificationId) => {
+        try {
+            await axios.put(`http://localhost:1000/notifications/${notificationId}/read`);
+            setNotifications((prevNotifications) =>
+                prevNotifications.map((notif) =>
+                    notif._id === notificationId ? { ...notif, isRead: true } : notif
+                )
+            );
+        } catch (error) {
+            console.error('Error marking notification as read:', error);
+        }
     };
 
-    // Define the sidebar items with their paths
+    const deleteNotification = async (notificationId) => {
+        try {
+            await axios.delete(`http://localhost:1000/notifications/${notificationId}`);
+            setNotifications((prevNotifications) =>
+                prevNotifications.filter((notif) => notif._id !== notificationId)
+            );
+        } catch (error) {
+            console.error('Error deleting notification:', error);
+        }
+    };
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    // Sidebar items with their paths
     const sidebarItems = [
         { text: 'Dashboard', icon: <DashboardIcon />, path: '/Dashboardcompany' },
         { text: 'Messages', icon: <MessageIcon />, path: '/NotificationsCompany' },
@@ -58,6 +84,7 @@ const NotificationsCompany = () => {
         { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
         { text: 'Help Center', icon: <HelpIcon />, path: '/help-center' },
     ];
+
     return (
         <div>
             {/* Navbar */}
@@ -82,53 +109,75 @@ const NotificationsCompany = () => {
                 >
                     <List>
                         {sidebarItems.map((item) => (
-                            <ListItem
-                                button
-                                key={item.text}
-                                component="a"
-                                href={item.path}
-                                sx={{
-                                    color: location.pathname === item.path ? 'blue' : 'inherit', // Change color to blue if active
-                                    backgroundColor: location.pathname === item.path ? 'rgba(0, 0, 255, 0.1)' : 'transparent', // Add a light blue background if active
-                                }}
-                            >
-                                <ListItemIcon sx={{ color: location.pathname === item.path ? 'blue' : 'inherit' }}>
-                                    {item.icon}
-                                </ListItemIcon>
-                                <ListItemText primary={item.text} />
-                            </ListItem>
+                            <Link key={item.text} to={item.path}>
+                                <ListItem
+                                    button
+                                    sx={{
+                                        color: location.pathname === item.path ? 'blue' : 'inherit',
+                                        backgroundColor: location.pathname === item.path ? 'rgba(0, 0, 255, 0.1)' : 'transparent',
+                                    }}
+                                >
+                                    <ListItemIcon sx={{ color: location.pathname === item.path ? 'blue' : 'inherit' }}>
+                                        {item.icon}
+                                    </ListItemIcon>
+                                    <ListItemText primary={item.text} />
+                                </ListItem>
+                            </Link>
                         ))}
                     </List>
-
                     <Divider />
                 </Box>
 
                 {/* Main Content */}
                 <div className="flex-grow p-4">
                     <SecondaryNavbar />
-                    <h1 className="text-3xl font-bold my-2">Notifications</h1>
-                    <div className="container mx-auto">
-                        <p>Here you can see all the notifications that have been sent to you.</p>
-                        {notifications.length === 0 ? (
-                            <p>No notifications</p>
-                        ) : (
-                            notifications.map((notification) => (
-                                <Card key={notification._id} sx={{ marginBottom: '20px' }}>
-                                    <CardContent className="container mx-auto flex justify-between items-center hover:bg-[#DEE4EF]">
-                                        <Typography variant="body2">{notification.message}</Typography>
-                                        <IconButton onClick={() => handleDelete(notification._id)}>
-                                            <DeleteIcon className="hover:text-red-600" />
-                                        </IconButton>
-                                    </CardContent>
-                                </Card>
-                            ))
-                        )}
-                    </div>
+                    <Typography variant="h4" component="h1" gutterBottom>
+                        Notifications
+                    </Typography>
+                    <Typography variant="body1" gutterBottom>
+                        Here you can see all the notifications that have been sent to you.
+                    </Typography>
+                    {notifications.length > 0 ? (
+                        notifications.map((notification) => (
+                            <Card
+                                key={notification._id}
+                                sx={{
+                                    backgroundColor: notification.isRead ? 'lightgray' : 'white',
+                                    marginBottom: '10px',
+                                    padding: '10px',
+                                    boxShadow: 2,
+                                    borderRadius: '5px',
+                                }}
+                            >
+                                <CardContent>
+                                    <Typography variant="body1">{notification.message}</Typography>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={() => markAsRead(notification._id)}
+                                        sx={{ marginTop: '10px', marginRight: '10px' }}
+                                    >
+                                        Mark as Read
+                                    </Button>
+                                    <IconButton
+                                        color="error"
+                                        onClick={() => deleteNotification(notification._id)}
+                                    >
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </CardContent>
+                            </Card>
+                        ))
+                    ) : (
+                        <Typography variant="body1">No notifications found</Typography>
+                    )}
                 </div>
             </div>
+
+            {/* Footer */}
             <Footer />
         </div>
-    )
-}
+    );
+};
 
-export default NotificationsCompany
+export default NotificationsCompany;

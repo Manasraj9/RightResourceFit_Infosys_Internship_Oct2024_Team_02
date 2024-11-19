@@ -103,10 +103,10 @@ const Jobdescription = () => {
             });
         }
     };
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         // Validate required fields
         if (!formData.fullName || !formData.email || !formData.resume) {
             toast.error('Please fill out all required fields.', {
@@ -115,45 +115,66 @@ const Jobdescription = () => {
             });
             return;
         }
-    
+
         const formDataToSend = new FormData();
         Object.keys(formData).forEach((key) => {
             formDataToSend.append(key, formData[key]);
         });
-    
+
         try {
             // Post the application along with the jobId
             const response = await axios.post(`http://localhost:1000/apply/${jobId}`, formDataToSend, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
-            toast.success('Application submitted successfully', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-            setIsFormVisible(false);  // Hide the form after successful submission
-            setFormData({  // Reset the form data
-                fullName: '',
-                email: '',
-                phone: '',
-                jobTitle: '',
-                linkedin: '',
-                portfolio: '',
-                additionalInfo: '',
-                resume: null,
-            });
+
+            if (response.data.success) {
+                toast.success('Application submitted successfully', {
+                    position: "top-right",
+                    autoClose: 5000,
+                });
+
+                // Send notification to the employer
+                const notificationResponse = await axios.post('http://localhost:1000/notifications', {
+                    userId: job.userId, // Assuming `job.userId` is the employer's userId
+                    applicantName: formData.fullName,
+                    jobTitle: job.title,
+                });
+
+                if (notificationResponse.data.success) {
+                    console.log('Notification sent successfully.');
+                }
+
+                setIsFormVisible(false); // Hide the form after successful submission
+                setFormData({ // Reset the form data
+                    fullName: '',
+                    email: '',
+                    phone: '',
+                    jobTitle: '',
+                    linkedin: '',
+                    portfolio: '',
+                    additionalInfo: '',
+                    resume: null,
+                });
+            }
         } catch (error) {
-            toast.error('Unexpected error. Please try again.', {
-                position: "top-right",
-                autoClose: 5000,
-            });
             console.error(error);
+            if (error.response) {
+                console.log('Error Response:', error.response.data); // Log server's error details
+                toast.error(error.response.data.message || 'Unexpected error. Please try again.', {
+                    position: "top-right",
+                    autoClose: 5000,
+                });
+            } else {
+                toast.error('Unexpected error. Please try again.', {
+                    position: "top-right",
+                    autoClose: 5000,
+                });
+            }
         }
     };
+
+
+
 
     const handleApplyClick = () => {
         setIsFormVisible(true);

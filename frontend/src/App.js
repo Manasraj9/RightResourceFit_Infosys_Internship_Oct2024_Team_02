@@ -60,7 +60,7 @@ function App() {
         <Route path="/JobListing" element={<JobListing />} />
         <Route path="/PostJob" element={<PostJob />} />
         <Route path="/Jobseekerdashboard" element={<Jobseekerdashboard />} />
-        <Route path="/NotificationsCompany" element={<NotificationsCompany />} />
+        <Route path="/notifications/:userId" element={<NotificationsCompany />} />
         <Route path="/NotificationsJobseeker" element={<NotificationsJobseeker />} />
         <Route path="/Companyprofile" element={<Companyprofile />} />
       </Routes>

@@ -5,8 +5,9 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 const jobRoutes = require('./routes/jobRoutes');
 const authRoutes = require('./routes/authRoutes');
-const notificationRoutes = require('./routes/notificationRoutes');
 const applicationRoutes = require('./routes/applicationRoutes');
+const Notifications = require('./routes/Notification'); // Adjust the path accordingly
+const companyProfileRoutes = require('./routes/companyProfileRoutes');
 
 const app = express();
 const PORT = 1000;
@@ -31,9 +32,13 @@ app.post('/notifications', (req, res) => {
 
 app.use(authRoutes);
 app.use(jobRoutes);
-app.use(notificationRoutes);
 app.use(applicationRoutes);
+app.use(Notifications);
+app.use(companyProfileRoutes);
+
+
 app.use('/uploads', express.static('uploads'));
+
 
 
 app.listen(PORT, () => {
