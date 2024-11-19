@@ -19,56 +19,47 @@ import HelpIcon from '@mui/icons-material/Help';
 import { useLocation } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 
 const NotificationsJobseeker = () => {
     const location = useLocation();
+    const { userId } = useParams(); // Extract userId from URL params
     const [notifications, setNotifications] = useState([]);
-    const userId = "userId";  // Replace with dynamic user ID from state or props
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
+    // Check if userId is valid
     useEffect(() => {
-        const fetchNotifications = async () => {
-            try {
-                const response = await axios.get(`http://localhost:1000/notifications/${userId}`);
-                setNotifications(response.data); // Store notifications in state
-            } catch (err) {
-                setError('Error fetching notifications');
-            } finally {
-                setLoading(false);
-            }
-        };
+        if (!userId) {
+            console.error("User ID is missing or undefined");
+            return;
+        }
 
-        fetchNotifications();
+        // Fetch notifications using the userId
+        axios.get(`/api/notifications/${userId}`)
+            .then(response => {
+                setNotifications(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching notifications:', error);
+            });
     }, [userId]);
 
-    const markAsRead = async (notificationId) => {
-        try {
-            // Mark the notification as read by sending a PUT request to the backend
-            await axios.put(`http://localhost:1000/notifications/${notificationId}/read`);
-
-            // Update local state to reflect the change
-            setNotifications((prevNotifications) =>
-                prevNotifications.map((notif) =>
-                    notif._id === notificationId ? { ...notif, status: 'read' } : notif
-                )
-            );
-        } catch (err) {
-            setError('Error marking notification as read');
-        }
+    const markAsRead = (notificationId) => {
+        axios.put(`/api/notifications/${notificationId}/read`)
+            .then(() => {
+                setNotifications(notifications.map(notification =>
+                    notification._id === notificationId
+                        ? { ...notification, isRead: true }
+                        : notification
+                ));
+            })
+            .catch(error => {
+                console.error('Error marking notification as read:', error);
+            });
     };
 
-    if (loading) {
-        return <div>Loading notifications...</div>;
-    }
-
-    if (error) {
-        return <div>{error}</div>;
-    }
-
     const handleDelete = (notificationId) => {
-        axios.delete(`/api/notifications/${notificationId}`)
+        axios.delete(`http://localhost:1000/notifications/${notificationId}`)
             .then(() => {
                 setNotifications(notifications.filter(notification => notification._id !== notificationId));
             })
@@ -138,28 +129,17 @@ const NotificationsJobseeker = () => {
                     <SecondaryNavbar />
                     <div>
                         <h2>Your Notifications</h2>
-                        {notifications.length === 0 ? (
-                            <p>No new notifications.</p>
-                        ) : (
-                            <ul>
-                                {notifications.map((notification) => (
-                                    <li
-                                        key={notification._id}
-                                        onClick={() => markAsRead(notification._id)} /* Mark as read on click */
-                                        style={{
-                                            cursor: 'pointer',
-                                            backgroundColor: notification.status === 'read' ? '#f0f0f0' : '#fff',
-                                            padding: '10px',
-                                            marginBottom: '5px',
-                                            borderRadius: '5px',
-                                        }}
-                                    >
-                                        <p>{notification.message}</p>
-                                        <p>Status: {notification.status}</p>
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
+                        <ul>
+                            {notifications.map(notification => (
+                                <li
+                                    key={notification._id}
+                                    style={{ fontWeight: notification.isRead ? 'normal' : 'bold' }}
+                                    onClick={() => markAsRead(notification._id)}
+                                >
+                                    {notification.message}
+                                </li>
+                            ))}
+                        </ul>
                     </div>
                 </div>
             </div>

@@ -1,10 +1,21 @@
+const mongoose = require('mongoose');
+
 const companyProfileSchema = new mongoose.Schema({
-    companyId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    companyName: { type: String, required: true },
-    website: { type: String },
-    industry: { type: String },
-    description: { type: String },
-    logo: { type: String } // URL to the company's logo
+  companyName: String,
+  email: String,
+  website: String,
+  location: String,
+  employees: Number,
+  industry: String,
+  establishedDate: Date,
+  logo: {
+    filename: String,
+    contentType: String,
+    data: Buffer
+  }
 });
 
-export default mongoose.model('CompanyProfile', companyProfileSchema);
+const CompanyProfile = mongoose.model('CompanyProfile', companyProfileSchema);
+module.exports = CompanyProfile;
+
+

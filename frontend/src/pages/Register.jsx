@@ -14,6 +14,11 @@ const Register = () => {
     const [confirmPass, setConfirmPass] = useState('');
     const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
     const [showConfirmPassword, setShowConfirmPassword] = useState(false); // Separate state for confirm password visibility
+    // Validation Functions
+    const validateEmail = (email) => /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
+    const validatePassword = (password) =>/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password);
+    const validateName = (name) => name.trim().length >= 3; // Minimum 3 characters for name
+
 
     // Update userType when selecting Job Seeker or Company
     const handleOptionChange = (option) => {
@@ -22,14 +27,32 @@ const Register = () => {
     };
 
     const handleRegister = async (e) => {
-        e.preventDefault(); // Prevent form submission
-
-        // Check if passwords match
-        if (password !== confirmPass) {
-            toast.error('Passwords do not match');
+        e.preventDefault();
+    
+        // Client-side validation
+        if (!validateName(name)) {
+            toast.error('Name must be at least 3 characters long.');
             return;
         }
-
+    
+        if (!validateEmail(email)) {
+            toast.error('Please enter a valid email address.');
+            return;
+        }
+    
+        if (!validatePassword(password)) {
+            toast.error(
+                'Password must contain at least 8 characters, including uppercase, lowercase, number, and a special character.'
+            );
+            return;
+        }
+    
+        if (password !== confirmPass) {
+            toast.error('Passwords do not match.');
+            return;
+        }
+    
+        // Proceed with API call if all validations pass
         try {
             const response = await fetch('http://localhost:1000/signup', {
                 method: 'POST',
@@ -37,17 +60,18 @@ const Register = () => {
                 body: JSON.stringify({ name, email, password, userType }),
             });
             const data = await response.json();
+    
             if (!response.ok) {
                 throw new Error(data.message);
             }
-
-            // Display success toast notification
+    
             toast.success(data.message || 'Registered successfully!');
         } catch (error) {
             console.error('Signup error:', error.message);
             toast.error(`Signup failed: ${error.message}`);
         }
     };
+    
 
     return (
         <div>
@@ -74,32 +98,32 @@ const Register = () => {
 
                     <div className='flex justify-center pt-8'>
                         {selectedOption === 'jobSeeker' ? (
-                            <JobSeekerForm 
-                                name={name} 
-                                email={email} 
-                                password={password} 
-                                setName={setName} 
-                                setEmail={setEmail} 
+                            <JobSeekerForm
+                                name={name}
+                                email={email}
+                                password={password}
+                                setName={setName}
+                                setEmail={setEmail}
                                 setPassword={setPassword}
                                 confirmPass={confirmPass}
-                                setConfirmPass={setConfirmPass} 
-                                handleRegister={handleRegister} 
+                                setConfirmPass={setConfirmPass}
+                                handleRegister={handleRegister}
                                 showPassword={showPassword}
                                 setShowPassword={setShowPassword}
                                 showConfirmPassword={showConfirmPassword}
                                 setShowConfirmPassword={setShowConfirmPassword}
                             />
                         ) : (
-                            <CompanyForm 
-                                name={name} 
-                                email={email} 
-                                password={password} 
-                                setName={setName} 
-                                setEmail={setEmail} 
+                            <CompanyForm
+                                name={name}
+                                email={email}
+                                password={password}
+                                setName={setName}
+                                setEmail={setEmail}
                                 setPassword={setPassword}
                                 confirmPass={confirmPass}
-                                setConfirmPass={setConfirmPass} 
-                                handleRegister={handleRegister} 
+                                setConfirmPass={setConfirmPass}
+                                handleRegister={handleRegister}
                                 showPassword={showPassword}
                                 setShowPassword={setShowPassword}
                                 showConfirmPassword={showConfirmPassword}
@@ -179,7 +203,7 @@ const JobSeekerForm = ({ name, email, password, confirmPass, setName, setEmail, 
                 <p className="text-base text-[#112d4e]">Already Have an Account?</p>
                 <Link to="/Login">
                     <p className="text-blue-400 hover:underline pl-[4px]">Login</p>
-                </Link>  
+                </Link>
             </div>
         </div>
     );
@@ -248,7 +272,7 @@ const CompanyForm = ({ name, email, password, confirmPass, setName, setEmail, se
                 <p className="text-base text-[#112d4e]">Already Have an Account?</p>
                 <Link to="/Login">
                     <p className="text-blue-400 hover:underline pl-[4px]">Login</p>
-                </Link>  
+                </Link>
             </div>
         </div>
     );

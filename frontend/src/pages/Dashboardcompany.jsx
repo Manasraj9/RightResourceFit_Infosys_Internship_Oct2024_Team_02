@@ -26,7 +26,7 @@ export const Dashboardcompany = () => {
   // Define the sidebar items with their paths
   const sidebarItems = [
     { text: 'Dashboard', icon: <DashboardIcon />, path: '/Dashboardcompany' },
-    { text: 'Messages', icon: <MessageIcon />, path: '/NotificationsCompany' },
+    { text: 'Messages', icon: <MessageIcon />, path: '/notifications/:userId' },
     { text: 'Company Profile', icon: <AccountBoxIcon />, path: '/Companyprofile' },
     { text: 'All Applicants', icon: <PeopleIcon />, path: '/ApplicantStatus1' },
     { text: 'Job Listing', icon: <WorkIcon />, path: '/joblisting' },
