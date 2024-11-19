@@ -1,10 +1,9 @@
-// NavbarHome.jsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import NotificationImage from '../images/notification.png';
-import LogoutButton from './Buttons/LogoutButton';
+import NotificationImage from '../../images/notification.png';
+import LogoutButton from '../Buttons/LogoutButton';
 
-const NavbarHome = () => {
+const NavbarJobseeker = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     const handleMouseEnter = () => {
@@ -36,8 +35,8 @@ const NavbarHome = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/About">
-                                    <button className='bg-[#3f72af] inline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af] py-1 rounded px-2.5'>About</button>
+                                <Link to="/Jobseekerdashboard">
+                                    <button className='bg-[#3f72af] inline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af] py-1 rounded px-2.5'>Dashboard</button>
                                 </Link>
                             </li>
                             <li
@@ -48,7 +47,7 @@ const NavbarHome = () => {
                                     <button className='bg-[#3f72af] inline-flex items-center gap-0.5 hover:bg-white hover:text-[#3f72af] py-1 rounded px-2.5'>Account</button>
                                 </Link>
                                 {dropdownOpen && (
-                                    <div className="absolute bg-white text-black mt-[1px] rounded shadow-lg z-1">
+                                    <div className="absolute bg-white text-black mt-[1px] rounded shadow-lg z-10">
                                         <Link to="/Profile">
                                             <div className="py-2 px-4 hover:bg-[#3f72af] hover:text-white cursor-pointer">Profile</div>
                                         </Link>
@@ -56,8 +55,7 @@ const NavbarHome = () => {
                                         <Link to="/Jobseekerdashboard">
                                             <div className="py-2 px-4 hover:bg-[#3f72af] hover:text-white cursor-pointer">Dashboard</div>
                                         </Link>
-                                        <hr style={{ border: '2px solid [#3f72af]' }} />
-                                        {/* Use the LogoutButton Component Here */}
+                                        <hr />
                                         <LogoutButton />
                                     </div>
                                 )}
@@ -77,4 +75,4 @@ const NavbarHome = () => {
     );
 }
 
-export default NavbarHome;
+export default NavbarJobseeker;

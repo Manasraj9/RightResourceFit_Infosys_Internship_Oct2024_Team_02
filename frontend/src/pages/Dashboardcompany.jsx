@@ -1,8 +1,8 @@
 import React from 'react';
-import Navbar from '../Components/NavbarCompany';
+import Navbar from '../Components/Bars/NavbarCompany';
 import Footer from '../Components/Footer';
 import Sidebar from '../Components/side__bar.jsx'; // Assuming this includes the Drawer
-import SecondaryNavbar from '../Components/SecondaryNavbar.jsx';
+import SecondaryNavbar from '../Components/Bars/SecondaryNavbar.jsx';
 import Dashboard from '../Components/dashboard.jsx';
 import { styled } from '@mui/material/styles';
 import List from '@mui/material/List';
@@ -26,9 +26,9 @@ export const Dashboardcompany = () => {
   // Define the sidebar items with their paths
   const sidebarItems = [
     { text: 'Dashboard', icon: <DashboardIcon />, path: '/Dashboardcompany' },
-    { text: 'Messages', icon: <MessageIcon />, path: '/messages' },
-    { text: 'Company Profile', icon: <AccountBoxIcon />, path: '/company-profile' },
-    { text: 'All Applicants', icon: <PeopleIcon />, path: '/all-applicants' },
+    { text: 'Messages', icon: <MessageIcon />, path: '/notifications/${companyId}' },
+    { text: 'Company Profile', icon: <AccountBoxIcon />, path: '/Companyprofile' },
+    { text: 'All Applicants', icon: <PeopleIcon />, path: '/ApplicantStatus1' },
     { text: 'Job Listing', icon: <WorkIcon />, path: '/joblisting' },
     { text: 'My Schedule', icon: <ScheduleIcon />, path: '/my-schedule' },
     { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },

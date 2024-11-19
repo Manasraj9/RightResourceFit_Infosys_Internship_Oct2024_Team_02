@@ -3,14 +3,38 @@ const Job = require('../models/Jobs');
 
 // Create a new job posting
 exports.createJob = async (req, res) => {
+  console.log("Incoming data:", req.body);  // Log the request body for debugging
   try {
-    const job = new Job(req.body);
+    const { companyId, title, joblocations, employmentType, salaryRange, skills, description, responsibilities, qualifications, niceToHaves, perks } = req.body;
+
+    // Check if any required fields are missing
+    if (!companyId || !title || !joblocations || !skills || !description || !salaryRange) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
+
+    const job = new Job({
+      companyId,
+      title,
+      joblocations,
+      employmentType,
+      salaryRange,
+      skills,
+      description,
+      responsibilities,
+      qualifications,
+      niceToHaves,
+      perks
+    });
+
     await job.save();
     res.status(201).json(job);
   } catch (error) {
+    console.error("Error creating job:", error);
     res.status(400).json({ message: error.message });
   }
 };
+
+
 
 // Get all job postings
 // Get all job postings with optional filters
@@ -43,12 +67,16 @@ exports.getAllJobs = async (req, res) => {
 exports.getJobById = async (req, res) => {
   try {
     const job = await Job.findById(req.params.id);
+    console.log('Job fetched:', job); // Log job data
+
     if (!job) return res.status(404).json({ message: 'Job not found' });
+
     res.status(200).json(job);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 exports.updateJob = async (req, res) => {
   try {

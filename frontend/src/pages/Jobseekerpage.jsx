@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../Components/NavbarHome';
+import Navbar from '../Components/Bars/NavbarJobseeker';
 import Footer from '../Components/Footer';
 import { Link } from 'react-router-dom';
 import jobsearchIcon from '../images/jobsearch.png';
@@ -225,7 +225,9 @@ const JobseekerPage = () => {
                                             <div className='ml-28 custom-loc'>{job.joblocations[0]}...</div>
                                         </p><br /><br />
                                         <div className="buttons-container flex justify-between items-center gap-10 mt-5">
-                                            <Link><button className="view-button">View Details</button></Link>
+                                            <Link to={`/job/${job._id}`}>
+                                                <button className="view-button">View Details</button>
+                                            </Link>
                                             <Link><button className="apply-button">Apply Now</button></Link>
                                         </div><br />
                                     </div>

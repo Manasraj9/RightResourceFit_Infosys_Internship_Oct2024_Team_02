@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from '../Components/NavbarCompany';
+import Navbar from '../Components/Bars/NavbarCompany';
 import Footer from '../Components/Footer';
 import {
   Dialog,
@@ -26,7 +26,7 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import SecondaryNavbar from '../Components/SecondaryNavbar';
+import SecondaryNavbar from '../Components/Bars/SecondaryNavbar';
 import { useLocation } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import MessageIcon from '@mui/icons-material/Message';
@@ -100,9 +100,9 @@ const JobListing = () => {
 
   const sidebarItems = [
     { text: 'Dashboard', icon: <DashboardIcon />, path: '/Dashboardcompany' },
-    { text: 'Messages', icon: <MessageIcon />, path: '/messages' },
-    { text: 'Company Profile', icon: <AccountBoxIcon />, path: '/company-profile' },
-    { text: 'All Applicants', icon: <PeopleIcon />, path: '/all-applicants' },
+    { text: 'Messages', icon: <MessageIcon />, path: '/Notifications' },
+    { text: 'Company Profile', icon: <AccountBoxIcon />, path: '/Companyprofile' },
+    { text: 'All Applicants', icon: <PeopleIcon />, path: '/ApplicantStatus1' },
     { text: 'Job Listing', icon: <WorkIcon />, path: '/joblisting' },
     { text: 'My Schedule', icon: <ScheduleIcon />, path: '/my-schedule' },
     { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },

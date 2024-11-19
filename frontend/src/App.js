@@ -16,9 +16,19 @@ import Dashboardcompany from "./pages/Dashboardcompany";
 import LogoutButton from "./Components/Buttons/LogoutButton";
 import PostJob from './pages/PostJob';
 import PostJob2 from './pages/PostJob2';
-import Companypostpage_1 from "./pages/Companypostpage_1"; 
+import Companypostpage_1 from "./pages/Companypostpage_1";
 import Jobdescription from './pages/Jobdescription';
+import Jobprofile from './pages/Jobprofile';
 import JobListing from "./pages/JobListing";
+import Jobseekerdashboard from "./pages/Jobseekerdashboard";
+import ApplicantStatus1 from "./pages/ApplicantStatus1";
+import ApplicantStatus2 from './pages/ApplicantStatus2';
+import ApplicationStatus3 from './pages/ApplicationStatus3';
+import ApplicationStatus4 from './pages/ApplicationStatus4';
+import ApplicationStatus5 from './pages/ApplicationStatus5';
+import NotificationsCompany from "./pages/NotificationsCompany";
+import Companyprofile from "./pages/Companyprofile";
+import NotificationsJobseeker from "./pages/NotificationsJobseeker";
 import Jobseekerdashboard from './pages/Jobseekerdashboard';
 import PostJobFlow from './pages/PostJobFlow'; // Only include PostJobFlow
 
@@ -41,8 +51,14 @@ function App() {
         <Route path="/companyhomepage" element={<Companyhomepage />} />
         <Route path="/PostJob" element={<PostJob />} />
         <Route path="/PostJob2" element={<PostJob2 />} />
-       <Route path="/Companypostpage_1" element={<Companypostpage_1 />} />
-       <Route path="/Jobdescription" element={<Jobdescription />} />
+        <Route path="/Companypostpage_1" element={<Companypostpage_1 />} />
+        <Route path="//job/:jobId" element={<Jobdescription />} />
+        <Route path="/Jobprofile" element={<Jobprofile />} />
+        <Route path="/ApplicantStatus1" element={<ApplicantStatus1 />} />
+        <Route path="/ApplicantStatus2/:id" element={<ApplicantStatus2 />} />
+        <Route path="/ApplicationStatus3/:id" element={<ApplicationStatus3 />} />
+        <Route path="/ApplicationStatus4/:id" element={<ApplicationStatus4 />} />
+        <Route path="/ApplicationStatus5/:id" element={<ApplicationStatus5 />} />
         <Route path="/JobListing" element={<JobListing />} />
         {/* <Route path="/PostJobFlow" element={<PostJobFlow />} /> Only keep this route */}
         <Route path="/PostJob" element={<PostJob />} /> {/* Only keep this route */}
