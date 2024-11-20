@@ -315,16 +315,20 @@ const JobListing = () => {
             <SecondaryNavbar />
             <Box>
               <Typography variant="h4" sx={{ marginTop: '20px' }}>Job Listings</Typography>
-              <div className='flex flex-wrap w-full gap-6'>
+              <div className='flex flex-wrap gap-10 mt-5 ml-10'>
                 {jobUpdates.map((job) => (
-                  <Card key={job._id} sx={{ marginBottom: '20px' }} className='min-w-[25vh]'>
+                  <Card key={job._id} sx={{ marginBottom: '20px' }} className='w-[50vh] h-[32vh] '>
                     <CardContent>
-                      <Typography variant="h5">{job.title}</Typography>
-                      <Typography variant="body2">{job.description}</Typography>
-                      <IconButton onClick={() => handleEdit(job)}>
+                      <Typography variant="h4">{job.title}</Typography>
+                      <Typography variant="h6">Salary Range :- {job.salaryRange.min} - {job.salaryRange.max}</Typography>
+                      <Typography variant="body2">Description :- {job.description}</Typography>
+                      <Typography variant="body2">Responsibilities :- {job.responsibilities}</Typography>
+                      <Typography variant="body2">qualifications :- {job.qualifications}</Typography>
+                      <Typography variant="body2">Nice to Have :- {job.niceToHaves}</Typography>
+                      <IconButton className='relative left-50' onClick={() => handleEdit(job)}>
                         <EditIcon />
                       </IconButton>
-                      <IconButton onClick={() => handleClickOpen(job)}>
+                      <IconButton className='relative left-50' onClick={() => handleClickOpen(job)}>
                         <DeleteIcon />
                       </IconButton>
                     </CardContent>

@@ -57,9 +57,13 @@ const SimilarJobs = [
 
 
 const Jobdescription = () => {
-    const { jobId } = useParams();  // Get jobId from the URL params
+    const { jobId } = useParams();
+    const { userId } = useParams();  // Get jobId from the URL params
     const [job, setJob] = useState(null);
     const [isFormVisible, setIsFormVisible] = useState(false);
+    const [hasApplied, setHasApplied] = useState(false);
+    const [loading, setLoading] = useState(true);  // Loading state for job details
+    const [error, setError] = useState(null);
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
@@ -72,19 +76,28 @@ const Jobdescription = () => {
     });
 
     useEffect(() => {
-        const fetchJobDetails = async () => {
-            try {
-                const response = await axios.get(`http://localhost:1000/jobs/${jobId}`);
-                console.log('Job Data:', response.data); // Log to check the full job details
-                setJob(response.data);  // Set all job data in state
-            } catch (error) {
-                console.error('Error fetching job details:', error);
-            }
+        const loadJobDetails = async () => {
+          setLoading(true);  // Start loading
+          setError(null);  // Reset error state
+          try {
+            // Fetch job details by jobId
+            const jobResponse = await axios.get(`http://localhost:1000/jobs/${jobId}`);
+            console.log('Job Data:', jobResponse.data); // Log job data for debugging
+            setJob(jobResponse.data);  // Set job data in state
+    
+            // Check if the user has already applied for this job
+            const appliedResponse = await axios.get(`http://localhost:1000/hasApplied/${userId}/${jobId}`);
+            setHasApplied(appliedResponse.data.applied);  // Set application status
+          } catch (error) {
+            console.error('Error fetching job details or checking application status:', error);
+            setError('Error loading job details or checking application status. Please try again later.');
+          } finally {
+            setLoading(false);  // End loading
+          }
         };
-        
-
-        fetchJobDetails();
-    }, [jobId]);
+    
+        loadJobDetails();
+      }, [jobId, userId]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;

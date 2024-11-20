@@ -1,5 +1,7 @@
 const JobApplication = require('../models/JobApplication');
 const Job = require('../models/Jobs');
+const User = require('../models/User');
+
 const multer = require('multer');
 const mongoose = require('mongoose');
 
@@ -27,7 +29,7 @@ exports.submitApplication = async (req, res) => {
         }
 
         try {
-            const { jobId } = req.params;
+            const { jobId, userId } = req.params;
             const { fullName, email, phone, jobTitle, linkedin, portfolio, additionalInfo } = req.body;
             const resumeBuffer = req.file ? req.file.buffer : null;
 
@@ -50,6 +52,7 @@ exports.submitApplication = async (req, res) => {
             // Save the new application
             const application = new JobApplication({
                 jobId,
+                userId,
                 fullName,
                 email,
                 phone,
