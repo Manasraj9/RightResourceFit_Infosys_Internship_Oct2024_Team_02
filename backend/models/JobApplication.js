@@ -1,9 +1,14 @@
 const mongoose = require('mongoose');
+const User = require('../models/User');
 
 const JobApplicationSchema = new mongoose.Schema({
     jobId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Job', // Reference to the Job model
+      },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User', // Reference to the Job model
       },
       
     fullName: { type: String, required: true },

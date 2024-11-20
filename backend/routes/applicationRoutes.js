@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const applicationController = require('../controllers/applicationcontroller');
+const Application = require('../models/JobApplication');
 
 
 
@@ -20,5 +21,18 @@ router.get('/applications/:id', applicationController.getApplicationById);
 router.put('/applications/:id', applicationController.updateStatus);
 
 router.get('/resume/:id', applicationController.getResumeByApplicationId);
+
+router.get('/hasApplied/:userId/:jobId', async (req, res) => {
+    const { userId, jobId } = req.params;
+    try {
+      const application = await Application.findOne({ userId, jobId });
+      if (application) {
+        return res.status(200).json({ applied: true });
+      }
+      return res.status(200).json({ applied: false });
+    } catch (error) {
+      res.status(500).json({ message: 'Error checking application status' });
+    }
+  });
 
 module.exports = router;
