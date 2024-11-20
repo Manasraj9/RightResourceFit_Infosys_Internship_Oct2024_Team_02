@@ -29,8 +29,8 @@ import ApplicationStatus5 from './pages/ApplicationStatus5';
 import NotificationsCompany from "./pages/NotificationsCompany";
 import Companyprofile from "./pages/Companyprofile";
 import NotificationsJobseeker from "./pages/NotificationsJobseeker";
-import Jobseekerdashboard from './pages/Jobseekerdashboard';
-import PostJobFlow from './pages/PostJobFlow'; // Only include PostJobFlow
+// import Jobseekerdashboard from './pages/Jobseekerdashboard';
+// import PostJobFlow from './pages/PostJobFlow'; // Only include PostJobFlow
 
 function App() {
   return (
@@ -62,7 +62,10 @@ function App() {
         <Route path="/JobListing" element={<JobListing />} />
         {/* <Route path="/PostJobFlow" element={<PostJobFlow />} /> Only keep this route */}
         <Route path="/PostJob" element={<PostJob />} /> {/* Only keep this route */}
-        <Route path="/Jobseekerdashboard" element={<Jobseekerdashboard />} /> {/* Only keep this route */}
+        <Route path="/Jobseekerdashboard" element={<Jobseekerdashboard />} />
+        <Route path="/notifications/${companyId}" element={<NotificationsCompany />} />
+        <Route path="/Companyprofile" element={<Companyprofile />} />
+        
       </Routes>
     </Router>
   );
