@@ -1,7 +1,7 @@
-const jobDb = require('../config/dbJob');
-const mongoose = require('mongoose');
-const Company = require('./CompanyProfile');
+// models/Job.js
+const jobDb = require('../config/dbJob'); // Ensure this is the correct path to the jobDb connection
 
+const mongoose = require('mongoose');
 const perkSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
@@ -16,7 +16,7 @@ const jobSchema = new mongoose.Schema({
   companyId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Company', // Reference to the Company model
-    required: true,  // Ensure the companyId is provided
+    required: true,
   },
   companyName: { type: String },
   title: { type: String },
@@ -32,6 +32,5 @@ const jobSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
+// Register the Job model with the jobDb connection
 module.exports = jobDb.model('Job', jobSchema);
-
-
