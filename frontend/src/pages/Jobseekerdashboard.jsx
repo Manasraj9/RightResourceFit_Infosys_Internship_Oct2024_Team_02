@@ -24,7 +24,7 @@ const Jobseekerdashboard = () => {
         { text: 'Dashboard', icon: <DashboardIcon />, path: '/Jobseekerdashboard' },
         { text: 'Messages', icon: <MessageIcon />, path: '/NotificationsJobseeker' },
         { text: 'Profile', icon: <AccountBoxIcon />, path: '/Jobseeker-profile' },
-        { text: 'All Applications', icon: <PeopleIcon />, path: '/all-applications' },
+        { text: 'All Applications', icon: <PeopleIcon />, path: '/AllApplications' },
         { text: 'Job Listing', icon: <WorkIcon />, path: '/joblisting' },
         { text: 'My Schedule', icon: <ScheduleIcon />, path: '/my-schedule' },
         { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },

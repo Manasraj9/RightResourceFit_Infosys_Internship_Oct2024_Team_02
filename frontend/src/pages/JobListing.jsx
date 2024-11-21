@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../Components/Bars/NavbarCompany';
+import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../Components/Footer';
 import {
   Dialog,
@@ -331,6 +332,7 @@ const JobListing = () => {
                       <IconButton className='relative left-50' onClick={() => handleClickOpen(job)}>
                         <DeleteIcon />
                       </IconButton>
+                      <Link><Button className=' left-50'>View Report</Button></Link>
                     </CardContent>
                   </Card>
                 ))}

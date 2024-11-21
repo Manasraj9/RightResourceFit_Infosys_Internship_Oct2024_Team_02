@@ -2,14 +2,10 @@ const express = require('express');
 const router = express.Router();
 const applicationController = require('../controllers/applicationcontroller');
 const Application = require('../models/JobApplication');
-
-
-
-
-
+const Job = require('../models/Jobs');
 
 // Route for submitting a job application
-router.post('/apply/:jobId', applicationController.submitApplication);
+router.post('/apply/:jobId/:userId', applicationController.submitApplication);
 
 // Route for getting all applications for a job
 router.get('/applications', applicationController.getAllApplications);
@@ -34,5 +30,25 @@ router.get('/hasApplied/:userId/:jobId', async (req, res) => {
       res.status(500).json({ message: 'Error checking application status' });
     }
   });
+
+  router.get('/user/:userId/applications', async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        console.log('Fetching applications for user:', userId);  // Add logging here
+        
+        const applications = await Application.find({ userId });
+        console.log(applications);
+        if (!applications || applications.length === 0) {
+            return res.status(404).json({ message: 'No applications found for this user.' });
+        }
+
+        res.status(200).json(applications);
+    } catch (error) {
+        console.error('Error fetching applications:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+
 
 module.exports = router;

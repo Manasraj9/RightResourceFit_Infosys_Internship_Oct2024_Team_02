@@ -57,17 +57,19 @@ const login = async (req, res) => {
 
         // Generate token
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        
-        // Include userType in the response
+
+        // Include userId and userType in the response
         res.status(200).json({
             token,
             userType: user.userType, // Ensure you have userType defined in your User model
+            userId: user._id, // Send userId in the response
         });
     } catch (error) {
         console.error('Error during login:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
 
 
 // Function to generate a random 6-digit OTP
