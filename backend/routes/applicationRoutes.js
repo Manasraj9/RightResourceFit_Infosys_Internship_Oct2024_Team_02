@@ -9,7 +9,7 @@ const Application = require('../models/JobApplication');
 
 
 // Route for submitting a job application
-router.post('/apply/:jobId', applicationController.submitApplication);
+router.post('/apply/:jobId/:userId', applicationController.submitApplication);
 
 // Route for getting all applications for a job
 router.get('/applications', applicationController.getAllApplications);
