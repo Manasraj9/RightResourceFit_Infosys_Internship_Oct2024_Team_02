@@ -39,7 +39,7 @@ exports.submitApplication = async (req, res) => {
             console.log('Uploaded File:', req.file);
 
             // Validate required fields
-            if (!jobId || !fullName || !email || !resumeBuffer) {
+            if (!jobId || !userId || !fullName || !email || !resumeBuffer) {
                 return res.status(400).json({ message: 'Missing required fields.' });
             }
 

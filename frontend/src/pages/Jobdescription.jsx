@@ -33,6 +33,7 @@ import squareIcon from '../images/square.png';
 import divyIcon from '../images/divy.png';
 
 
+
 const PerksandBenefits = [
     { title: 'Full Healthcare', description: 'We believe in thriving communities and that starts with our team being happy and healthy.', icon: healthcareIcon },
     { title: 'Unlimited Vacation', description: 'We believe you should have a flexible schedule that makes space for family, wellness, and fun.', icon: vacationIcon },
@@ -58,10 +59,10 @@ const SimilarJobs = [
 
 const Jobdescription = () => {
     const { jobId } = useParams();
-    const { userId } = useParams();  // Get jobId from the URL params
+    const userId = localStorage.getItem('userId');
     const [job, setJob] = useState(null);
     const [isFormVisible, setIsFormVisible] = useState(false);
-    const [hasApplied, setHasApplied] = useState(false);
+    const [hasApplied, setHasApplied] = useState(false);  // If the user has applied
     const [loading, setLoading] = useState(true);  // Loading state for job details
     const [error, setError] = useState(null);
     const [formData, setFormData] = useState({
@@ -75,29 +76,33 @@ const Jobdescription = () => {
         resume: null,
     });
 
+    // Fetch job details and application status on component mount
     useEffect(() => {
+        if (!userId || !jobId) {
+            setError('Invalid Job or User ID');
+            return;
+        }
+
         const loadJobDetails = async () => {
-          setLoading(true);  // Start loading
-          setError(null);  // Reset error state
-          try {
-            // Fetch job details by jobId
-            const jobResponse = await axios.get(`http://localhost:1000/jobs/${jobId}`);
-            console.log('Job Data:', jobResponse.data); // Log job data for debugging
-            setJob(jobResponse.data);  // Set job data in state
-    
-            // Check if the user has already applied for this job
-            const appliedResponse = await axios.get(`http://localhost:1000/hasApplied/${userId}/${jobId}`);
-            setHasApplied(appliedResponse.data.applied);  // Set application status
-          } catch (error) {
-            console.error('Error fetching job details or checking application status:', error);
-            setError('Error loading job details or checking application status. Please try again later.');
-          } finally {
-            setLoading(false);  // End loading
-          }
+            setLoading(true);
+            setError(null);  // Clear any previous error
+            try {
+                const jobResponse = await axios.get(`http://localhost:1000/jobs/${jobId}`);
+                setJob(jobResponse.data);
+
+                const appliedResponse = await axios.get(`http://localhost:1000/hasApplied/${userId}/${jobId}`);
+                setHasApplied(appliedResponse.data.applied);  // Set application status
+
+            } catch (error) {
+                setError('Error loading job details or checking application status.');
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
         };
-    
+
         loadJobDetails();
-      }, [jobId, userId]);
+    }, [jobId, userId]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -121,7 +126,7 @@ const Jobdescription = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+
         // Validate required fields
         if (!formData.fullName || !formData.email || !formData.resume) {
             toast.error('Please fill out all required fields.', {
@@ -130,42 +135,42 @@ const Jobdescription = () => {
             });
             return;
         }
-    
+
         const formDataToSend = new FormData();
         Object.keys(formData).forEach((key) => {
             formDataToSend.append(key, formData[key]);
         });
-    
+
         try {
             // Step 1: Post the application
-            const applicationResponse = await axios.post(`http://localhost:1000/apply/${jobId}`, formDataToSend, {
+            const applicationResponse = await axios.post(`http://localhost:1000/apply/${jobId}/${userId}`, formDataToSend, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
-    
+
             // Log the response from the application post
             console.log('Application Response:', applicationResponse);
-    
+
             if (applicationResponse.status === 201 || applicationResponse.data.message === 'Application submitted successfully') {
                 toast.success('Application submitted successfully', {
                     position: "top-right",
                     autoClose: 5000,
                 });
-    
+
                 // Step 2: Send notification to the employer
                 const notificationData = {
                     jobId: job._id,               // Job ID
                     companyId: job.companyId,     // Company ID (employer)
                     message: `${formData.fullName} has applied for the job: ${job.title}`,  // Sample notification message
                 };
-    
+
                 // Log notification data before sending
                 console.log('Notification Data:', notificationData);
-    
+
                 const notificationResponse = await axios.post('http://localhost:1000/notifications', notificationData);
-    
+
                 // Log the response from the notification post
                 console.log('Notification Response:', notificationResponse);
-    
+
                 if (notificationResponse.data.success) {
                     toast.success('Notification sent to the employer!', {
                         position: "top-right",
@@ -178,7 +183,7 @@ const Jobdescription = () => {
                         autoClose: 5000,
                     });
                 }
-    
+
                 // Reset form and hide form
                 setIsFormVisible(false);
                 setFormData({
@@ -200,7 +205,7 @@ const Jobdescription = () => {
             }
         } catch (error) {
             console.error('Error in submission process:', error);
-    
+
             if (error.response) {
                 console.error('Server Error Response:', error.response);
                 toast.error(error.response.data.message || 'Unexpected error. Please try again.', {
@@ -222,11 +227,13 @@ const Jobdescription = () => {
             }
         }
     };
-    
-    
-    
+
+
+
     const handleApplyClick = () => {
-        setIsFormVisible(true);
+        if (!hasApplied) {
+            setIsFormVisible(true);
+        }
     };
 
     if (!job) {
@@ -250,11 +257,21 @@ const Jobdescription = () => {
                     <Link>
                         <img src={vrImg} alt="vertical Image" className='h-10 w-8 color-[#D6DDEB]' />
                     </Link>
-                    <Link>
-                        <button onClick={handleApplyClick} className='bg-[#3f72af] flex items-center hover:bg-white hover:text-[#3f72af] apply-btn'>
+                    {hasApplied ? (
+                        <button
+                            disabled
+                            className="bg-white text-[#3f72af] cursor-not-allowed"
+                        >
+                            Already Applied
+                        </button>
+                    ) : (
+                        <button
+                            className="bg-[#3f72af] text-white px-8 py-2 ml-6 hover:bg-[#2b4865] transition duration-300 ease-in-out rounded-md"
+                            onClick={handleApplyClick}
+                        >
                             Apply
                         </button>
-                    </Link>
+                    )}
                 </div><br /><br /><br /><br />
 
                 {/* Application Form */}
