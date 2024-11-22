@@ -41,10 +41,14 @@ import axios from 'axios';
 import { useParams } from "react-router-dom";
 
 const JobListing = () => {
+  const { jobId } = useParams();
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const [jobToDelete, setJobToDelete] = useState(null);
   const [jobUpdates, setJobUpdates] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
+  const [status, setStatus] = useState('open');
   const [jobDetails, setJobDetails] = useState({
     title: '',
     description: '',
@@ -64,6 +68,8 @@ const JobListing = () => {
   const [newPerk, setNewPerk] = useState('');
   const [newSkill, setNewSkill] = useState('');
   const [newPerkDescription, setNewPerkDescription] = useState('');
+  const [isOpen, setIsOpen] = useState(true);
+  const [jobStatuses, setJobStatuses] = useState({});
   const [employmentType, setEmploymentType] = useState('');
   const handleClickOpen = (job) => {
     setJobToDelete(job);
@@ -91,8 +97,17 @@ const JobListing = () => {
         const response = await fetch('http://localhost:1000/jobs');
         const data = await response.json();
         setJobUpdates(data);
+        setLoading(false);
+
+        // Initialize job statuses for each job
+        const initialStatus = {};
+        data.forEach(job => {
+          initialStatus[job._id] = job.status === 'open'; // 'open' as true, 'closed' as false
+        });
+        setJobStatuses(initialStatus);
       } catch (error) {
         console.error('Error fetching jobs:', error);
+        setLoading(false);
       }
     };
 
@@ -118,7 +133,7 @@ const JobListing = () => {
       console.error("Failed to delete job:", error);
     }
   };
-  
+
 
 
   const handleEdit = (job) => {
@@ -295,6 +310,39 @@ const JobListing = () => {
       employmentTypes: prevDetails.employmentTypes.filter((type) => type !== typeToDelete),
     }));
   };
+
+  const toggleSwitch = async (jobId) => {
+    // Toggle the status locally first
+    setJobStatuses(prevStatuses => ({
+      ...prevStatuses,
+      [jobId]: !prevStatuses[jobId] // Toggle the job status
+    }));
+
+    try {
+      const response = await axios.patch(`http://localhost:1000/jobs/toggle-status/${jobId}`);
+      console.log("Response from server:", response.data);
+
+      // If the response is successful, update jobStatuses with the server's response
+      setJobStatuses(prevStatuses => ({
+        ...prevStatuses,
+        [jobId]: response.data.job.status === 'open'
+      }));
+    } catch (error) {
+      console.error("Error during PATCH request:", error);
+
+      // If error occurs, revert the toggle back to previous state
+      setJobStatuses(prevStatuses => ({
+        ...prevStatuses,
+        [jobId]: !prevStatuses[jobId]
+      }));
+    }
+  };
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+
   return (
     <div>
       <Navbar />
@@ -317,36 +365,82 @@ const JobListing = () => {
             <Box>
               <Typography variant="h4" sx={{ marginTop: '20px' }}>Job Listings</Typography>
               <div className='flex flex-wrap gap-10 mt-5 ml-10'>
-                {jobUpdates.map((job) => (
-                  <Card key={job._id} sx={{ marginBottom: '20px' }} className='w-[50vh] h-[32vh] '>
-                    <CardContent>
-                      <Typography variant="h4">{job.title}</Typography>
-                      <Typography variant="h6">Salary Range :- {job.salaryRange.min} - {job.salaryRange.max}</Typography>
-                      <Typography variant="body2">Description :- {job.description}</Typography>
-                      <Typography variant="body2">Responsibilities :- {job.responsibilities}</Typography>
-                      <Typography variant="body2">qualifications :- {job.qualifications}</Typography>
-                      <Typography variant="body2">Nice to Have :- {job.niceToHaves}</Typography>
-                      <IconButton className='relative left-50' onClick={() => handleEdit(job)}>
-                        <EditIcon />
-                      </IconButton>
-                      <IconButton className='relative left-50' onClick={() => handleClickOpen(job)}>
-                        <DeleteIcon />
-                      </IconButton>
-                      <Link><Button className=' left-50'>View Report</Button></Link>
-                    </CardContent>
-                  </Card>
-                ))}
+                {jobUpdates.map((job) => {
+                  const isOpen = jobStatuses[job._id]; // Get the status for this specific job
+                  return (
+                    <Card key={job._id} sx={{ marginBottom: '20px' }} className='w-[50vh]'>
+                      <CardContent>
+                        <Typography variant="h4">{job.title}</Typography>
+                        <Typography variant="h6">Salary Range :- {job.salaryRange.min} - {job.salaryRange.max}</Typography>
+                        <Typography variant="body2">Description :- {job.description}</Typography>
+                        <Typography variant="body2">Responsibilities :- {job.responsibilities}</Typography>
+                        <Typography variant="body2">Qualifications :- {job.qualifications}</Typography>
+                        <Typography variant="body2">Nice to Have :- {job.niceToHaves}</Typography>
+
+                        <div className='flex justify-between items-center space-x-2'>
+                          <div className="flex items-center space-x-1">
+                            <span className="text-gray-700 font-medium min-w-14">
+                              {isOpen ? 'Open' : 'Closed'}
+                            </span>
+
+                            <div
+                              onClick={() => toggleSwitch(job._id)}
+                              className={`w-12 h-6 flex items-center rounded-full p-1 cursor-pointer transition-colors duration-300
+                ${isOpen ? 'bg-green-500' : 'bg-red-500'}`} // Background color toggle
+                            >
+                              <div
+                                className={`h-5 w-5 bg-white rounded-full shadow-md transform transition-transform duration-300
+                    ${isOpen ? 'translate-x-6' : 'translate-x-0'}`} // Knob position toggle
+                              ></div>
+                            </div>
+                          </div>
+
+                          <Link to="/Report">
+                            <Button className="px-4 py-2 rounded-md shadow" sx={{ backgroundColor: '#3f72af', color: 'white', '&:hover': { backgroundColor: '#112d4e' } }}>
+                              View Report
+                            </Button>
+                          </Link>
+
+                          <IconButton className='' onClick={() => handleEdit(job)}>
+                            <EditIcon />
+                          </IconButton>
+
+                          <IconButton className='' onClick={() => handleClickOpen(job)}>
+                            <DeleteIcon />
+                          </IconButton>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
               </div>
+
               <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Confirm Deletion</DialogTitle>
                 <DialogContent>
-                  <Typography>Are you sure you want to delete the job listing for "{jobDetails.title}"?</Typography>
+                  <Typography>
+                    Are you sure you want to delete this job from Job Listing?
+                  </Typography>
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={handleClose}>Cancel</Button>
-                  <Button onClick={confirmDelete} color="primary">Delete</Button>
+                  {/* Cancel Button */}
+                  <Button
+                    onClick={handleClose}
+                    sx={{ backgroundColor: 'grey', color: 'white', '&:hover': { backgroundColor: 'darkgrey' } }}
+                  >
+                    Cancel
+                  </Button>
+                  {/* Delete Button */}
+                  <Button
+                    onClick={confirmDelete}
+                    sx={{ backgroundColor: 'red', color: 'white', '&:hover': { backgroundColor: 'darkred' } }}
+                  >
+                    Delete
+                  </Button>
                 </DialogActions>
               </Dialog>
+
+
 
               <Dialog open={Boolean(selectedJob)} onClose={() => setSelectedJob(null)}>
                 <DialogTitle className='text-2xl pb-2 z-0' >Edit Job Listing</DialogTitle>

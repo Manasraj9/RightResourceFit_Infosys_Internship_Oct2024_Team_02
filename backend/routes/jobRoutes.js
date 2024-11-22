@@ -18,7 +18,9 @@ router.put('/jobs/:id', jobController.updateJob);
 // Route to delete a job posting
 router.delete('/jobs/:id', jobController.deleteJob);
 
-
-
+router.patch('/jobs/toggle-status/:jobId', (req, res, next) => {
+    console.log("PATCH request received to toggle status for jobId:", req.params.jobId);  // <-- Log the jobId
+    next();  // Continue to the controller
+  }, jobController.toggleJobStatus);
 
 module.exports = router;
