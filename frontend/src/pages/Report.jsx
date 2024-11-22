@@ -4,6 +4,8 @@ import Navbar from '../Components/Bars/NavbarCompany';
 import Footer from '../Components/Footer';
 import { useParams, Link } from "react-router-dom";
 import { Box, Divider } from '@mui/material';
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -61,6 +63,49 @@ const Report = () => {
     }
   }, [id]);
 
+  const captureAndDownloadPDF = () => {
+    const input = document.getElementById("report-content");
+
+    // Check if the element exists
+    if (!input) {
+      console.error("Element not found!");
+      return;
+    }
+
+    // Capture the entire content as a canvas
+    html2canvas(input, { scrollY: -window.scrollY, scale: 1 }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/jpeg", 0.7); // Change scale to 1 and reduce image quality
+
+      // Create a new jsPDF instance
+      const pdf = new jsPDF({
+        orientation: "portrait", // Or "landscape"
+        unit: "mm", // Set units to millimeters
+        format: "a4", // Standard A4 paper size
+      });
+
+      // Calculate the dimensions to fit the canvas to the page
+      const imgWidth = 210; // A4 width in mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      // Add the image to the PDF
+      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+
+      // If the content is longer than one page, add additional pages
+      if (imgHeight > 297) {
+        const totalPages = Math.ceil(imgHeight / 297);
+        for (let i = 1; i < totalPages; i++) {
+          pdf.addPage();
+          pdf.addImage(imgData, "PNG", 0, -297 * i, imgWidth, imgHeight);
+        }
+      }
+
+      // Save the PDF with the report
+      pdf.save("report.pdf");
+    }).catch((error) => {
+      console.error("Error generating PDF:", error);
+    });
+  };
+
   if (!job) {
     return <div>Loading...</div>;
   }
@@ -82,7 +127,7 @@ const Report = () => {
   ];
 
   return (
-    <div>
+    <div id="report-content">
       <Navbar />
 
 
@@ -125,7 +170,7 @@ const Report = () => {
         </Box>
 
         {/* Main Content */}
-        <div className='flex'>
+        <div className='flex' >
           <div className="main-content-container p-4">
             <h1 className='text-3xl font-bold mb-4'>Report for {job.title}</h1>
             {/* Company and Job Details Section */}
@@ -156,6 +201,9 @@ const Report = () => {
                   <div className='p-4 text-gray-800 font-medium'>Status</div>
                   <div className='bg-white rounded-full p-4'>{job.status}</div>
                 </div>
+                <button onClick={captureAndDownloadPDF} className="bg-blue-500 text-white px-4 py-2 rounded-full mt-4">
+                  Download Report as PDF
+                </button>
               </div>
 
               {/* Applicants List */}
