@@ -395,7 +395,7 @@ const JobListing = () => {
                             </div>
                           </div>
 
-                          <Link to="/Report">
+                          <Link to={`/report/${job._id}`}>
                             <Button className="px-4 py-2 rounded-md shadow" sx={{ backgroundColor: '#3f72af', color: 'white', '&:hover': { backgroundColor: '#112d4e' } }}>
                               View Report
                             </Button>

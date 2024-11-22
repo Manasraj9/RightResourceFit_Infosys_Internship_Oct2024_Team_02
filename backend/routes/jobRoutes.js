@@ -23,4 +23,6 @@ router.patch('/jobs/toggle-status/:jobId', (req, res, next) => {
     next();  // Continue to the controller
   }, jobController.toggleJobStatus);
 
+  
+
 module.exports = router;

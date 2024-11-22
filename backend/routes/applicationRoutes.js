@@ -1,8 +1,10 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const router = express.Router();
 const applicationController = require('../controllers/applicationcontroller');
 const Application = require('../models/JobApplication');
 const Job = require('../models/Jobs');
+const JobApplication = require('../models/JobApplication');
 
 // Route for submitting a job application
 router.post('/apply/:jobId/:userId', applicationController.submitApplication);
@@ -47,6 +49,19 @@ router.get('/hasApplied/:userId/:jobId', async (req, res) => {
         console.error('Error fetching applications:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
+});
+
+
+router.get('/applications/job/:jobId', async (req, res) => {
+  const { jobId } = req.params;
+  try {
+    const applications = await JobApplication.find({ jobId });
+    console.log("Applications fetched:", applications); // Log the applicants data
+    res.json(applications);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error fetching applications' });
+  }
 });
 
 
