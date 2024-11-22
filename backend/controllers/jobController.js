@@ -5,7 +5,7 @@ const Job = require('../models/Jobs');
 exports.createJob = async (req, res) => {
   console.log("Incoming data:", req.body);  // Log the request body for debugging
   try {
-    const { companyId, title, joblocations, employmentType, salaryRange, skills, description, responsibilities, qualifications, niceToHaves, perks } = req.body;
+    const { companyId, title, joblocations, employmentType, salaryRange, skills, description, responsibilities, qualifications, niceToHaves, perks,status } = req.body;
 
     // Check if any required fields are missing
     if (!companyId || !title || !joblocations || !skills || !description || !salaryRange) {
@@ -23,7 +23,8 @@ exports.createJob = async (req, res) => {
       responsibilities,
       qualifications,
       niceToHaves,
-      perks
+      perks,
+      status
     });
 
     await job.save();
@@ -119,5 +120,37 @@ exports.fetchJobs = async (req, res) => {
     res.json(jobs);
   } catch (error) {
     res.status(500).json({ error: 'Error fetching jobs' });
+  }
+};
+
+exports.toggleJobStatus = async (req, res) => {
+  const { jobId } = req.params;  // <-- Extract jobId from the route
+  console.log("Received jobId in controller:", jobId);  // Log the received jobId
+
+  try {
+    // Log the attempt to find the job by ID
+    console.log("Attempting to find job with ID:", jobId);
+    
+    const job = await Job.findById(jobId);
+    if (!job) {
+      console.log("Job not found with ID:", jobId);  // Log if the job is not found
+      return res.status(404).json({ message: 'Job not found' });
+    }
+
+    // Log before updating job status
+    console.log("Current job status:", job.status);
+    
+    // Toggle job status
+    job.status = job.status === 'open' ? 'closed' : 'open';
+    await job.save();
+
+    // Log the updated job status
+    console.log("Updated job status:", job.status);
+
+    return res.status(200).json({ job });
+  } catch (error) {
+    // Log the error if something goes wrong
+    console.error("Error updating job status:", error);
+    return res.status(500).json({ message: 'Failed to update job status' });
   }
 };
