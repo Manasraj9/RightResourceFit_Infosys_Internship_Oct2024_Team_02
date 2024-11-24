@@ -250,6 +250,7 @@ const Jobdescription = () => {
                     <div className='job-info'>
                         <p className='font-bold text-2xl'>{job.title}</p>
                         <p className='nomad-location'>{job.companyName} . {job.joblocations.join(', ')} . {job.employmentType}</p>
+                        <p>Status :- {job.status}</p>
                     </div>
                     <Link>
                         <img src={shareIcon} alt="share Icon" className='share-icon h-8 w-8 mr-4' />

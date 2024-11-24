@@ -127,7 +127,7 @@ const Report = () => {
   ];
 
   return (
-    <div id="report-content">
+    <div >
       <Navbar />
 
 
@@ -170,7 +170,7 @@ const Report = () => {
         </Box>
 
         {/* Main Content */}
-        <div className='flex' >
+        <div className='flex' id="report-content" >
           <div className="main-content-container p-4">
             <h1 className='text-3xl font-bold mb-4'>Report for {job.title}</h1>
             {/* Company and Job Details Section */}

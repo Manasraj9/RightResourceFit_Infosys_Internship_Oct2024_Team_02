@@ -117,7 +117,7 @@ const AllApplications = () => {
                         <SecondaryNavbar />
                         <div className="container mx-auto p-4">
                             <h1 className="text-2xl font-bold mb-4">All Your Applications</h1>
-                            <h6 className="text-2xl font-bold">You All Applications: {applications.length}</h6>
+                            <h6 className="text-xl font-bold">Total Jobs applied: {applications.length}</h6>
 
                             {applications.map((application) => {
                                 const job = jobDetails[application.jobId];

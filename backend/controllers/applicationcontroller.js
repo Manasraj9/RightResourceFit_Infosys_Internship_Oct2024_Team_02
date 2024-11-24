@@ -113,7 +113,7 @@ exports.getApplicationById = async (req, res) => {
         }
 
         // Fetch applicant by ID from the database using JobApplication model
-        const applicant = await JobApplication.findById(applicantId); 
+        const applicant = await JobApplication.findById(applicantId);
 
         // If no applicant is found, send a 404 response
         if (!applicant) {
@@ -132,49 +132,71 @@ exports.getApplicationById = async (req, res) => {
 exports.updateStatus = async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
-  
+
     // Check if the provided ID is a valid ObjectId
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).send('Invalid ObjectId format');
+        return res.status(400).send('Invalid ObjectId format');
     }
-  
-    try {
-      // Proceed with the update
-      const jobApplication = await JobApplication.findByIdAndUpdate(id, { status }, { new: true });
-  
-      if (!jobApplication) {
-        return res.status(404).send('Application not found');
-      }
-  
-      res.status(200).json(jobApplication);
-    } catch (error) {
-      console.error('Error updating status:', error);
-      res.status(500).send('Error updating status');
-    }
-  };
 
-  exports.getResumeByApplicationId = async (req, res) => {
+    try {
+        // Proceed with the update
+        const jobApplication = await JobApplication.findByIdAndUpdate(id, { status }, { new: true });
+
+        if (!jobApplication) {
+            return res.status(404).send('Application not found');
+        }
+
+        res.status(200).json(jobApplication);
+    } catch (error) {
+        console.error('Error updating status:', error);
+        res.status(500).send('Error updating status');
+    }
+};
+
+exports.getResumeByApplicationId = async (req, res) => {
     try {
         const application = await JobApplication.findById(req.params.id);
         if (!application) {
-          return res.status(404).send('Application not found');
+            return res.status(404).send('Application not found');
         }
-    
+
         // Assuming resume is stored as a Buffer in the 'resume' field
         const resumeBuffer = application.resume; // Buffer containing the PDF
-        
+
         if (!resumeBuffer) {
-          return res.status(404).send('Resume not found');
+            return res.status(404).send('Resume not found');
         }
-    
+
         // Set appropriate headers for PDF response
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'inline; filename="resume.pdf"');
-        
+
         // Send the resume buffer as a response
         res.send(resumeBuffer);
-      } catch (err) {
+    } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
-      }
-    };
+    }
+};
+
+
+// Get application statistics
+exports.getApplicationStats = async (req, res) => {
+    try {
+        console.log('Fetching application stats...');
+        const totalApplications = await JobApplication.countDocuments();
+        console.log('Total applications:', totalApplications);
+
+        const totalApplied = await JobApplication.countDocuments({ status: 'Applied' });
+        console.log('Total applied applications:', totalApplied);
+
+        res.status(200).json({
+            totalApplications,
+            totalApplied,
+        });
+    } catch (err) {
+        console.error('Error in getApplicationStats:', err.message);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+

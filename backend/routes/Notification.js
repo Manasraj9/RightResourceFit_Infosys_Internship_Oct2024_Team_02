@@ -1,4 +1,5 @@
 // routes/notifications.js
+const mongoose = require('mongoose');
 const express = require('express');
 const Notification = require('../models/Notification');
 const router = express.Router();
@@ -85,4 +86,24 @@ router.delete('/notifications/:notificationId', async (req, res) => {
     }
 });
 
+router.get('/count/:companyId', async (req, res) => {
+    const { companyId } = req.params;
+
+    // Validate if `companyId` is provided
+    if (!mongoose.Types.ObjectId.isValid(companyId)) {
+        return res.status(400).json({ message: 'Invalid company ID format' });
+    }
+
+    try {
+        // Count total notifications for the given company ID
+        const totalMessages = await Notification.countDocuments({ companyId });
+
+        res.status(200).json({ companyId, totalMessages });
+    } catch (err) {
+        console.error('Error counting messages for company:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
 module.exports = router;
+

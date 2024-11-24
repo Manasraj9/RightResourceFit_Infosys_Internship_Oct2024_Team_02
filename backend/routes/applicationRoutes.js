@@ -20,6 +20,8 @@ router.put('/applications/:id', applicationController.updateStatus);
 
 router.get('/resume/:id', applicationController.getResumeByApplicationId);
 
+router.get('/stats', applicationController.getApplicationStats);
+
 router.get('/hasApplied/:userId/:jobId', async (req, res) => {
     const { userId, jobId } = req.params;
     try {
