@@ -1,8 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useLocation } from'react-router-dom';
 import { Bar } from 'react-chartjs-2';
 import 'chart.js/auto';
 
 const Dashboard = () => {
+  const location = useLocation();
+  const companyId = '673c1fbeaacceddd71eb61a6';
+  const[MessageCount, setMessageCount] = useState(0);
+  const [totalMessages, setTotalMessages] = useState(0);
+  const [stats, setStats] = useState({ totalApplications: 0, totalApplied: 0 });
+  const [totalJobs, setTotalJobs] = useState(0); // State to store the total jobs count
+  const [loading, setLoading] = useState(true); // State to show loading state
+  const [error, setError] = useState(null); // State to handle errors
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        // Fetching Stats
+        const statsResponse = await axios.get('http://localhost:1000/stats');
+        setStats(statsResponse.data);
+
+        // Fetching Jobs
+        const jobsResponse = await axios.get('http://localhost:1000/jobs');
+        setTotalJobs(jobsResponse.data.length);
+
+        // Fetching Message Count
+        const messageResponse = await axios.get(`http://localhost:1000/count/${companyId}`);
+        setTotalMessages(messageResponse.data.totalMessages);
+        
+      } catch (err) {
+        setError(err.message || 'An error occurred');
+        console.error('Error:', err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [companyId]);
+
   // Bar Chart Data
   const barData = {
     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -78,15 +116,15 @@ const Dashboard = () => {
       <div className="grid grid-cols-3 gap-4 mb-6">
         {/* Stats Cards */}
         <div className="p-4 bg-blue-600 text-white rounded-lg">
-          <h3 className="text-xl font-bold">76</h3>
-          <p>New candidates to review</p>
+          <h3 className="text-xl font-bold">{stats.totalApplied}</h3>
+          <p>Candidates to Review</p>
         </div>
         <div className="p-4 bg-green-500 text-white rounded-lg">
-          <h3 className="text-xl font-bold">3</h3>
-          <p>Schedule for today</p>
+          <h3 className="text-xl font-bold">{stats.totalApplications}</h3>
+          <p>Total applications received</p>
         </div>
         <div className="p-4 bg-indigo-600 text-white rounded-lg">
-          <h3 className="text-xl font-bold">24</h3>
+          <h3 className="text-xl font-bold">{totalMessages}</h3>
           <p>Messages received</p>
         </div>
       </div>
@@ -115,7 +153,7 @@ const Dashboard = () => {
               </div>
               <div className="p-4 bg-white rounded-lg shadow-md">
                 <h3 className="text-lg font-bold">Job Open</h3>
-                <p className="text-2xl font-bold">12</p>
+                <p className="text-2xl font-bold">{totalJobs}</p>
                 <p>Jobs Opened</p>
               </div>
               <div className="p-4 bg-white rounded-lg shadow-md">

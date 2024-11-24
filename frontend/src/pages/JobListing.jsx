@@ -394,20 +394,19 @@ const JobListing = () => {
                               ></div>
                             </div>
                           </div>
-
+                        </div>
+                        <div className='flex justify-between items-center space-x-2 mt-3'>
+                          <button onClick={() => handleEdit(job)} className="text-sm px-4 py-2 rounded-md shadow bg-[#3f72af] text-white hover:bg-white hover:text-[#3f72af]">
+                            EDIT
+                          </button>
+                          <button onClick={() => handleClickOpen(job)} className="text-sm px-4 py-2 rounded-md shadow bg-[#3f72af] text-white hover:bg-red-500" >
+                            DELETE
+                          </button>
                           <Link to={`/report/${job._id}`}>
-                            <Button className="px-4 py-2 rounded-md shadow" sx={{ backgroundColor: '#3f72af', color: 'white', '&:hover': { backgroundColor: '#112d4e' } }}>
-                              View Report
+                            <Button className="px-4 py-2 rounded-md shadow text-2xl" sx={{ backgroundColor: '#3f72af', color: 'white', '&:hover': { backgroundColor: 'white', color:'#3f72af' } }}>
+                              Report
                             </Button>
                           </Link>
-
-                          <IconButton className='' onClick={() => handleEdit(job)}>
-                            <EditIcon />
-                          </IconButton>
-
-                          <IconButton className='' onClick={() => handleClickOpen(job)}>
-                            <DeleteIcon />
-                          </IconButton>
                         </div>
                       </CardContent>
                     </Card>
