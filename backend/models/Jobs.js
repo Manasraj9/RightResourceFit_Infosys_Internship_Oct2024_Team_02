@@ -29,6 +29,11 @@ const jobSchema = new mongoose.Schema({
   qualifications: { type: String },
   niceToHaves: { type: String },
   perks: [perkSchema],
+  status: { 
+    type: String, 
+    enum: ['open', 'closed'], 
+    default: 'open' // Default to 'open'
+  },
   createdAt: { type: Date, default: Date.now },
 });
 
