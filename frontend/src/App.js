@@ -32,6 +32,7 @@ import NotificationsJobseeker from "./pages/NotificationsJobseeker";
 import Report from "./pages/Report";
 import AllApplications from './pages/AllApplications';
 import UserProfile from './pages/UserProfile';
+import UserManagementPage from './pages/UserManagementPage';
 // import Jobseekerdashboard from './pages/Jobseekerdashboard';
 // import PostJobFlow from './pages/PostJobFlow'; // Only include PostJobFlow
 
@@ -70,6 +71,7 @@ function App() {
         <Route path="/Companyprofile" element={<Companyprofile />} />
         <Route path="/Report" element={<Report />} />
         <Route path="/UserProfile" element={<UserProfile />} />
+        <Route path="/UserManagementPage" element={<UserManagementPage />} />
         <Route path="/AllApplications" element={<AllApplications />} /> 
       </Routes>
     </Router>
