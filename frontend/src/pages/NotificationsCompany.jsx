@@ -26,26 +26,31 @@ const NotificationsCompany = () => {
     const companyId = "673c1fbeaacceddd71eb61a6";
     const [notifications, setNotifications] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchNotifications = async () => {
             try {
                 // Log the companyId to make sure it's correct
                 console.log('Company ID:', companyId);
-                
-                const response = await axios.get(`http://localhost:1000/notifications/${companyId}`);
+
+                const response = await axios.get(
+                    `http://localhost:1000/notifications/${companyId}?type=new-message`
+                );
                 setNotifications(response.data);
+                setError(null); // Reset error on successful fetch
             } catch (error) {
                 console.error('Error fetching notifications:', error);
+                setError('Failed to fetch notifications. Please try again later.');
             } finally {
                 setLoading(false);
             }
         };
-    
-        if (companyId) {  // Ensure companyId exists before making the request
+
+        if (companyId) {
             fetchNotifications();
         }
-    }, [companyId]);
+    }, []);
 
     const markAsRead = async (notificationId) => {
         try {
@@ -78,7 +83,7 @@ const NotificationsCompany = () => {
     // Sidebar items with their paths
     const sidebarItems = [
         { text: 'Dashboard', icon: <DashboardIcon />, path: '/Dashboardcompany' },
-        { text: 'Messages', icon: <MessageIcon />, path: '/NotificationsCompany' },
+        { text: 'Messages', icon: <MessageIcon />, path: '/notifications/${companyId}' },
         { text: 'Company Profile', icon: <AccountBoxIcon />, path: '/Companyprofile' },
         { text: 'All Applicants', icon: <PeopleIcon />, path: '/ApplicantStatus1' },
         { text: 'Job Listing', icon: <WorkIcon />, path: '/joblisting' },
@@ -131,15 +136,17 @@ const NotificationsCompany = () => {
                 </Box>
 
                 {/* Main Content */}
-                
+
                 <div className="flex-grow p-4">
                     <SecondaryNavbar />
+                    <div  className='mt-5'>
                     <Typography variant="h4">Notifications</Typography>
                     {notifications.length > 0 ? (
                         notifications.map((notification) => (
-                            <Card key={notification._id} sx={{ backgroundColor: notification.isRead ? 'lightgray' : 'white', marginBottom: '10px' }}>
-                                <CardContent>
+                            <Card key={notification._id} sx={{ backgroundColor: notification.isRead ? 'lightgray' : 'white', marginBottom: '10px',marginTop: '10px' }}>
+                                <CardContent className='flex justify-between items-center'>
                                     <Typography variant="body1">{notification.message}</Typography>
+                                    <div>
                                     <Button
                                         variant="contained"
                                         color="primary"
@@ -151,12 +158,14 @@ const NotificationsCompany = () => {
                                     <IconButton color="error" onClick={() => deleteNotification(notification._id)}>
                                         <DeleteIcon />
                                     </IconButton>
+                                    </div>
                                 </CardContent>
                             </Card>
                         ))
                     ) : (
                         <Typography variant="body1">No notifications found</Typography>
                     )}
+                    </div>
                 </div>
             </div>
             <Footer />
