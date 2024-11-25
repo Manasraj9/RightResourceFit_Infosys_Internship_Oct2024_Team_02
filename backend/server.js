@@ -8,6 +8,7 @@ const authRoutes = require('./routes/authRoutes');
 const applicationRoutes = require('./routes/applicationRoutes');
 const Notifications = require('./routes/Notification'); // Adjust the path accordingly
 const companyProfileRoutes = require('./routes/companyProfileRoutes');
+const JobseekerProfile = require('./routes/JobseekerProfileRoute');
 
 const app = express();
 const PORT = 1000;
@@ -25,6 +26,7 @@ app.use(jobRoutes);
 app.use(applicationRoutes);
 app.use(Notifications);
 app.use(companyProfileRoutes);
+app.use(JobseekerProfile);
 
 
 app.use('/uploads', express.static('uploads'));
