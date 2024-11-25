@@ -23,7 +23,7 @@ const Jobseekerdashboard = () => {
     const sidebarItems = [
         { text: 'Dashboard', icon: <DashboardIcon />, path: '/Jobseekerdashboard' },
         { text: 'Messages', icon: <MessageIcon />, path: '/notifications/:userId' },
-        { text: 'Profile', icon: <AccountBoxIcon />, path: '/Jobseeker-profile' },
+        { text: 'Profile', icon: <AccountBoxIcon />, path: '/JobseekerProfile' },
         { text: 'All Applications', icon: <PeopleIcon />, path: '/AllApplications' },
         { text: 'Job Listing', icon: <WorkIcon />, path: '/joblisting' },
         { text: 'My Schedule', icon: <ScheduleIcon />, path: '/my-schedule' },
