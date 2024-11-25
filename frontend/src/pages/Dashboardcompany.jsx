@@ -32,7 +32,7 @@ export const Dashboardcompany = () => {
     { text: 'All Applicants', icon: <PeopleIcon />, path: '/ApplicantStatus1' },
     { text: 'Job Listing', icon: <WorkIcon />, path: '/joblisting' },
     { text: 'My Schedule', icon: <ScheduleIcon />, path: '/my-schedule' },
-    { text: 'Groups', icon: <Groups3Icon />, path: '/UserManagementPage' },
+    { text: 'User Management', icon: <Groups3Icon />, path: '/jobseeker-profile' },
     { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
     { text: 'Help Center', icon: <HelpIcon />, path: '/help-center' },
   ];

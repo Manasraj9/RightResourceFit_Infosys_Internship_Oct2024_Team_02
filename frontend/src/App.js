@@ -69,8 +69,7 @@ function App() {
         <Route path="/notifications/:userId" element={<NotificationsJobseeker />} />
         <Route path="/Companyprofile" element={<Companyprofile />} />
         <Route path="/report/:id" element={<Report />} />
-        <Route path="/JobseekerProfile" element={<JobseekerProfile />} />
-        <Route path="/UserManagementPage" element={<UserManagementPage />} />
+        <Route path="/jobseeker-profile" element={<UserManagementPage />} />
         <Route path="/AllApplications" element={<AllApplications />} /> 
       </Routes>
     </Router>

@@ -59,19 +59,15 @@ router.post('/company-profile/save', (req, res) => {
 });
 
 // GET: Retrieve company profile by ID
-router.get('/:id', async (req, res) => {
+router.get('/company-profile/:id', async (req, res) => {
   try {
-    const profile = await CompanyProfile.findById(req.params.id);
-
-    if (!profile) {
-      return res.status(404).json({ error: 'Profile not found' });
-    }
-
-    res.status(200).json(profile);
+      const companyProfile = await CompanyProfile.findById(req.params.id);
+      res.json(companyProfile);
   } catch (error) {
-    console.error('Error fetching profile:', error);
-    res.status(500).json({ error: 'Failed to retrieve company profile' });
+      console.error('Error fetching profile:', error);
+      res.status(500).send('Error fetching profile');
   }
 });
+
 
 module.exports = router;

@@ -1,9 +1,11 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const multer = require('multer');
-const JobseekerProfile = require('../models/JobseekerProfile'); // Assuming this model exists
+const User = require('../models/User'); 
+const JobseekerProfile = require('../models/JobseekerProfile'); 
 const router = express.Router();
 
-// Multer setup for in-memory storage for profile image
+// Multer setup for in-memory storage
 const storage = multer.memoryStorage();
 const upload = multer({
   storage: storage,
@@ -15,26 +17,23 @@ const upload = multer({
       cb(new Error('Only image files (JPG, PNG, JPEG, SVG) are allowed'), false);
     }
   },
-}).single('profileImage'); // 'profileImage' matches the form field name for uploading the image
+}).single('profileImage'); // Upload field name is 'profileImage'
 
 // POST: Save Jobseeker Profile with image upload
 router.post('/jobseeker-profile/save', (req, res) => {
-  // Use multer to handle the file upload
   upload(req, res, async (err) => {
     if (err) {
-      return res.status(400).json({ message: 'Error uploading the image. ' + err.message });
+      return res.status(400).json({ message: 'Error uploading the image: ' + err.message });
     }
 
-    const {name, userId, email, phoneNumber, dob, address, gender } = req.body;
-    const profileImageBuffer = req.file ? req.file.buffer : null;  // Get the uploaded image buffer
+    const { name, userId, email, phoneNumber, dob, address, gender } = req.body;
+    const profileImageBuffer = req.file ? req.file.buffer : null;
 
-    // Validate required fields and ensure the image is uploaded
-    if (!userId ||!name ||!email || !phoneNumber || !dob || !address || !gender || !profileImageBuffer) {
+    if (!userId || !name || !email || !phoneNumber || !dob || !address || !gender || !profileImageBuffer) {
       return res.status(400).json({ message: 'Missing required fields or image not uploaded.' });
     }
 
     try {
-      // Create the jobseeker profile object
       const jobseekerProfile = new JobseekerProfile({
         userId,
         name,
@@ -46,11 +45,10 @@ router.post('/jobseeker-profile/save', (req, res) => {
         profileImage: {
           filename: req.file.originalname,
           contentType: req.file.mimetype,
-          data: profileImageBuffer, // Store the image buffer
+          data: profileImageBuffer,
         },
       });
 
-      // Save the profile to the database
       await jobseekerProfile.save();
       res.status(201).json({ success: true, message: 'Jobseeker profile created successfully' });
     } catch (error) {
@@ -60,37 +58,68 @@ router.post('/jobseeker-profile/save', (req, res) => {
   });
 });
 
-// GET: Retrieve Jobseeker Profile by ID
-router.get('/:id', async (req, res) => {
+router.get('/jobseeker-profiles', async (req, res) => {
+  console.log('Fetching profiles with query:', req.query); // Log any query params
   try {
-    const profile = await JobseekerProfile.findById(req.params.id);
-
-    if (!profile) {
-      return res.status(404).json({ error: 'Profile not found' });
+    const profiles = await JobseekerProfile.find();
+    if (!profiles || profiles.length === 0) {
+      return res.status(404).json({ error: 'No profiles found' });
     }
-
-    res.status(200).json(profile);
+    res.json(profiles);
   } catch (error) {
-    console.error('Error fetching profile:', error);
-    res.status(500).json({ error: 'Failed to retrieve jobseeker profile' });
+    console.error('Error fetching jobseeker profiles:', error);
+    res.status(500).json({ error: 'Failed to fetch jobseeker profiles' });
   }
 });
 
-// GET: Retrieve the profile image for a jobseeker
-router.get('/profile-image/:id', async (req, res) => {
-  try {
-    const profile = await JobseekerProfile.findById(req.params.id);
 
-    if (!profile || !profile.profileImage) {
-      return res.status(404).json({ error: 'Profile image not found' });
+router.put('/Jobseeker-profile/:id', async (req, res) => {
+  const { id } = req.params;
+  const { role } = req.body;
+
+  // Check if the provided ID is a valid ObjectId
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).send('Invalid ObjectId format');
+  }
+
+  try {
+    // Find and update the role
+    const user = await JobseekerProfile.findByIdAndUpdate(id, { role }, { new: true });
+
+    if (!user) {
+      return res.status(404).send('User not found');
     }
 
-    res.set('Content-Type', profile.profileImage.contentType); // Set the correct MIME type
-    res.send(profile.profileImage.data); // Send the image buffer
+    res.status(200).json({ message: 'Role updated successfully', user });
   } catch (error) {
-    console.error('Error fetching image:', error);
-    res.status(500).json({ error: 'Failed to retrieve jobseeker profile image' });
+    console.error('Error updating role:', error);
+    res.status(500).send('Error updating role');
   }
 });
+
+router.delete('/Jobseeker-profile/:id', async (req, res) => {
+  const { id } = req.params;
+
+  // Check if the provided ID is a valid ObjectId
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).send('Invalid ObjectId format');
+  }
+
+  try {
+      // Delete the user by ID
+      const user = await JobseekerProfile.findByIdAndDelete(id);
+
+      if (!user) {
+          return res.status(404).send('User not found');
+      }
+
+      res.status(200).json({ message: 'User deleted successfully' });
+  } catch (error) {
+      console.error('Error deleting user:', error);
+      res.status(500).send('Error deleting user');
+  }
+});
+
+
 
 module.exports = router;
