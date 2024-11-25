@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Navbar from '../Components/Bars/NavbarJobseeker';
 import Footer from '../Components/Footer';
 import {
@@ -26,38 +27,103 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import MessageIcon from '@mui/icons-material/Message';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import PeopleIcon from '@mui/icons-material/People';
-import WorkIcon from '@mui/icons-material/Work';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HelpIcon from '@mui/icons-material/Help';
 import Groups3Icon from '@mui/icons-material/Groups3';
 import { useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const UserManagementPage = () => {
     const location = useLocation();
+    const [role, setRole] = useState('user'); // Or an appropriate default value
+    const [id, setId] = useState(''); // Or an appropriate default value
+    const [users, setUsers] = useState([]); // Store users data
+    const [loading, setLoading] = useState(false); // Loading state
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            setLoading(true); // Start loading indicator
+            try {
+                // Fetching jobseeker profiles
+                const response = await fetch('http://localhost:1000/jobseeker-profiles');
+                const profiles = await response.json();
+                setUsers(profiles); // Set the fetched profiles
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            } finally {
+                setLoading(false); // Ensure loading state is set to false after data is fetched or on error
+            }
+        };
+
+        fetchUsers();
+    }, []);
+
+    const handleRoleChange = async (userId, newRole) => {
+        try {
+            console.log('Sending data:', { userId, newRole });
+
+            const response = await axios.put(`http://localhost:1000/Jobseeker-profile/${userId}`, {
+                role: newRole,
+            });
+
+            if (response.status === 200 || response.data.message === 'Role updated successfully') {
+                toast.success('User role updated successfully', {
+                    position: 'top-right',
+                    autoClose: 5000,
+                });
+
+                // Update the user's role in the local state
+                setUsers((prevUsers) =>
+                    prevUsers.map((user) =>
+                        user._id === userId ? { ...user, role: newRole } : user
+                    )
+                );
+            }
+        } catch (error) {
+            console.error('Error updating role:', error);
+            toast.error('Failed to update role. Please try again.', {
+                position: 'top-right',
+                autoClose: 5000,
+            });
+        }
+    };
+
+    const handleDeleteUser = async (userId) => {
+        try {
+            console.log('Deleting user with ID:', userId);
+
+            // Send DELETE request to the backend to delete the user
+            const response = await axios.delete(`http://localhost:1000/Jobseeker-profile/${userId}`);
+
+            if (response.status === 200) {
+                toast.success('User deleted successfully', {
+                    position: 'top-right',
+                    autoClose: 5000,
+                });
+
+                // Remove the deleted user from the local state
+                setUsers((prevUsers) => prevUsers.filter((user) => user._id !== userId));
+            }
+        } catch (error) {
+            console.error('Error deleting user:', error);
+            toast.error('Failed to delete user. Please try again.', {
+                position: 'top-right',
+                autoClose: 5000,
+            });
+        }
+    };
+
 
     const sidebarItems = [
         { text: 'Dashboard', icon: <DashboardIcon />, path: '/Jobseekerdashboard' },
         { text: 'Messages', icon: <MessageIcon />, path: '/NotificationsJobseeker' },
         { text: 'Profile', icon: <AccountBoxIcon />, path: '/Jobseeker-profile' },
         { text: 'All Applications', icon: <PeopleIcon />, path: '/AllApplications' },
-        { text: 'Job Listing', icon: <WorkIcon />, path: '/joblisting' },
         { text: 'My Schedule', icon: <ScheduleIcon />, path: '/my-schedule' },
-        { text: 'Groups', icon: <Groups3Icon />, path: '/UserManagementPage' },
+        { text: 'User Management', icon: <Groups3Icon />, path: '/UserManagementPage' },
         { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
         { text: 'Help Center', icon: <HelpIcon />, path: '/help-center' },
-    ];
-
-    const rows = [
-        {
-            avatar: 'W',
-            firstName: 'Jenny',
-            lastName: 'Wilson',
-            phone: '1234567890',
-            email: 'jennywilson@gmail.com',
-            role: 'admin',
-            disabled: 'No',
-        },
     ];
 
     return (
@@ -122,54 +188,49 @@ const UserManagementPage = () => {
                     </Box>
 
                     {/* Table Section */}
+                    <h1 className="text-2xl font-bold">User Management</h1>
                     <TableContainer component={Paper}>
                         <Table>
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Avatar</TableCell>
-                                    <TableCell>First Name</TableCell>
-                                    <TableCell>Last Name</TableCell>
+                                    <TableCell>Name</TableCell>
                                     <TableCell>Phone Number</TableCell>
                                     <TableCell>E-mail</TableCell>
                                     <TableCell>Role</TableCell>
-                                    <TableCell>Disabled</TableCell>
                                     <TableCell>Actions</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {rows.map((row, index) => (
-                                    <TableRow key={index}>
-                                        <TableCell>
-                                            <Box
-                                                sx={{
-                                                    width: '30px',
-                                                    height: '30px',
-                                                    borderRadius: '50%',
-                                                    backgroundColor: '#2196f3',
-                                                    color: '#fff',
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                }} >
-                                                {row.avatar}
-                                            </Box>
-                                        </TableCell>
-                                        <TableCell>{row.firstName}</TableCell>
-                                        <TableCell>{row.lastName}</TableCell>
-                                        <TableCell>{row.phone}</TableCell>
-                                        <TableCell>{row.email}</TableCell>
-                                        <TableCell>{row.role}</TableCell>
-                                        <TableCell>{row.disabled}</TableCell>
-                                        <TableCell>
-                                            <Button size="small" variant="outlined" sx={{ marginRight: '5px' }}>
-                                                View
-                                            </Button>
-                                            <Button size="small" variant="outlined" color="success" sx={{ marginRight: '5px' }}>
-                                                Edit
-                                            </Button>
-                                            <Button size="small" variant="outlined" color="error">
+                                {users.map((user) => (
+                                    <TableRow key={user._id}>
+                                        <TableCell>{user.avatar}</TableCell>
+                                        <TableCell>{user.name}</TableCell>
+                                        <TableCell>{user.phoneNumber}</TableCell>
+                                        <TableCell>{user.email}</TableCell>
+                                        <TableCell>{user.role}</TableCell>
+                                        <TableCell className='ml-10'>
+                                            <button
+                                                onClick={() => handleRoleChange(user._id, 'user')}
+                                                className={`px-4 py-2 ${user.role === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-blue-600'} rounded-md`}
+                                            >
+                                                User
+                                            </button>
+                                            <button
+                                                onClick={() => handleRoleChange(user._id, 'admin')}
+                                                className={`px-4 py-2 ${user.role === 'admin' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-blue-600'} rounded-md`}
+                                            >
+                                                Admin
+                                            </button>
+                                            {/* Delete Button */}
+                                            <button
+                                                className='px-4 py-2 bg-red-500 text-white rounded-md'
+                                                onClick={() => handleDeleteUser(user._id)}
+
+                                            >
                                                 Delete
-                                            </Button>
+                                            </button>
+
                                         </TableCell>
                                     </TableRow>
                                 ))}
