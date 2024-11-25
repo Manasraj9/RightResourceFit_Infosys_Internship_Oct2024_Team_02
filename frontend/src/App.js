@@ -68,6 +68,7 @@ function App() {
         <Route path="/PostJob" element={<PostJob />} /> {/* Only keep this route */}
         <Route path="/Jobseekerdashboard" element={<Jobseekerdashboard />} />
         <Route path="/notifications/${companyId}" element={<NotificationsCompany />} />
+        <Route path="/notifications/:userId" element={<NotificationsJobseeker />} />
         <Route path="/Companyprofile" element={<Companyprofile />} />
         <Route path="/report/:id" element={<Report />} />
         <Route path="/UserProfile" element={<UserProfile />} />

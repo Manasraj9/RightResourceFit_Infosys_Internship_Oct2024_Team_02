@@ -364,11 +364,11 @@ const JobListing = () => {
             <SecondaryNavbar />
             <Box>
               <Typography variant="h4" sx={{ marginTop: '20px' }}>Job Listings</Typography>
-              <div className='flex flex-wrap gap-10 mt-5 ml-10'>
+              <div className='flex flex-wrap gap-2.5 mt-5 ml-10'>
                 {jobUpdates.map((job) => {
                   const isOpen = jobStatuses[job._id]; // Get the status for this specific job
                   return (
-                    <Card key={job._id} sx={{ marginBottom: '20px' }} className='w-[50vh]'>
+                    <Card key={job._id} sx={{ marginBottom: '20px' }} className='w-[53vh]'>
                       <CardContent>
                         <Typography variant="h4">{job.title}</Typography>
                         <Typography variant="h6">Salary Range :- {job.salaryRange.min} - {job.salaryRange.max}</Typography>

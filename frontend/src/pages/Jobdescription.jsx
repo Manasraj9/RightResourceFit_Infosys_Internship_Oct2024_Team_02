@@ -126,7 +126,18 @@ const Jobdescription = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
+        // Retrieve userId from localStorage
+        const userId = localStorage.getItem('userId');  // Replace 'userId' with the actual key where you store the user ID in localStorage
+    
+        if (!userId) {
+            toast.error('User is not logged in. Please log in first.', {
+                position: "top-right",
+                autoClose: 5000,
+            });
+            return; // Exit if no user ID is found
+        }
+    
         // Validate required fields
         if (!formData.fullName || !formData.email || !formData.resume) {
             toast.error('Please fill out all required fields.', {
@@ -135,42 +146,44 @@ const Jobdescription = () => {
             });
             return;
         }
-
+    
         const formDataToSend = new FormData();
         Object.keys(formData).forEach((key) => {
             formDataToSend.append(key, formData[key]);
         });
-
+    
         try {
             // Step 1: Post the application
             const applicationResponse = await axios.post(`http://localhost:1000/apply/${jobId}/${userId}`, formDataToSend, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
-
+    
             // Log the response from the application post
             console.log('Application Response:', applicationResponse);
-
+    
             if (applicationResponse.status === 201 || applicationResponse.data.message === 'Application submitted successfully') {
                 toast.success('Application submitted successfully', {
                     position: "top-right",
                     autoClose: 5000,
                 });
-
+    
                 // Step 2: Send notification to the employer
                 const notificationData = {
                     jobId: job._id,               // Job ID
                     companyId: job.companyId,     // Company ID (employer)
                     message: `${formData.fullName} has applied for the job: ${job.title}`,  // Sample notification message
+                    userId: userId,  // Use the userId from localStorage
+                    type: 'new-message',  // Type of notification
                 };
-
+    
                 // Log notification data before sending
                 console.log('Notification Data:', notificationData);
-
+    
                 const notificationResponse = await axios.post('http://localhost:1000/notifications', notificationData);
-
+    
                 // Log the response from the notification post
                 console.log('Notification Response:', notificationResponse);
-
+    
                 if (notificationResponse.data.success) {
                     toast.success('Notification sent to the employer!', {
                         position: "top-right",
@@ -183,7 +196,7 @@ const Jobdescription = () => {
                         autoClose: 5000,
                     });
                 }
-
+    
                 // Reset form and hide form
                 setIsFormVisible(false);
                 setFormData({
@@ -205,7 +218,7 @@ const Jobdescription = () => {
             }
         } catch (error) {
             console.error('Error in submission process:', error);
-
+    
             if (error.response) {
                 console.error('Server Error Response:', error.response);
                 toast.error(error.response.data.message || 'Unexpected error. Please try again.', {
@@ -227,7 +240,8 @@ const Jobdescription = () => {
             }
         }
     };
-
+    
+    
 
 
     const handleApplyClick = () => {

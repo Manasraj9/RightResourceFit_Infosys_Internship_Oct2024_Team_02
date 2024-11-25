@@ -26,6 +26,7 @@ import StarRateIcon from '@mui/icons-material/StarRate';
 import { yellow } from '@mui/material/colors';
 import AddIcon from '@mui/icons-material/Add';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { toast } from 'react-toastify';
 
 const CurrentStage = () => {
   return (
@@ -53,21 +54,10 @@ const ApplicationStatus4 = ({ applicationId, initialStatus }) => {
   const [fetchedJobIds, setFetchedJobIds] = useState(new Set()); // To track fetched job IDs
   const [jobTitle, setJobTitle] = useState("");
   const [status, setStatus] = useState(initialStatus); // Track the current status
+  const [job, setJob] = useState({}); // Track the job details
 
 
 
-  // Fetch job details
-  const fetchJobDetails = async (jobId) => {
-    try {
-      const response = await axios.get(`http://localhost:1000/jobs/${jobId}`);
-      setJobTitles((prevTitles) => ({
-        ...prevTitles,
-        [jobId]: response.data.title, // Store job title by jobId
-      }));
-    } catch (error) {
-      console.error('Error fetching job details:', error);
-    }
-  };
 
   useEffect(() => {
     const fetchApplication = async () => {
@@ -75,42 +65,98 @@ const ApplicationStatus4 = ({ applicationId, initialStatus }) => {
         const response = await axios.get(`http://localhost:1000/applications/${id}`);
         setApplication(response.data);
         setLoading(false);
+
+        // Fetch job details only if the application is available
+        if (response.data.jobId && !fetchedJobIds.has(response.data.jobId)) {
+          setFetchedJobIds((prev) => new Set(prev.add(response.data.jobId))); // Mark job as fetched
+          fetchJobDetails(response.data.jobId); // Call fetchJobDetails if jobId is available
+        }
       } catch (err) {
         setError("Failed to fetch application. Please try again.");
         setLoading(false);
       }
     };
-    fetchApplication();
-  }, [id]);
 
+    fetchApplication();
+  }, [id, fetchedJobIds]); // Add fetchedJobIds to ensure job is not refetched unnecessarily
+
+  const fetchJobDetails = async (jobId) => {
+    try {
+      const response = await axios.get(`http://localhost:1000/jobs/${jobId}`);
+      setJob(response.data); // Set job details in state
+      setJobTitle(response.data.title); // Optionally store the title if needed
+    } catch (error) {
+      console.error('Error fetching job details:', error);
+    }
+  };
   const handleStatusChange = async (newStatus) => {
     try {
-      // Ensure id is available before making the request
-      if (!id) {
-        console.error('Application ID is missing');
-        return;
+      // Log the data being sent
+      console.log('Sending data:', { id, newStatus });
+
+      // Send the request to update the application status
+      const updateResponse = await axios.put(`http://localhost:1000/applications/${id}`, { status: newStatus });
+      console.log('Status Update Response:', updateResponse);
+
+      if (updateResponse.status === 200 || updateResponse.data.message === 'Status updated successfully') {
+        toast.success('Application status updated successfully', {
+          position: "top-right",
+          autoClose: 5000,
+        });
+
+        // Ensure job data and user data are available before proceeding with the notification
+        if (!job || !job._id || !job.companyId || !application || !application.userId) {
+          console.error('Job or Application data is missing:', job, application);
+          toast.error('Failed to send notification: Missing data.', {
+            position: "top-right",
+            autoClose: 5000,
+          });
+          return; // Skip notification if data is missing
+        }
+
+        // Proceed with the notification after data confirmation
+        const notificationData = {
+          jobId: job._id,               // Job ID
+          companyId: job.companyId,     // Employer's company ID
+          message: `The status of your application for the job "${job.title}" has been updated.`,  // Notification message
+          userId: application.userId, // User ID (the applicant)
+          type: 'status-update', // Type of notification
+        };
+
+        console.log('Notification Data:', notificationData);
+
+        const notificationResponse = await axios.post('http://localhost:1000/notifications', notificationData);
+
+        // Log the response from the notification post
+        console.log('Notification Response:', notificationResponse);
+
+        if (notificationResponse.data.success) {
+          toast.success('Notification sent to the employer!', {
+            position: "top-right",
+            autoClose: 5000,
+          });
+        } else {
+          toast.error('Failed to send notification to the employer.', {
+            position: "top-right",
+            autoClose: 5000,
+          });
+        }
+      } else {
+        toast.error('Failed to update the application status.', {
+          position: "top-right",
+          autoClose: 5000,
+        });
       }
-  
-      // Use the id from useParams to make the PUT request
-      await axios.put(`http://localhost:1000/applications/${id}`, { status: newStatus });
-  
-      // Update the status in the UI
-      setStatus(newStatus);
     } catch (error) {
       console.error('Error updating status:', error);
-    }
-  };
-  const updateStatus = async (applicationId, newStatus) => {
-    try {
-      const response = await axios.put(`http://localhost:1000/jobApplication/${applicationId}/status`, {
-        status: newStatus,
+      const errorMessage = error.response?.data?.message || 'An error occurred while updating the application status.';
+      toast.error(errorMessage, {
+        position: "top-right",
+        autoClose: 5000,
       });
-      console.log('Updated application:', response.data);
-    } catch (error) {
-      console.error('Error updating status:', error);
     }
   };
-  
+
 
   const sidebarItems = [
     { text: 'Dashboard', icon: <DashboardIcon />, path: '/Jobseekerdashboard' },

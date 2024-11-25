@@ -4,6 +4,7 @@ const router = express.Router();
 const applicationController = require('../controllers/applicationcontroller');
 const Application = require('../models/JobApplication');
 const Job = require('../models/Jobs');
+const Notification = require('../models/Notification');
 const JobApplication = require('../models/JobApplication');
 
 // Route for submitting a job application
@@ -66,6 +67,37 @@ router.get('/applications/job/:jobId', async (req, res) => {
   }
 });
 
+router.put('/jobapplications/:applicationId/status', async (req, res) => {
+  const { applicationId } = req.params;
+  const { status } = req.body;  // New status to be set
 
+  try {
+      // Find the job application by its ID
+      const jobApplication = await JobApplication.findById(applicationId);
+
+      if (!jobApplication) {
+          return res.status(404).json({ error: 'Job application not found' });
+      }
+
+      // Update the status of the application
+      jobApplication.status = status;
+      await jobApplication.save();
+
+      // Send a notification to the employer about the status change
+      const notification = new Notification({
+          jobId: jobApplication.jobId,
+          companyId: jobApplication.companyId,
+          message: `The status of your application for the job has changed to ${status}.`,
+      });
+
+      await notification.save();
+
+      // Return the updated job application and the notification
+      res.status(200).json({ jobApplication, notification });
+  } catch (error) {
+      console.error('Error updating application status or sending notification:', error);
+      res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 module.exports = router;

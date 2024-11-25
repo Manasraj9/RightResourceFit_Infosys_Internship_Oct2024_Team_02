@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useParams, useLocation, Link } from 'react-router-dom';
 import Navbar from '../Components/Bars/NavbarCompany.jsx';
 import Footer from '../Components/Footer.jsx';
 import SecondaryNavbar from '../Components/Bars/SecondaryNavbar.jsx';
-import { styled } from '@mui/material/styles';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { Box, Divider, Typography, Card, CardContent, IconButton } from '@mui/material';
+import { Box, Divider, Typography, Card, CardContent, IconButton, Button} from '@mui/material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import MessageIcon from '@mui/icons-material/Message';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
@@ -16,36 +17,35 @@ import WorkIcon from '@mui/icons-material/Work';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HelpIcon from '@mui/icons-material/Help';
-import { useLocation } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const NotificationsJobseeker = () => {
     const location = useLocation();
-    const { userId } = useParams(); // Extract userId from URL params
+    const userId = localStorage.getItem('userId');  // Get userId from local storage
     const [notifications, setNotifications] = useState([]);
 
-    // Check if userId is valid
     useEffect(() => {
         if (!userId) {
             console.error("User ID is missing or undefined");
             return;
         }
-
-        // Fetch notifications using the userId
-        axios.get(`/api/notifications/${userId}`)
+    
+        // Modify the API request to fetch notifications based on the userId and type
+        axios.get(`http://localhost:1000/user-notifications`, { params: { userId, type: 'status-update' } })
             .then(response => {
-                setNotifications(response.data);
+                setNotifications(response.data);  // Set the notifications state
             })
             .catch(error => {
                 console.error('Error fetching notifications:', error);
             });
     }, [userId]);
+    
+    
 
     const markAsRead = (notificationId) => {
-        axios.put(`/api/notifications/${notificationId}/read`)
+        axios.put(`http://localhost:1000/notifications/${notificationId}/read`)
             .then(() => {
                 setNotifications(notifications.map(notification =>
                     notification._id === notificationId
@@ -58,20 +58,21 @@ const NotificationsJobseeker = () => {
             });
     };
 
-    const handleDelete = (notificationId) => {
-        axios.delete(`http://localhost:1000/notifications/${notificationId}`)
-            .then(() => {
-                setNotifications(notifications.filter(notification => notification._id !== notificationId));
-            })
-            .catch((error) => {
-                console.error('Error deleting notification', error);
-            });
+    const deleteNotification = async (notificationId) => {
+        try {
+            await axios.delete(`http://localhost:1000/notifications/${notificationId}`);
+            setNotifications((prevNotifications) =>
+                prevNotifications.filter((notif) => notif._id !== notificationId)
+            );
+        } catch (error) {
+            console.error('Error deleting notification:', error);
+        }
     };
 
     // Define the sidebar items with their paths
     const sidebarItems = [
         { text: 'Dashboard', icon: <DashboardIcon />, path: '/Dashboardcompany' },
-        { text: 'Messages', icon: <MessageIcon />, path: '/NotificationsJobseeker' },
+        { text: 'Messages', icon: <MessageIcon />, path: `/notifications/:userId` },
         { text: 'Company Profile', icon: <AccountBoxIcon />, path: '/Companyprofile' },
         { text: 'All Applicants', icon: <PeopleIcon />, path: '/ApplicantStatus1' },
         { text: 'Job Listing', icon: <WorkIcon />, path: '/joblisting' },
@@ -79,6 +80,7 @@ const NotificationsJobseeker = () => {
         { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
         { text: 'Help Center', icon: <HelpIcon />, path: '/help-center' },
     ];
+
     return (
         <div>
             {/* Navbar */}
@@ -127,25 +129,38 @@ const NotificationsJobseeker = () => {
                 {/* Main Content */}
                 <div className="flex-grow p-4">
                     <SecondaryNavbar />
-                    <div>
-                        <h2>Your Notifications</h2>
-                        <ul>
-                            {notifications.map(notification => (
-                                <li
-                                    key={notification._id}
-                                    style={{ fontWeight: notification.isRead ? 'normal' : 'bold' }}
-                                    onClick={() => markAsRead(notification._id)}
-                                >
-                                    {notification.message}
-                                </li>
-                            ))}
-                        </ul>
+                    <div  className='mt-5'>
+                    <Typography variant="h4">Notifications</Typography>
+                    {notifications.length > 0 ? (
+                        notifications.map((notification) => (
+                            <Card key={notification._id} sx={{ backgroundColor: notification.isRead ? 'lightgray' : 'white', marginBottom: '10px',marginTop: '10px' }}>
+                                <CardContent className='flex justify-between items-center'>
+                                    <Typography variant="body1">{notification.message}</Typography>
+                                    <div>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={() => markAsRead(notification._id)}
+                                        disabled={notification.isRead}
+                                    >
+                                        {notification.isRead ? 'Read' : 'Mark as Read'}
+                                    </Button>
+                                    <IconButton color="error" onClick={() => deleteNotification(notification._id)}>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        ))
+                    ) : (
+                        <Typography variant="body1">No notifications found</Typography>
+                    )}
                     </div>
                 </div>
             </div>
             <Footer />
         </div>
-    )
+    );
 }
 
-export default NotificationsJobseeker
+export default NotificationsJobseeker;
