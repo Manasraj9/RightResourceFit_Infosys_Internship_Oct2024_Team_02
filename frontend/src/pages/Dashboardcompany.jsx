@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from '../Components/Bars/NavbarCompany';
 import Footer from '../Components/Footer';
 import Sidebar from '../Components/side__bar.jsx'; // Assuming this includes the Drawer
-import SecondaryNavbar from '../Components/Bars/SecondaryNavbar.jsx';
+import SecondaryNavbar from '../Components/Bars/SecondaryNavbarCompany';
 import Dashboard from '../Components/dashboard.jsx';
 import { styled } from '@mui/material/styles';
 import List from '@mui/material/List';

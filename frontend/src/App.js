@@ -33,12 +33,14 @@ import Report from "./pages/Report";
 import AllApplications from './pages/AllApplications';
 import UserManagementPage from './pages/UserManagementPage';
 import JobseekerProfile from './pages/JobseekerProfile';
+import SecondaryNavbarCompany from './Components/Bars/SecondaryNavbarCompany';
 
 function App() {
   return (
     <Router>
       <ToastContainer position="top-right" autoClose={2000} hideProgressBar />
       <Routes>
+      <Route path="/company-profile/:companyId" component={SecondaryNavbarCompany} />
         <Route path="/" element={<Landingpage />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
@@ -69,6 +71,7 @@ function App() {
         <Route path="/notifications/:userId" element={<NotificationsJobseeker />} />
         <Route path="/Companyprofile" element={<Companyprofile />} />
         <Route path="/report/:id" element={<Report />} />
+        <Route path="/jobseekerprofile" element={<JobseekerProfile />} />
         <Route path="/jobseeker-profile" element={<UserManagementPage />} />
         <Route path="/AllApplications" element={<AllApplications />} /> 
       </Routes>

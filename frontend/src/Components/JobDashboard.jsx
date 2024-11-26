@@ -1,81 +1,130 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 import { Bar } from 'react-chartjs-2';
 import 'chart.js/auto';
 
 const JobDashboard = () => {
-    const barData = {
-        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        datasets: [
-          {
-            label: 'Job Viewed',
-            data: [12, 14, 22, 14, 18, 10, 15],
-            backgroundColor: '#f59e0b',
-          },
-          {
-            label: 'Job Applied',
-            data: [3, 0, 2, 3, 5, 0, 1],
-            backgroundColor: '#6366f1',
-          },
-        ],
-      };
-    
-      const barOptions = {
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
-        },
-      };
-      const jobs = [
-        {
-          title: 'Social Media Assistant',
-          company: 'Nomad',
-          location: 'Paris, France',
-          type: 'Full-Time',
-          tags: ['Marketing', 'Design'],
-          logo: 'https://logo.clearbit.com/nordvpn.com', // Dummy logo link
-        },
-        {
-          title: 'Brand Designer',
-          company: 'Nomad',
-          location: 'Paris, France',
-          type: 'Full-Time',
-          tags: ['Business', 'Design'],
-          logo: 'https://logo.clearbit.com/dropbox.com', // Dummy logo link
-        },
-        {
-          title: 'Interactive Developer',
-          company: 'Terraform',
-          location: 'Berlin, Germany',
-          type: 'Full-Time',
-          tags: ['Marketing', 'Design'],
-          logo: 'https://logo.clearbit.com/hashicorp.com', // Dummy logo link
-        },
-        {
-          title: 'Product Designer',
-          company: 'ClassPass',
-          location: 'Berlin, Germany',
-          type: 'Full-Time',
-          tags: ['Business', 'Design'],
-          logo: 'https://logo.clearbit.com/classpass.com', // Dummy logo link
-        },
-      ];
+  const location = useLocation();
+  const userId = localStorage.getItem('userId'); // Retrieve userId from localStorage
+  const [MessageCount, setMessageCount] = useState(0);
+  const [totalMessages, setTotalMessages] = useState(0);
+  const [stats, setStats] = useState({ totalApplications: 0, totalApplied: 0 });
+  const [totalJobs, setTotalJobs] = useState(0); // State to store the total jobs count
+  const [loading, setLoading] = useState(true); // State to show loading state
+  const [error, setError] = useState(null); // State to handle errors
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        // Fetching Stats
+        const statsResponse = await axios.get('http://localhost:1000/stats');
+        setStats(statsResponse.data);
+
+        // Fetching Jobs
+        const jobsResponse = await axios.get('http://localhost:1000/jobs');
+        setTotalJobs(jobsResponse.data.length);
+
+        // Fetching Message Count using userId
+        const messageResponse = await axios.get(`http://localhost:1000/count/${userId}`); // Use userId instead of companyId
+        setTotalMessages(messageResponse.data.totalMessages);
+        
+      } catch (err) {
+        setError(err.message || 'An error occurred');
+        console.error('Error:', err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [userId]); // Add userId to the dependency array
+
+  // Bar Chart Data
+  const barData = {
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    datasets: [
+      {
+        label: 'Job View',
+        data: [2, 7, 2, 4, 1, 1, 5],
+        backgroundColor: '#f59e0b',
+      },
+      {
+        label: 'Job Applied',
+        data: [1, 0, 1, 1, 0, 0, 0],
+        backgroundColor: '#6366f1',
+      },
+    ],
+  };
+
+  const barOptions = {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  };
+
+  // Job Update Data
+  const jobs = [
+    {
+      title: 'Social Media Assistant',
+      company: 'Nomad',
+      location: 'Paris, France',
+      type: 'Full-Time',
+      tags: ['Marketing', 'Design'],
+      logo: 'https://logo.clearbit.com/nordvpn.com', // Dummy logo link
+      applied: 5,
+      capacity: 10,
+    },
+    {
+      title: 'Brand Designer',
+      company: 'Nomad',
+      location: 'Paris, France',
+      type: 'Full-Time',
+      tags: ['Business', 'Design'],
+      logo: 'https://logo.clearbit.com/dropbox.com', // Dummy logo link
+      applied: 5,
+      capacity: 10,
+    },
+    {
+      title: 'Interactive Developer',
+      company: 'Terraform',
+      location: 'Berlin, Germany',
+      type: 'Full-Time',
+      tags: ['Marketing', 'Design'],
+      logo: 'https://logo.clearbit.com/hashicorp.com', // Dummy logo link
+      applied: 5,
+      capacity: 10,
+    },
+    {
+      title: 'Product Designer',
+      company: 'ClassPass',
+      location: 'Berlin, Germany',
+      type: 'Full-Time',
+      tags: ['Business', 'Design'],
+      logo: 'https://logo.clearbit.com/classpass.com', // Dummy logo link
+      applied: 5,
+      capacity: 10,
+    },
+  ];
+
   return (
-    <div>
-      <div className="p-6 bg-gray-100 min-h-screen">
+    <div className="p-6 bg-gray-100 min-h-screen">
       {/* Header Section */}
       <div className="grid grid-cols-3 gap-4 mb-6">
         {/* Stats Cards */}
         <div className="p-4 bg-blue-600 text-white rounded-lg">
-          <h3 className="text-xl font-bold">76</h3>
-          <p>New Jobs to review</p>
+          <h3 className="text-xl font-bold">{stats.totalApplied}</h3>
+          <p>Application for Review</p>
         </div>
         <div className="p-4 bg-green-500 text-white rounded-lg">
-          <h3 className="text-xl font-bold">3</h3>
-          <p>Schedule for today</p>
+          <h3 className="text-xl font-bold">{stats.totalApplications}</h3>
+          <p>Total Jobs Apllied</p>
         </div>
         <div className="p-4 bg-indigo-600 text-white rounded-lg">
-          <h3 className="text-xl font-bold">24</h3>
+          <h3 className="text-xl font-bold">{totalMessages}</h3>
           <p>Messages received</p>
         </div>
       </div>
@@ -93,45 +142,9 @@ const JobDashboard = () => {
           <div className="w-1/3 pl-6">
             <div className="grid grid-cols-1 gap-4">
               <div className="p-4 bg-white rounded-lg shadow-md">
-                <h3 className="text-lg font-bold">Job Viewed</h3>
-                <p className="text-2xl font-bold">134</p>
-                <p className="text-green-600">This Week 6.4%</p>
-              </div>
-              <div className="p-4 bg-white rounded-lg shadow-md">
-                <h3 className="text-lg font-bold">Jobs Applied</h3>
-                <p className="text-2xl font-bold">14</p>
-                <p className="text-red-600">This Week 0.5%</p>
-              </div>
-              <div className="p-4 bg-white rounded-lg shadow-md">
                 <h3 className="text-lg font-bold">Job Open</h3>
-                <p className="text-2xl font-bold">12</p>
+                <p className="text-2xl font-bold">{totalJobs}</p>
                 <p>Jobs Opened</p>
-              </div>
-              <div className="p-4 bg-white rounded-lg shadow-md">
-                <h3 className="text-lg font-bold">Applications Summary</h3>
-                <p className="text-2xl font-bold">7</p>
-                <div className="mt-2">
-                  <p className="flex items-center">
-                    <span className="w-3 h-3 bg-blue-600 rounded-full mr-2"></span>
-                    Full-Time: 4
-                  </p>
-                  <p className="flex items-center">
-                    <span className="w-3 h-3 bg-green-500 rounded-full mr-2"></span>
-                    Part-Time: 2
-                  </p>
-                  <p className="flex items-center">
-                    <span className="w-3 h-3 bg-yellow-500 rounded-full mr-2"></span>
-                    Internship: 3
-                  </p>
-                  <p className="flex items-center">
-                    <span className="w-3 h-3 bg-red-600 rounded-full mr-2"></span>
-                    Contract: 0
-                  </p>
-                  <p className="flex items-center">
-                    <span className="w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
-                    Remote: 2
-                  </p>
-                </div>
               </div>
             </div>
           </div>
@@ -141,7 +154,7 @@ const JobDashboard = () => {
       {/* Job Updates Section */}
       <div className="bg-white p-6 rounded-lg shadow-md">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold">More Jobs</h2>
+          <h2 className="text-2xl font-bold">Job Updates</h2>
           <a href="/" className="text-blue-600">View All</a>
         </div>
         <div className="grid grid-cols-4 gap-4">
@@ -163,13 +176,13 @@ const JobDashboard = () => {
               <div className="h-1 w-full bg-gray-200 rounded-full mb-2">
                 <div className="h-full bg-green-500 rounded-full" style={{ width: `${(job.applied / job.capacity) * 100}%` }}></div>
               </div>
+              <p className="text-sm text-gray-500">{job.applied} applied of {job.capacity} capacity</p>
             </div>
           ))}
         </div>
       </div>
     </div>
-    </div>
-  )
-}
+  );
+};
 
 export default JobDashboard;

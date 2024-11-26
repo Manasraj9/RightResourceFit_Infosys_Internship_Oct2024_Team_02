@@ -173,6 +173,17 @@ router.get('/user-notifications', async (req, res) => {
 });
 
 
+router.get('/messages/count/:userId', async (req, res) => {
+    const { userId } = req.params;
+  
+    try {
+      const messageCount = await Message.countDocuments({ recipientId: userId });
+      res.json({ count: messageCount });
+    } catch (error) {
+      console.error('Error fetching message count:', error);
+      res.status(500).json({ message: 'Error fetching message count' });
+    }
+  });
 
 
 module.exports = router;

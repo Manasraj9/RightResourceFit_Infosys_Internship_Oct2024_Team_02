@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from '../Components/Bars/NavbarJobseeker';
 import Footer from '../Components/Footer';
-import SecondaryNavbar from '../Components/Bars/SecondaryNavbar.jsx';
+import SecondaryNavbar from '../Components/Bars/SecondaryNavbarJobseeker';
 import JobDashboard from '../Components/JobDashboard.jsx';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -23,9 +23,8 @@ const Jobseekerdashboard = () => {
     const sidebarItems = [
         { text: 'Dashboard', icon: <DashboardIcon />, path: '/Jobseekerdashboard' },
         { text: 'Messages', icon: <MessageIcon />, path: '/notifications/:userId' },
-        { text: 'Profile', icon: <AccountBoxIcon />, path: '/JobseekerProfile' },
+        { text: 'Profile', icon: <AccountBoxIcon />, path: '/Jobseekerprofile' },
         { text: 'All Applications', icon: <PeopleIcon />, path: '/AllApplications' },
-        { text: 'Job Listing', icon: <WorkIcon />, path: '/joblisting' },
         { text: 'My Schedule', icon: <ScheduleIcon />, path: '/my-schedule' },
         { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
         { text: 'Help Center', icon: <HelpIcon />, path: '/help-center' },

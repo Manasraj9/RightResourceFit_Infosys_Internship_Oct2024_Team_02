@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import SecondaryNavbar from '../Components/Bars/SecondaryNavbarCompany';
 import { Link } from 'react-router-dom';
 import { useLocation, useParams } from 'react-router-dom';
 import { IconButton, Box, List, ListItem, ListItemIcon, ListItemText, Divider } from '@mui/material';
@@ -15,6 +16,7 @@ import WorkIcon from '@mui/icons-material/Work';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HelpIcon from '@mui/icons-material/Help';
+import Groups3Icon from '@mui/icons-material/Groups3';
 
 const ApplicantStatus1 = () => {
   const location = useLocation();
@@ -90,11 +92,12 @@ const ApplicantStatus1 = () => {
 
   const sidebarItems = [
     { text: 'Dashboard', icon: <DashboardIcon />, path: '/Dashboardcompany' },
-    { text: 'Messages', icon: <MessageIcon />, path: '/messages' },
+    { text: 'Messages', icon: <MessageIcon />, path: '/notifications/${companyId}' },
     { text: 'Company Profile', icon: <AccountBoxIcon />, path: '/Companyprofile' },
     { text: 'All Applicants', icon: <PeopleIcon />, path: '/ApplicantStatus1' },
     { text: 'Job Listing', icon: <WorkIcon />, path: '/joblisting' },
     { text: 'My Schedule', icon: <ScheduleIcon />, path: '/my-schedule' },
+    { text: 'User Management', icon: <Groups3Icon />, path: '/jobseeker-profile' },
     { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
     { text: 'Help Center', icon: <HelpIcon />, path: '/help-center' },
   ];
@@ -127,25 +130,15 @@ const ApplicantStatus1 = () => {
         </Box>
 
         <body className="bg-gray-100 p-8 w-full">
-          <div className="container mx-auto bg-white p-6 rounded-lg shadow-lg">
+          <SecondaryNavbar />
+          <div className="container mx-auto bg-white p-6 rounded-lg shadow-lg mt-4">
             <div className="flex justify-between items-center mb-4">
               <h1 className="text-2xl font-bold">Total Applicants: {applications.length}</h1>
-              <div className="flex items-center space-x-2">
-                <input
-                  type="text"
-                  placeholder="Search Applicants"
-                  className="border border-gray-300 rounded-lg px-4 py-2"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                />
-                <button className="bg-gray-200 p-2 rounded-lg">
-                  <i className="fas fa-filter"></i> Filter
-                </button>
-              </div>
             </div>
             <table className="min-w-full bg-white">
               <thead className="table-header">
                 <tr>
+                
                   <th className="py-2 px-4 text-left">Applicants Name</th>
                   <th className="py-2 px-4 text-left">Hiring Stage</th>
                   <th className="py-2 px-4 text-left">Applied Date</th>
@@ -158,12 +151,6 @@ const ApplicantStatus1 = () => {
                 {applications.map((applicant, index) => (
                   <tr key={index} className="table-row">
                     <td className="py-2 px-4 flex items-center">
-                      <input type="checkbox" className="mr-2" />
-                      <img
-                        src={applicant.image}
-                        alt={`Profile picture of ${applicant.cname}`}
-                        className="w-10 h-10 rounded-full mr-2"
-                      />
                       {applicant.fullName}
                     </td>
                     <td className="py-2 px-4">

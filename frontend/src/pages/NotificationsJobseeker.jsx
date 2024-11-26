@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams, useLocation, Link } from 'react-router-dom';
 import Navbar from '../Components/Bars/NavbarCompany.jsx';
 import Footer from '../Components/Footer.jsx';
-import SecondaryNavbar from '../Components/Bars/SecondaryNavbar.jsx';
+import SecondaryNavbar from '../Components/Bars/SecondaryNavbarJobseeker';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -71,15 +71,14 @@ const NotificationsJobseeker = () => {
 
     // Define the sidebar items with their paths
     const sidebarItems = [
-        { text: 'Dashboard', icon: <DashboardIcon />, path: '/Dashboardcompany' },
-        { text: 'Messages', icon: <MessageIcon />, path: `/notifications/:userId` },
-        { text: 'Company Profile', icon: <AccountBoxIcon />, path: '/Companyprofile' },
-        { text: 'All Applicants', icon: <PeopleIcon />, path: '/ApplicantStatus1' },
-        { text: 'Job Listing', icon: <WorkIcon />, path: '/joblisting' },
+        { text: 'Dashboard', icon: <DashboardIcon />, path: '/Jobseekerdashboard' },
+        { text: 'Messages', icon: <MessageIcon />, path: '/notifications/:userId' },
+        { text: 'Profile', icon: <AccountBoxIcon />, path: '/Jobseekerprofile' },
+        { text: 'All Applications', icon: <PeopleIcon />, path: '/AllApplications' },
         { text: 'My Schedule', icon: <ScheduleIcon />, path: '/my-schedule' },
         { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
         { text: 'Help Center', icon: <HelpIcon />, path: '/help-center' },
-    ];
+      ];
 
     return (
         <div>

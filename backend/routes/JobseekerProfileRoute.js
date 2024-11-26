@@ -120,6 +120,22 @@ router.delete('/Jobseeker-profile/:id', async (req, res) => {
   }
 });
 
+router.get('/jobseeker-profile/:userId', async (req, res) => {
+  const { userId } = req.params;
+  
+  try {
+    const profile = await JobseekerProfile.findOne({ userId });
+    
+    if (!profile) {
+      return res.status(404).json({ message: 'Profile not found' });
+    }
+
+    res.json(profile);
+  } catch (error) {
+    console.error('Error fetching user profile:', error);
+    res.status(500).json({ message: 'Error fetching user profile' });
+  }
+});
 
 
 module.exports = router;

@@ -27,7 +27,7 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import SecondaryNavbar from '../Components/Bars/SecondaryNavbar';
+import SecondaryNavbar from '../Components/Bars/SecondaryNavbarCompany';
 import { useLocation } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import MessageIcon from '@mui/icons-material/Message';
@@ -37,8 +37,10 @@ import WorkIcon from '@mui/icons-material/Work';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HelpIcon from '@mui/icons-material/Help';
+import Groups3Icon from '@mui/icons-material/Groups3';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
+
 
 const JobListing = () => {
   const { jobId } = useParams();
@@ -116,11 +118,12 @@ const JobListing = () => {
 
   const sidebarItems = [
     { text: 'Dashboard', icon: <DashboardIcon />, path: '/Dashboardcompany' },
-    { text: 'Messages', icon: <MessageIcon />, path: '/Notifications' },
+    { text: 'Messages', icon: <MessageIcon />, path: '/notifications/${companyId}' },
     { text: 'Company Profile', icon: <AccountBoxIcon />, path: '/Companyprofile' },
     { text: 'All Applicants', icon: <PeopleIcon />, path: '/ApplicantStatus1' },
     { text: 'Job Listing', icon: <WorkIcon />, path: '/joblisting' },
     { text: 'My Schedule', icon: <ScheduleIcon />, path: '/my-schedule' },
+    { text: 'User Management', icon: <Groups3Icon />, path: '/jobseeker-profile' },
     { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
     { text: 'Help Center', icon: <HelpIcon />, path: '/help-center' },
   ];
@@ -399,14 +402,14 @@ const JobListing = () => {
                           <button onClick={() => handleEdit(job)} className="text-sm px-4 py-2 rounded-md shadow bg-[#3f72af] text-white hover:bg-white hover:text-[#3f72af]">
                             EDIT
                           </button>
-                          <button onClick={() => handleClickOpen(job)} className="text-sm px-4 py-2 rounded-md shadow bg-[#3f72af] text-white hover:bg-red-500" >
-                            DELETE
-                          </button>
                           <Link to={`/report/${job._id}`}>
-                            <Button className="px-4 py-2 rounded-md shadow text-2xl" sx={{ backgroundColor: '#3f72af', color: 'white', '&:hover': { backgroundColor: 'white', color:'#3f72af' } }}>
+                            <Button className="px-4 py-2 rounded-md shadow text-2xl" sx={{ backgroundColor: '#3f72af', color: 'white', '&:hover': { backgroundColor: 'white', color: '#3f72af' } }}>
                               Report
                             </Button>
                           </Link>
+                          <button onClick={() => handleClickOpen(job)} className="text-sm px-4 py-2 rounded-md shadow bg-red-500 text-white hover:bg-red-700" >
+                            DELETE
+                          </button>
                         </div>
                       </CardContent>
                     </Card>

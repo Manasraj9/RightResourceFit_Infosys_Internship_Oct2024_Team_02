@@ -47,12 +47,12 @@ const Dashboard = () => {
     datasets: [
       {
         label: 'Job View',
-        data: [120, 140, 122, 145, 180, 110, 105],
+        data: [12, 10, 12, 14, 10, 10, 15],
         backgroundColor: '#f59e0b',
       },
       {
         label: 'Job Applied',
-        data: [34, 30, 25, 35, 50, 20, 10],
+        data: [4, 3, 2, 5, 0, 2, 1],
         backgroundColor: '#6366f1',
       },
     ],
@@ -142,45 +142,13 @@ const Dashboard = () => {
           <div className="w-1/3 pl-6">
             <div className="grid grid-cols-1 gap-4">
               <div className="p-4 bg-white rounded-lg shadow-md">
-                <h3 className="text-lg font-bold">Job Views</h3>
-                <p className="text-2xl font-bold">2,342</p>
-                <p className="text-green-600">This Week 6.4%</p>
-              </div>
-              <div className="p-4 bg-white rounded-lg shadow-md">
                 <h3 className="text-lg font-bold">Job Applied</h3>
-                <p className="text-2xl font-bold">654</p>
-                <p className="text-red-600">This Week 0.5%</p>
+                <p className="text-2xl font-bold">{stats.totalApplications}</p>
               </div>
               <div className="p-4 bg-white rounded-lg shadow-md">
                 <h3 className="text-lg font-bold">Job Open</h3>
                 <p className="text-2xl font-bold">{totalJobs}</p>
                 <p>Jobs Opened</p>
-              </div>
-              <div className="p-4 bg-white rounded-lg shadow-md">
-                <h3 className="text-lg font-bold">Applicants Summary</h3>
-                <p className="text-2xl font-bold">67</p>
-                <div className="mt-2">
-                  <p className="flex items-center">
-                    <span className="w-3 h-3 bg-blue-600 rounded-full mr-2"></span>
-                    Full-Time: 45
-                  </p>
-                  <p className="flex items-center">
-                    <span className="w-3 h-3 bg-green-500 rounded-full mr-2"></span>
-                    Part-Time: 24
-                  </p>
-                  <p className="flex items-center">
-                    <span className="w-3 h-3 bg-yellow-500 rounded-full mr-2"></span>
-                    Internship: 32
-                  </p>
-                  <p className="flex items-center">
-                    <span className="w-3 h-3 bg-red-600 rounded-full mr-2"></span>
-                    Contract: 30
-                  </p>
-                  <p className="flex items-center">
-                    <span className="w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
-                    Remote: 22
-                  </p>
-                </div>
               </div>
             </div>
           </div>
