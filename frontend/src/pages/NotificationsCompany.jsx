@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams, useLocation, Link } from 'react-router-dom';
 import Navbar from '../Components/Bars/NavbarCompany.jsx';
 import Footer from '../Components/Footer.jsx';
-import SecondaryNavbar from '../Components/Bars/SecondaryNavbar.jsx';
+import SecondaryNavbar from '../Components/Bars/SecondaryNavbarCompany';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';

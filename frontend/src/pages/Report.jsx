@@ -172,38 +172,37 @@ const Report = () => {
         {/* Main Content */}
         <div className='flex' id="report-content" >
           <div className="main-content-container p-4">
-            <h1 className='text-3xl font-bold mb-4'>Report for {job.title}</h1>
+            <h1 className='text-3xl font-bold mb-4'>Report</h1>
             {/* Company and Job Details Section */}
             <div className="company-job-details flex flex-col items-start mt-4">
               <div className="bg-white rounded-lg shadow-lg p-6 mb-6 w-full">
 
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center">
-                    <i className="fab fa-spotify text-white text-2xl"></i>
-                  </div>
                   <div className="ml-4">
-                    <h1 className="text-2xl font-bold">{job.title}</h1>
+                    <h1 className="text-2xl font-bold">Report for {job.title}</h1>
                     <p className="text-gray-600"><i className="fas fa-map-marker-alt"></i>{job.location}</p>
                   </div>
                 </div>
               </div>
 
-              <div className="flex gap-2 mb-4">
-                <div className="bg-gray-200 p-2 rounded-full flex justify-center">
-                  <div className='p-4 text-gray-800 font-medium'>Total number of Applicants for this Job</div>
-                  <div className='bg-white rounded-full p-4'>{totalApplicants}</div>
+              <div className="flex gap-4 mb-4">
+                <div className="bg-[#3f72af] p-2 rounded-md shadow flex justify-center items-center">
+                  <div className='p-4 text-white font-medium'>Total number of Applicants for this Job</div>
+                  <div className='bg-white rounded-md shadow p-4 w-15'>{totalApplicants}</div>
                 </div>
-                <div className="bg-gray-200 p-2 rounded-full flex justify-center">
-                  <div className='p-4 text-gray-800 font-medium'>Total Seceleted candidates</div>
-                  <div className='bg-white rounded-full p-4'>{selectedCandidates}</div>
+                <div className="bg-[#3f72af] p-2 rounded-md shadow flex justify-center items-center">
+                  <div className='p-4 text-white font-medium'>Total Hired candidates</div>
+                  <div className='bg-white rounded-md shadow p-4 w-15'>{selectedCandidates}</div>
                 </div>
-                <div className="bg-gray-200 p-2 rounded-full flex justify-center">
-                  <div className='p-4 text-gray-800 font-medium'>Status</div>
-                  <div className='bg-white rounded-full p-4'>{job.status}</div>
+                <div className="bg-[#3f72af] p-2 rounded-md shadow flex justify-center items-center">
+                  <div className='p-4 text-white font-medium'>Status</div>
+                  <div className='bg-white rounded-md shadow p-4 w-15'>{job.status}</div>
                 </div>
-                <button onClick={captureAndDownloadPDF} className="bg-blue-500 text-white px-4 py-2 rounded-full mt-4">
+                <div className="bg-[#3f72af] p-2 rounded-md shadow flex justify-center items-center text-white">
+                <button onClick={captureAndDownloadPDF} className='p-4'>
                   Download Report as PDF
                 </button>
+                </div>
               </div>
 
               {/* Applicants List */}

@@ -5,7 +5,7 @@ import Footer from '../Components/Footer';
 import { Box, List, ListItem, ListItemIcon, ListItemText, Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import SecondaryNavbar from '../Components/Bars/SecondaryNavbar';
+import SecondaryNavbar from '../Components/Bars/SecondaryNavbarJobseeker';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import MessageIcon from '@mui/icons-material/Message';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
@@ -86,11 +86,10 @@ const AllApplications = () => {
     }
 
     const sidebarItems = [
-        { text: 'Dashboard', icon: <DashboardIcon />, path: '/Dashboardcompany' },
-        { text: 'Messages', icon: <MessageIcon />, path: '/Notifications' },
-        { text: 'Company Profile', icon: <AccountBoxIcon />, path: '/Companyprofile' },
+        { text: 'Dashboard', icon: <DashboardIcon />, path: '/Jobseekerdashboard' },
+        { text: 'Messages', icon: <MessageIcon />, path: '/notifications/:userId' },
+        { text: 'Profile', icon: <AccountBoxIcon />, path: '/Jobseekerprofile' },
         { text: 'All Applications', icon: <PeopleIcon />, path: '/AllApplications' },
-        { text: 'Job Listing', icon: <WorkIcon />, path: '/joblisting' },
         { text: 'My Schedule', icon: <ScheduleIcon />, path: '/my-schedule' },
         { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
         { text: 'Help Center', icon: <HelpIcon />, path: '/help-center' },

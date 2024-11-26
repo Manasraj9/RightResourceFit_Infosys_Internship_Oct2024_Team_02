@@ -58,16 +58,52 @@ router.post('/company-profile/save', (req, res) => {
     });
 });
 
-// GET: Retrieve company profile by ID
 router.get('/company-profile/:id', async (req, res) => {
+  const { id } = req.params;
+  
+  if (!id) {
+    return res.status(400).json({ message: 'Company ID is required' });
+  }
+
   try {
-      const companyProfile = await CompanyProfile.findById(req.params.id);
-      res.json(companyProfile);
+    const companyProfile = await CompanyProfile.findById(id);
+    if (!companyProfile) {
+      return res.status(404).json({ message: 'Company profile not found' });
+    }
+    res.json(companyProfile);
   } catch (error) {
-      console.error('Error fetching profile:', error);
-      res.status(500).send('Error fetching profile');
+    console.error('Error fetching profile:', error);
+    res.status(500).send('Error fetching profile');
   }
 });
+
+
+// GET: Retrieve company profile (use query or params depending on use case)
+router.get('/company-profile', async (req, res) => {
+  try {
+    // Fetch the company profile from the database
+    const companyProfile = await CompanyProfile.findOne();
+
+    if (!companyProfile) {
+      return res.status(404).json({ message: 'Company profile not found' });
+    }
+
+    // If logo exists, convert its buffer to a base64 string
+    if (companyProfile.logo && companyProfile.logo.data) {
+      // Convert Buffer to Base64 string
+      const base64Logo = companyProfile.logo.data.toString('base64');
+      companyProfile.logo.data = base64Logo; // Replace the logo buffer with the base64 string
+    }
+
+    // Send the updated company profile with the base64 logo data
+    res.json(companyProfile);
+
+  } catch (error) {
+    console.error('Error fetching profile:', error);
+    res.status(500).send('Error fetching profile: ' + error.message);
+  }
+});
+
 
 
 module.exports = router;

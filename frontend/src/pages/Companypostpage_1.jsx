@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Components/Bars/Navbar.jsx';
 import Footer from '../Components/Footer.jsx';
-import SecondaryNavbar from '../Components/Bars/SecondaryNavbar.jsx';
+import SecondaryNavbar from '../Components/Bars/SecondaryNavbarCompany';
 import { FaArrowLeft } from 'react-icons/fa';
+import Groups3Icon from '@mui/icons-material/Groups3';
 
 const Companypostpage_1 = () => {
   const navigate = useNavigate();
@@ -27,6 +28,8 @@ const Companypostpage_1 = () => {
   const handleRemoveSkill = (indexToRemove) => {
     setSkills(skills.filter((_, index) => index !== indexToRemove));
   };
+
+  
 
   return (
     <>

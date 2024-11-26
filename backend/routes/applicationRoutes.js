@@ -100,4 +100,16 @@ router.put('/jobapplications/:applicationId/status', async (req, res) => {
   }
 });
 
+router.get('/applications/count/:userId', async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const applicationCount = await JobApplication.countDocuments({ userId });
+    res.json({ count: applicationCount });
+  } catch (error) {
+    console.error('Error fetching application count:', error);
+    res.status(500).json({ message: 'Error fetching application count' });
+  }
+});
+
 module.exports = router;
