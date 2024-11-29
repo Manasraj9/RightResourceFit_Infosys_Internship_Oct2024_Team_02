@@ -421,22 +421,12 @@ const Jobdescription = () => {
                     <div>
                         {/* About this role */}
                         <p className='font-bold text-3xl text-[#25324B]'>About this role</p><br />
-                        <div className='progress-container'>
-                            <div className="h-2 bg-gray-200 rounded-full progress-bar">
-                                <div className="h-full bg-green-500 rounded-full" style={{ width: `${(5 / 10) * 100}%` }}></div>
-                                <p className='text-gray-500'>5 applied <span className='text-[black]'>of 10 capacity</span></p>
-                            </div>
-                        </div><br />
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
                             <div className='jobtype'>
-                                <p>Appy Before</p><br />
-                                <p>Job Posted On</p><br />
                                 <p>Job Type</p><br />
                                 <p>Salary</p><br />
                             </div>
                             <div className='jobdate font-bold'>
-                                <p>Dec 31, 2024</p><br />
-                                <p>Nov 1, 2024</p><br />
                                 <p>{job.employmentType}</p><br />
                                 <p>₹{job.salaryRange.min} - ₹{job.salaryRange.max}</p><br />
                             </div>

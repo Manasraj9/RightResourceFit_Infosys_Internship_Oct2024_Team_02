@@ -147,21 +147,6 @@ const PostJob = ({ jobData = {}, updateJobData, nextStep }) => {
     <div className='bg-[#dbe2ef]'>
       <Navbar />
       <div className="bg-[#dbe2ef] min-h-screen mx-16">
-        <div className="bg-white shadow-md">
-          <div className="flex items-center justify-between px-6 py-4">
-            <div className="flex items-center">
-              <img
-                src="https://storage.googleapis.com/a1aa/image/hGrYhMRiegWQb66QvnPsBBtR4k3o5PXxViune4a0LDAehdVnA.jpg"
-                alt="Company Logo"
-                className="h-10 w-10"
-              />
-              <div className="ml-3">
-                <div className="text-sm text-gray-500">Company</div>
-                <div className="text-lg font-semibold text-gray-800">Nomad</div>
-              </div>
-            </div>
-          </div>
-        </div>
         <div className="bg-white shadow-md mt-4 max-w-4xl mx-auto">
           <div className="flex items-center px-6 py-4">
             <a href="#" className="text-lg font-semibold text-gray-800 flex items-center">
